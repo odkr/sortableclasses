@@ -1,0 +1,7 @@
+sortableclasses
+===============
+
+See <http://github.com/odkr/sortableclasses> for installation instructions.
+
+.. automodule:: sortableclasses
+  :members:

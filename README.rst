@@ -1,6 +1,6 @@
-=============
+===============
 sortableclasses
-=============
+===============
 
 Makes classes sortable by precedence and priority. The order of precendence
 of classes and their priority can be defined de-centrally and at runtime.

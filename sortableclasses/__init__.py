@@ -1,4 +1,4 @@
-"""A Simple, Leight-Weight Architecture for Pluggable Classes
+"""A aimple, leight-weight approach to plugin-like classes
 
 Copyright 2016, 2018 Odin Kroeger
 
