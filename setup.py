@@ -70,10 +70,9 @@ METADATA = {
     ],
     "url":          "https://github.com/odkr/sortableclasses/",
     "author":       "Odin Kroeger",
-    "author_email": "tba",
+    "author_email": "xacuml@maskr.me",
     "license":      "GPL",
-    "packages":     ["sortableclasses"],
-    "zip_safe":     False
+    "packages":     ["sortableclasses"]
 }
 
 
