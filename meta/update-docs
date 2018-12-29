@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -Cefu
+
+REPO=$(git worktree list | head -n 1 | cut -f1 -d ' ')
+cd -P "$REPO" || exit
+
+cd docs
+make html
+git add .
+git commit -m 'Updated docs.'
+git push
+git subtree push --prefix _build/html origin gh-pages
