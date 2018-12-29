@@ -16,11 +16,11 @@ Use case
 *sortableclasses* makes classes sortable. This is useful if all you want to do
 is take some input, apply a set of transformations, and output the result
 (i.e., are writing what on UNIX-ish systems is called a 'filter'). 
-Of course, you may just write, e.g., `return t1(t2(t3(...(tn(input))))))` 
+Of course, you may just write, e.g., ``return t1(t2(t3(...(tn(input))))))``
 but the more transformations you need to add, the harder this is to maintain.
 *sortableclasses* allows you to turn the transformations into classes, assign
 each of them a priority (or a list of predecessors and successors) and then
-sort them using `sort` `sorted`.
+sort them using ``sort`` ``sorted``.
 
 
     >>> import sortableclasses
@@ -85,7 +85,7 @@ Contact
 =======
 
 If there's something wrong with *sortableclasses*, please open an issue at:
-<https://github.com/odkr/sortableclasses/issues>
+<https://github.com/odkr/sortableclasses.py/issues>
 
 
 Licence
@@ -109,4 +109,4 @@ Further Information
 ===================
 
 GitHub:
-    <https://github.com/odkr/sortableclasses>
+    <https://github.com/odkr/sortableclasses.py>
