@@ -71,7 +71,11 @@ You have been warned.
 
 *sortableclasses* works only in Python 3.
 
-Clone the repository and run `setup.py install`.
+If you have Python's `setuptools <https://pypi.org/project/setuptools/>`, just say::
+
+    pip3 install sortableclasses
+
+Otherwise, clone this repository and run `python3 setup.py install`.
 
 
 Documentation
