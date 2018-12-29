@@ -54,7 +54,7 @@ REQPYVERSION=(3,)
 # All other metadata.
 METADATA = {
     "name":             NAME,
-    "version":          '0.9.3b',
+    "version":          '0.9.4b',
     "description":      """Retrieve all classes derived from a class and
                         sort them by a given priority and order, making it
                         easy to draw up and use plugin-like classes.""",

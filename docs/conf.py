@@ -30,7 +30,7 @@ author = 'Odin Kroeger'
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '0.9.3b'
+release = '0.9.4b'
 
 
 # -- General configuration ---------------------------------------------------
