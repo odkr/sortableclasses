@@ -2,12 +2,11 @@
 sortableclasses
 ===============
 
-Makes classes sortable by precedence and priority. The order of precendence
+Makes classes sortable by precedence and priority. The order of precedence
 of classes and their priority can be defined de-centrally and at runtime.
 
-Requires Python 3. The current version is 0.9.3.
-
 Copyright 2016, 2017, 2018 Odin Kroeger
+
 
 
 Use case
@@ -70,13 +69,17 @@ Installation
 You use *sortableclasses* **at your own risk.**
 You have been warned.
 
+*sortableclasses* works only in Python 3.
+
 Clone the repository and run `setup.py install`.
 
 
 Documentation
 =============
 
-You can view the inline documentation by::
+See <https://sortableclassespy.readthedocs.io/en/latest/> for reference.
+
+You can also view the inline documentation, by::
 
     pydoc sortableclasses
 
@@ -110,3 +113,6 @@ Further Information
 
 GitHub:
     <https://github.com/odkr/sortableclasses.py>
+
+Read the docs:
+    https://sortableclassespy.readthedocs.io/en/latest/
