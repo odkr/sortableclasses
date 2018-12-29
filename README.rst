@@ -3,7 +3,7 @@ sortableclasses
 ===============
 
 Makes classes sortable by precedence and priority. The order of precedence
-of classes and their priority can be defined de-centrally and at runtime.
+of classes and their priority is defined de-centrally and at runtime.
 
 Copyright 2016, 2017, 2018 Odin Kroeger
 
@@ -88,7 +88,7 @@ Contact
 =======
 
 If there's something wrong with *sortableclasses*, please open an issue at:
-<https://github.com/odkr/sortableclasses.py/issues>
+    <https://github.com/odkr/sortableclasses.py/issues>
 
 
 Licence
@@ -115,4 +115,4 @@ GitHub:
     <https://github.com/odkr/sortableclasses.py>
 
 Read the docs:
-    https://sortableclassespy.readthedocs.io/en/latest/
+    <https://sortableclassespy.readthedocs.io/en/latest/>
