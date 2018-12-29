@@ -3,5 +3,8 @@ sortableclasses
 
 See <http://github.com/odkr/sortableclasses> for details.
 
-.. automodule:: sortableclasses
-  :members:
+.. toctree::
+
+    About <README>
+    Module <module>
+    License <LICENSE>

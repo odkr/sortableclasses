@@ -1,0 +1,5 @@
+sortableclasses
+===============
+
+.. automodule:: sortableclasses
+  :members:

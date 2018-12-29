@@ -1,0 +1,717 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sortableclasses &mdash; sortableclasses 0.9.3b documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="LICENSE.html" />
+    <link rel="prev" title="sortableclasses" href="README.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sortableclasses
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">About</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LICENSE.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sortableclasses</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>sortableclasses</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/module.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-sortableclasses">
+<span id="sortableclasses"></span><h1>sortableclasses<a class="headerlink" href="#module-sortableclasses" title="Permalink to this headline">¶</a></h1>
+<p>Makes classes sortable by priority and precedence</p>
+<dl class="exception">
+<dt id="sortableclasses.CyclicalOrderError">
+<em class="property">exception </em><code class="descclassname">sortableclasses.</code><code class="descname">CyclicalOrderError</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#CyclicalOrderError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.CyclicalOrderError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declared order is cyclical.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="sortableclasses.Error">
+<em class="property">exception </em><code class="descclassname">sortableclasses.</code><code class="descname">Error</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#Error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for exceptions of this module.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="sortableclasses.Pluggable">
+<em class="property">class </em><code class="descclassname">sortableclasses.</code><code class="descname">Pluggable</code><a class="reference internal" href="_modules/sortableclasses.html#Pluggable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.Pluggable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for simple plugin-like architectures.</p>
+<p>To use <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Derive a class from <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>, call it <code class="docutils literal notranslate"><span class="pre">PBC</span></code>
+(Plugin Base Class) for the purposes of this documentation.</li>
+<li>Define an interface that plugin-like
+classes have to implement in <code class="docutils literal notranslate"><span class="pre">PBC</span></code>.</li>
+<li>Derrive classes from <code class="docutils literal notranslate"><span class="pre">PBC</span></code>.</li>
+</ol>
+</div></blockquote>
+<p><em>Nota bene</em>: Classes derived from <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code> are eo ipso
+abstract base classes (i.e., have a metaclass derived from
+<code class="docutils literal notranslate"><span class="pre">abc.ABCMeta</span></code>).</p>
+<p>You can now get a list of all plugin-like classes, that is, all
+classes derived from <code class="docutils literal notranslate"><span class="pre">PBC</span></code>, by calling <code class="docutils literal notranslate"><span class="pre">PBC.getderived()</span></code>.
+Moreover, plugin-like classes can be sorted using <code class="docutils literal notranslate"><span class="pre">sort</span></code> and
+<code class="docutils literal notranslate"><span class="pre">sorted</span></code>. See <code class="docutils literal notranslate"><span class="pre">SortableMeta</span></code> for details.</p>
+<p>If you have multiple types of plugins, that is, multiple plugin
+base classes, I recommend that, rather than deriving them from
+<code class="docutils literal notranslate"><span class="pre">Pluggable</span></code> directly, you define a common plugin base class
+that does and from which you derive your remaining plugin
+base classes.</p>
+<dl class="classmethod">
+<dt id="sortableclasses.Pluggable.getderived">
+<em class="property">classmethod </em><code class="descname">getderived</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#Pluggable.getderived"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.Pluggable.getderived" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets derived classes, including indirectly derived ones.</p>
+<dl class="docutils">
+<dt>Returns (iterator over <code class="docutils literal notranslate"><span class="pre">type</span></code> instances):</dt>
+<dd>All classes derived from <em>cls</em>.</dd>
+<dt>For example::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">PluginBaseClass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">PluginBaseClass</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">APrime</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">PluginBaseClass</span><span class="o">.</span><span class="n">getderived</span><span class="p">())</span>
+<span class="go">[&lt;class &#39;sortableclasses.A&#39;&gt;, &lt;class &#39;sortableclasses.APrime&#39;&gt;]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>You can sort classes returned by <code class="docutils literal notranslate"><span class="pre">getderived</span></code>.
+See <code class="docutils literal notranslate"><span class="pre">SortableMeta</span></code> for details.</p>
+<dl class="docutils">
+<dt>For example::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">PluginBaseClass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">PluginBaseClass</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># Default priority is 0.</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">PluginBaseClass</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">priority</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">PluginBaseClass</span><span class="o">.</span><span class="n">getderived</span><span class="p">())</span>
+<span class="go">[&lt;class &#39;sortableclasses.A&#39;&gt;, &lt;class &#39;sortableclasses.B&#39;&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">PluginBaseClass</span><span class="o">.</span><span class="n">getderived</span><span class="p">())</span>
+<span class="go">[&lt;class &#39;sortableclasses.B&#39;&gt;, &lt;class &#39;sortableclasses.A&#39;&gt;]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sortableclasses.Pluggable.predecessorof">
+<code class="descname">predecessorof</code><em class="property"> = ()</em><a class="headerlink" href="#sortableclasses.Pluggable.predecessorof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequence of classes used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.inpredecessorsof</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SortableMeta.inpredecessorsof</span></code> is, in turn, used by
+<code class="docutils literal notranslate"><span class="pre">SortableMeta.precedes</span></code>, <code class="docutils literal notranslate"><span class="pre">SortableMeta.succeeds</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sortableclasses.Pluggable.priority">
+<code class="descname">priority</code><em class="property"> = 0</em><a class="headerlink" href="#sortableclasses.Pluggable.priority" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sortableclasses.Pluggable.successorof">
+<code class="descname">successorof</code><em class="property"> = ()</em><a class="headerlink" href="#sortableclasses.Pluggable.successorof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequence of classes used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.insuccessorsof</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SortableMeta.insuccessorsof</span></code> is, in turn, used by
+<code class="docutils literal notranslate"><span class="pre">SortableMeta.precedes</span></code>,  <code class="docutils literal notranslate"><span class="pre">SortableMeta.succeeds</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sortableclasses.SortableABCMeta">
+<em class="property">class </em><code class="descclassname">sortableclasses.</code><code class="descname">SortableABCMeta</code><a class="reference internal" href="_modules/sortableclasses.html#SortableABCMeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableABCMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>A metaclass for abstract base classes that should be sortable.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="sortableclasses.SortableMeta">
+<em class="property">class </em><code class="descclassname">sortableclasses.</code><code class="descname">SortableMeta</code><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classes of this type can be sorted.</p>
+<dl class="docutils">
+<dt>Caveat:</dt>
+<dd><p class="first">On a 1,4 GHz Intel Core i5 with a load average of 1.7, sorting
+a list of plugins into an order that, one, is defined using
+<code class="docutils literal notranslate"><span class="pre">priority</span></code> for one half of the plugins and <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code>
+for the other and where, two, swapping any two plugins will
+undo that order will take, approximately:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="29%" />
+<col width="37%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Plugin count</th>
+<th class="head" colspan="2">Initial order</th>
+</tr>
+<tr class="row-even"><th class="head"><ul class="first last simple">
+<li></li>
+</ul>
+</th>
+<th class="head">non-random</th>
+<th class="head">pseudo-random</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>256</td>
+<td>0.01s</td>
+<td>0.04s</td>
+</tr>
+<tr class="row-even"><td>1024</td>
+<td>0.09s</td>
+<td>0.93s</td>
+</tr>
+<tr class="row-odd"><td>4096</td>
+<td>1.68s</td>
+<td>18.41s</td>
+</tr>
+</tbody>
+</table>
+<p>However, the order sketched out above is rather demanding:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>It’s, in part, defined via a <em>long</em> chain of precedence
+(up to 2048 elements).</li>
+<li>It requires every plugin to be at a definite position.</li>
+</ol>
+</div></blockquote>
+<p>Moreover, real-world sequences of plugins aren’t,
+normally, in a pseudo-random order.</p>
+<p>On the same hardware, sorting a list of plugins into an
+order that is only defined using <code class="docutils literal notranslate"><span class="pre">priority</span></code> will
+take approximately:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="71%" />
+<col width="29%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Plugin count</th>
+<th class="head">Time</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>65,536</td>
+<td>0.22s</td>
+</tr>
+<tr class="row-odd"><td>638,899</td>
+<td>4.50s</td>
+</tr>
+</tbody>
+</table>
+<p>(The above tests were done with a non-random initial order.)</p>
+<p>That being so, you should be fine as long as:</p>
+<blockquote class="last">
+<div><ol class="arabic simple">
+<li>You sort no more than about 8192 plugins.</li>
+<li>No chain of succession or precedence
+is no longer than about 128 plugins.</li>
+<li>Your order doesn’t require every plugin
+to be at a definite position.</li>
+</ol>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="method">
+<dt id="sortableclasses.SortableMeta.__lt__">
+<code class="descname">__lt__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.__lt__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.__lt__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if <em>cls</em> class precedes <em>other</em>.</p>
+<p>Whether a plugin-like class precedes another one is
+governed by their sorting attributes:</p>
+<dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">successorof</span></code> (sequence of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code> subclasses):</dt>
+<dd>A list of plugin-like classes that should precede <em>cls</em>.
+Defaults to an empty tuple.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> (sequence of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code> subclasses):</dt>
+<dd>A list of plugin-like classes that should succeed <em>cls</em>.
+Defaults to an empty tuple.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">priority</span></code> (number):</dt>
+<dd>A number that expresses the priority of <em>cls</em>, where lower
+numbers express a higher priority (and vice versa).</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">successorof</span></code> and <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> take
+precedence over <code class="docutils literal notranslate"><span class="pre">priority</span></code>.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>other</em> (subclass of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>):</dt>
+<dd>Class to which to compare <em>cls</em>.</dd>
+</dl>
+</dd>
+<dt>Returns (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt>
+<dd><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">True</span></code>:</dt>
+<dd>If <em>cls</em> precedes <em>other</em>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">False</span></code>:</dt>
+<dd>Otherwise.</dd>
+</dl>
+</dd>
+<dt>Raises:</dt>
+<dd><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">CyclicalOrderError</span></code>:</dt>
+<dd>If, according to the order defined by the <code class="docutils literal notranslate"><span class="pre">successorof</span></code>
+and <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> attributes, two plugin-like classes
+would have to precede <em>and</em> succeed each other.</dd>
+</dl>
+</dd>
+<dt>For example::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># Default priority is 0.</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">priority</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
+<span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">&lt;</span> <span class="n">A</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">&lt;</span> <span class="n">C</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">&lt;</span> <span class="n">B</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">&lt;</span> <span class="n">C</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">&lt;</span> <span class="n">B</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">&lt;</span> <span class="n">A</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sortableclasses.SortableMeta.inpredecessorsof">
+<code class="descname">inpredecessorsof</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.inpredecessorsof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.inpredecessorsof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if <em>cls</em> is in the chain of precedence of <em>other</em>.</p>
+<p>A class is in the chain of precedence of another class
+if it, or one of its successors, declares itself to
+be a <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> that class.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>other</em> (subclass of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>):</dt>
+<dd>Class to which to compare <em>cls</em>.</dd>
+</dl>
+</dd>
+<dt>Returns (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt>
+<dd><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">True</span></code>:</dt>
+<dd>If <em>other</em> is a member of the <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> attribute of
+<em>cls</em>, the classes of which <em>cls</em> is a predecessor, the
+classes of which these classes are successors, and so on.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">False</span></code>:</dt>
+<dd>otherwise.</dd>
+</dl>
+</dd>
+<dt>For example::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="o">.</span><span class="n">inpredecessorsof</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+<dt>However, different to <code class="docutils literal notranslate"><span class="pre">precedes</span></code>::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span><span class="o">.</span><span class="n">inpredecessorsof</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sortableclasses.SortableMeta.insuccessorsof">
+<code class="descname">insuccessorsof</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.insuccessorsof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.insuccessorsof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if <em>cls</em> is in the chain of succession of <em>other</em>.</p>
+<p>A class is in the chain of succession of another class
+if it, or one of its predecessors, declares itself to
+be a <code class="docutils literal notranslate"><span class="pre">successorof</span></code> that class.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>other</em> (subclass of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>):</dt>
+<dd>Class to which to compare <em>cls</em>.</dd>
+</dl>
+</dd>
+<dt>Returns (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt>
+<dd><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">True</span></code>:</dt>
+<dd>If <em>other</em> is a member of the <code class="docutils literal notranslate"><span class="pre">successorof</span></code> attribute of
+<em>cls</em>, the classes of which <em>cls</em> is a successor, the
+classes of which these classes are successors, and so on.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">False</span></code>:</dt>
+<dd>Otherwise.</dd>
+</dl>
+</dd>
+<dt>For example::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="o">.</span><span class="n">insuccessorsof</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+<dt>However, different to <code class="docutils literal notranslate"><span class="pre">succeeds</span></code>::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span><span class="o">.</span><span class="n">insuccessorsof</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sortableclasses.SortableMeta.precedes">
+<code class="descname">precedes</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.precedes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.precedes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if <em>cls</em> precedes <em>other</em>.</p>
+<p>Doesn’t take priority into account.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>other</em> (subclass of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>):</dt>
+<dd>class to which to compare <em>cls</em>.</dd>
+</dl>
+</dd>
+<dt>Returns (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt>
+<dd><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">True</span></code>:</dt>
+<dd>If <em>cls</em> precedes <em>other</em>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">False</span></code>:</dt>
+<dd>otherwise.</dd>
+</dl>
+</dd>
+<dt>Caveat:</dt>
+<dd>Doesn’t check whether the declared order is consistent.
+That is, returns <code class="docutils literal notranslate"><span class="pre">True</span></code> even if <em>other</em> also precedes <em>cls</em>.</dd>
+<dt>For example::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span><span class="o">.</span><span class="n">precedes</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+<dt>Also, different to <code class="docutils literal notranslate"><span class="pre">inpredecessorsof</span></code>::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span><span class="o">.</span><span class="n">precedes</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sortableclasses.SortableMeta.succeeds">
+<code class="descname">succeeds</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.succeeds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.succeeds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if <em>cls</em> succeeds <em>other</em>.</p>
+<p>Doesn’t take priority into account.</p>
+<dl class="docutils">
+<dt>Arguments:</dt>
+<dd><dl class="first last docutils">
+<dt><em>other</em> (subclass of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>):</dt>
+<dd>Class to which to compare <em>cls</em>.</dd>
+</dl>
+</dd>
+<dt>Returns (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt>
+<dd><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">True</span></code>:</dt>
+<dd>If <em>cls</em> succeeds <em>other</em>.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">False</span></code>:</dt>
+<dd>Otherwise.</dd>
+</dl>
+</dd>
+<dt>Caveat:</dt>
+<dd>Doesn’t check whether the declared order is consistent.
+That is, will return <code class="docutils literal notranslate"><span class="pre">True</span></code> even if <em>other</em> also
+succeeds <em>cls</em>.</dd>
+<dt>For example::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="o">.</span><span class="n">succeeds</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+<dt>Also, different to <code class="docutils literal notranslate"><span class="pre">insuccessorsof</span></code>::</dt>
+<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="o">.</span><span class="n">succeeds</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="LICENSE.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="README.html" class="btn btn-neutral" title="sortableclasses" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Odin Kroeger
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
