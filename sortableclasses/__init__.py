@@ -359,6 +359,7 @@ class SortableMeta(type):
                 would have to precede *and* succeed each other.
 
         For example:
+
             >>> class sortableclasses(Pluggable):
             ...     pass
             ...
@@ -440,7 +441,8 @@ class Pluggable(metaclass=SortableABCMeta):
         Returns (iterator over ``type`` instances):
             All classes derived from *cls*.
 
-        For example::
+        For example:
+
             >>> class PluginBaseClass(Pluggable):
             ...     pass
             ...
