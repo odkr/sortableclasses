@@ -15,30 +15,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """Setup for the *sortablecls* package."""
 
-import os
-import sys
-
+from os import path
 from setuptools import setup
 
 
 # Functions
 # =========
 
-def reqpyvers(version: tuple, name: str):
-    """Makes sure that Python 3 is used."""
-    if sys.version_info >= version:
-        return
-    errfmt = "{prog}: {name} requires at least Python v{version}.\n"
-    prog = os.path.basename(sys.argv[0])
-    version_str = ".".join(map(str, version))
-    errmsg = errfmt.format(prog=prog, name=name, version=version_str)
-    sys.stderr.write(errmsg)
-    sys.exit(69)
-
-
 def readme(readme_fname: str = "README.rst") -> str:
-    """Returns the the contents of README.rst."""
-    readme_path = os.path.join(os.path.dirname(__file__), readme_fname)
+    """Returns the contents of README.rst."""
+    readme_path = path.join(path.dirname(__file__), readme_fname)
     with open(readme_path) as readme_handle:
         return readme_handle.read()
 
@@ -47,33 +33,34 @@ def readme(readme_fname: str = "README.rst") -> str:
 # ========
 
 # Name of this package.
-NAME = "sortableclasses"
+NAME = 'sortableclasses'
 
-# Python version that sortablecls requires.
-REQPYVERSION = (3,)
+# Version of this package.
+VERSION = '0.9.4rc2'
 
 # All other metadata.
 METADATA = {
-    "name":             NAME,
-    "version":          '0.9.4rc2',
-    "description":      """Retrieve all classes derived from a class and
-                        sort them by a given priority and order, making it
-                        easy to draw up and use plugin-like classes.""",
-    "long_description": readme(),
-    "keywords":         "plugin",
-    "classifiers": [
-        "Development Status :: 4 - Beta",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-        "Natural Language :: English",
-        "Programming Language :: Python :: 3",
-        "Operating System :: OS Independent"
+    'name':             NAME,
+    'version':          VERSION,
+    'description':      """Retrieve all classes derived from a class and
+        sort them by a given priority and order, making it
+        easy to draw up and use plugin-like classes.""",
+    'long_description': readme(),
+    'keywords':         'plugin',
+    'classifiers':      [
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3',
+        'Operating System :: OS Independent'
     ],
-    "url":          "https://github.com/odkr/sortableclasses/",
-    "author":       "Odin Kroeger",
-    "author_email": "xacuml@maskr.me",
-    "license":      "GPL",
-    "packages":     ["sortableclasses"]
+    'url':              'https://github.com/odkr/sortableclasses/',
+    'author':           'Odin Kroeger',
+    'author_email':     'xacuml@maskr.me',
+    'license':          'GPL',
+    'python_requires':  '>=3, <4',
+    'packages':         ['sortableclasses']
 }
 
 
@@ -81,5 +68,4 @@ METADATA = {
 # ===========
 
 if __name__ == '__main__':
-    reqpyvers(REQPYVERSION, NAME)
     setup(**METADATA)
