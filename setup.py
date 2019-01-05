@@ -46,7 +46,7 @@ def readme(readme_fname="README.rst"):
 # ========
 
 # Name of this package.
-NAME = "sortableclass" 
+NAME = "sortableclasses" 
 
 # Python version that sortablecls requires.
 REQPYVERSION=(3,)

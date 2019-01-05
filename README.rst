@@ -3,7 +3,7 @@ sortableclasses
 ===============
 
 Makes classes sortable by precedence and priority. The order of precedence
-of classes and their priority is defined de-centrally and at runtime.
+of classes and their priority is defined per class and at runtime.
 
 Copyright 2016, 2017, 2018 Odin Kroeger
 
@@ -12,15 +12,20 @@ Copyright 2016, 2017, 2018 Odin Kroeger
 Use case
 ========
 
-*sortableclasses* makes classes sortable. This is useful if all you want to do
-is take some input, apply a set of transformations, and output the result
-(i.e., are writing what on UNIX-ish systems is called a 'filter'). 
-Of course, you may just write, e.g., ``return t1(t2(t3(...(tn(input))))))``
-but the more transformations you need to add, the harder this is to maintain.
-*sortableclasses* allows you to turn the transformations into classes, assign
-each of them a priority (or a list of predecessors and successors) and then
-sort them using ``sort`` ``sorted``.
+*sortableclasses* makes classes sortable by precedence and priority. This is
+useful if you want to take some input, apply a set of transformations, and
+output the result (i.e., if you're writing what on UNIX-ish systems is called
+a 'filter'). Ordinarily, you would chain those transformations as function
+calls (i.e., ``return transform_1(...(transform_n(input)))``), but the larger
+the number of transformation grows, the more difficult this is to maintain.
 
+*sortableclasses* enables you to define each of those transformations as a
+class, assign each of them a list of predecessor and successor classes or a
+numerical priority, and then simply sort them using ``sort`` or ``sorted``.
+Simply put, it enables you to write classes that are similar to plugins
+in how they function.
+
+For example::
 
     >>> import sortableclasses
     >>> import abc
@@ -69,13 +74,37 @@ Installation
 You use *sortableclasses* **at your own risk.**
 You have been warned.
 
-*sortableclasses* works only in Python 3.
+*sortableclasses* requires Python 3.
 
-If you have Python's `setuptools <https://pypi.org/project/setuptools/>`, just say::
+If you have Python's `setuptools <https://pypi.org/project/setuptools/>`_,
+simply say::
 
     pip3 install sortableclasses
 
-Otherwise, clone this repository and run `python3 setup.py install`.
+Otherwise, download the most recent stable release
+([v0.9.4b](https://github.com/odkr/sortableclasses.py/archive/v0.9.4b.tar.gz)),
+unzip it and copy the directory `sortableclasses` into a directory in
+your Python's `sys.path`.
+
+You can do all of the above by::
+
+    # Download and unpack *sortableclasses* to the current directory.
+    curl https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4b | 
+        tar -xz
+    # The command below guesses a directory to install *sortableclasses* to.
+    PYTHON_SYSPATH=`echo 'import sys; print("\n".join(sorted(sys.path)))' | 
+        python3 | grep -E "(${HOME?}|/local/)" | head -n1`
+    # If the command below errors, no suitable directory was found.
+    # Otherwise, it will show you where *sortableclasses* will be installed to.
+    echo "${PYTHON_SYSPATH?'did not find suitable directory.'}"
+    # Copy the directory "sortableclasses" into that directory.
+    [ -d "${PYTHON_SYSPATH?}" ] && {
+        SOURCE=sortableclasses.py-0.9.4b/sortableclasses
+        cp -r "$SOURCE" "$PYTHON_SYSPATH" || \
+            sudo cp -r "$SOURCE" "$PYTHON_SYSPATH"    
+    }
+    # Remove the downloaded files, if you want to.
+    rm -rf sortableclasses.py-0.9.4b
 
 
 Documentation
@@ -83,7 +112,7 @@ Documentation
 
 See <https://sortableclassespy.readthedocs.io/en/latest/> for reference.
 
-You can also view the inline documentation, by::
+You can also view the inline documentation by::
 
     pydoc sortableclasses
 
@@ -92,7 +121,8 @@ Contact
 =======
 
 If there's something wrong with *sortableclasses*, please open an issue at:
-    <https://github.com/odkr/sortableclasses.py/issues>
+
+<https://github.com/odkr/sortableclasses.py/issues>
 
 
 Licence

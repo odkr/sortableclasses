@@ -62,15 +62,15 @@ class SortableMeta(type):
                 4096        1.68s         18.41s
         ============   ==========  =============
 
-        However, the order sketched out above is rather demanding:
+        That said, the order sketched out above is rather demanding:
 
          1. It's, in part, defined via a *long* chain of precedence
             (up to 2048 elements).
 
          2. It requires every plugin to be at a definite position.
 
-        Moreover, real-world sequences of plugins aren't,
-        normally, in a pseudo-random order.
+        Also, in the 'real world', sequences of plugins shouldn't be
+        in pseudo-random order.
 
         On the same hardware, sorting a list of plugins into an
         order that is only defined using ``priority`` will
@@ -87,10 +87,10 @@ class SortableMeta(type):
 
         That being so, you should be fine as long as:
 
-         1. You sort no more than about 8192 plugins.
+         1. You sort no more than about 8,192 plugins.
 
          2. No chain of succession or precedence
-            is no longer than about 128 plugins.
+            is longer than about 128 plugins.
 
          3. Your order doesn't require every plugin
             to be at a definite position.
