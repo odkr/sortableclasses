@@ -1,0 +1,40 @@
+#!/bin/sh
+
+set -Cefu
+
+REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
+cd -P "${REPO?'Could not determine repository name.'}" || exit
+
+PACKAGE=$(cat <<EOF | python3
+import sys
+sys.path.append('.')
+from setup import METADATA
+print(METADATA['packages'][0])
+EOF
+)
+
+if ! [ "${PACKAGE-}" ]; then
+    echo 'Could not determine package name!' >&2
+    exit 78
+fi
+
+mypy 2>/dev/null || ERRLVL=$?
+if [ ${ERRLVL-0} -ne 127 ]; then
+    if [ -d "$PACKAGE" ]; then
+        INIT="$PACKAGE/__init__.py"
+        [ -e "$INIT" ] && mypy "$INIT"
+        TESTS="$PACKAGE/tests/${PACKAGE}_test.py"
+        [ -e "$TESTS" ] && mypy "$TESTS"
+    elif [ -e "$PACKAGE.py" ]; then
+        mypy "$PACKAGE.py"
+    fi || exit
+fi
+
+python3 setup.py test
+
+[ -d env ] || python3 -m virtualenv env
+. env/bin/activate
+
+python3 setup.py install || exit
+
+echo 'import sortableclasses' | python3

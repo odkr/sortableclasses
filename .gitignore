@@ -12,3 +12,15 @@
 
 # MyPy
 .mypy_cache
+
+# for meta/update-release
+setup.py.orig
+README.rst.orig
+.setup.py.tmp
+.README.rst.tmp
+
+# Virtual environment for testing
+/env
+
+# Python cache
+__pycache__
