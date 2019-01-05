@@ -110,9 +110,9 @@ You can do all of the above by::
 Documentation
 =============
 
-See <https://sortableclassespy.readthedocs.io/en/latest/> for reference.
-
-You can also view the inline documentation by::
+You can view the reference documentation at `Read the Docs
+<https://sortableclassespy.readthedocs.io/en/latest/>`_ or,
+once you installed *sortableclasses*, by::
 
     pydoc sortableclasses
 
@@ -120,9 +120,8 @@ You can also view the inline documentation by::
 Contact
 =======
 
-If there's something wrong with *sortableclasses*, please open an issue at:
-
-<https://github.com/odkr/sortableclasses.py/issues>
+If there's something wrong with *sortableclasses*, please `open an issue
+<https://github.com/odkr/sortableclasses.py/issues>`_.
 
 
 Licence
