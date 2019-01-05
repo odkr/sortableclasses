@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sortableclasses &mdash; sortableclasses 0.9.4b documentation</title>
+  <title>sortableclasses &mdash; sortableclasses 0.9.4rc1 documentation</title>
   
 
   
@@ -241,7 +241,24 @@
 <span class="sd">            to be at a definite position.</span>
 
 <span class="sd">    .. automethod:: __lt__&quot;&quot;&quot;</span>
-<div class="viewcode-block" id="SortableMeta.insuccessorsof"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.insuccessorsof">[docs]</a>    <span class="k">def</span> <span class="nf">insuccessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;Sequence of classes used by ``SortableMeta.inpredecessorsof``.</span>
+
+<span class="sd">    ``SortableMeta.inpredecessorsof`` is, in turn, used by</span>
+<span class="sd">    ``SortableMeta.precedes``, ``SortableMeta.succeeds``, and</span>
+<span class="sd">    ``SortableMeta.__lt__``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">successorof</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;Sequence of classes used by ``SortableMeta.insuccessorsof``.</span>
+
+<span class="sd">    ``SortableMeta.insuccessorsof`` is, in turn, used by</span>
+<span class="sd">    ``SortableMeta.precedes``,  ``SortableMeta.succeeds``, and</span>
+<span class="sd">    ``SortableMeta.__lt__``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">priority</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="sd">&quot;&quot;&quot;Number used by ``SortableMeta.__lt__``.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SortableMeta.insuccessorsof"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.insuccessorsof">[docs]</a>    <span class="k">def</span> <span class="nf">insuccessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Checks if *cls* is in the chain of succession of *other*.</span>
 
 <span class="sd">        A class is in the chain of succession of another class</span>
@@ -288,7 +305,7 @@
 <span class="sd">            &gt;&gt;&gt; B.insuccessorsof(A)</span>
 <span class="sd">            False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">chain</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">successorof</span><span class="p">)</span>
+        <span class="n">chain</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">successorof</span><span class="p">)</span>
         <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">chain</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">other</span> <span class="o">==</span> <span class="n">chain</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
@@ -297,7 +314,7 @@
             <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="SortableMeta.inpredecessorsof"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.inpredecessorsof">[docs]</a>    <span class="k">def</span> <span class="nf">inpredecessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="SortableMeta.inpredecessorsof"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.inpredecessorsof">[docs]</a>    <span class="k">def</span> <span class="nf">inpredecessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Checks if *cls* is in the chain of precedence of *other*.</span>
 
 <span class="sd">        A class is in the chain of precedence of another class</span>
@@ -318,7 +335,7 @@
 <span class="sd">                otherwise.</span>
 
 <span class="sd">        For example:</span>
-<span class="sd">        </span>
+
 <span class="sd">            &gt;&gt;&gt; class sortableclasses(Pluggable):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
@@ -335,7 +352,7 @@
 <span class="sd">            True</span>
 
 <span class="sd">        However, different to ``precedes``:</span>
-<span class="sd">        </span>
+
 <span class="sd">            &gt;&gt;&gt; class B(sortableclasses):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
@@ -345,7 +362,7 @@
 <span class="sd">            &gt;&gt;&gt; B.inpredecessorsof(A)</span>
 <span class="sd">            False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">chain</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">predecessorof</span><span class="p">)</span>
+        <span class="n">chain</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">predecessorof</span><span class="p">)</span>
         <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">chain</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">other</span> <span class="o">==</span> <span class="n">chain</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
@@ -355,7 +372,7 @@
         <span class="k">return</span> <span class="kc">False</span></div>
 
     <span class="c1"># pylint: disable=E1120</span>
-<div class="viewcode-block" id="SortableMeta.succeeds"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.succeeds">[docs]</a>    <span class="k">def</span> <span class="nf">succeeds</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="SortableMeta.succeeds"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.succeeds">[docs]</a>    <span class="k">def</span> <span class="nf">succeeds</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Checks if *cls* succeeds *other*.</span>
 
 <span class="sd">        Doesn&#39;t take priority into account.</span>
@@ -376,7 +393,7 @@
 <span class="sd">            succeeds *cls*.</span>
 
 <span class="sd">        For example:</span>
-<span class="sd">        </span>
+
 <span class="sd">            &gt;&gt;&gt; class sortableclasses(Pluggable):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
@@ -390,7 +407,7 @@
 <span class="sd">            True</span>
 
 <span class="sd">        Also, different to ``insuccessorsof``:</span>
-<span class="sd">        </span>
+
 <span class="sd">            &gt;&gt;&gt; class A(sortableclasses):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
@@ -404,7 +421,7 @@
                 <span class="n">other</span><span class="o">.</span><span class="n">inpredecessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">))</span></div>
 
     <span class="c1"># pylint: disable=E1120</span>
-<div class="viewcode-block" id="SortableMeta.precedes"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.precedes">[docs]</a>    <span class="k">def</span> <span class="nf">precedes</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="SortableMeta.precedes"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.precedes">[docs]</a>    <span class="k">def</span> <span class="nf">precedes</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Checks if *cls* precedes *other*.</span>
 
 <span class="sd">        Doesn&#39;t take priority into account.</span>
@@ -424,7 +441,7 @@
 <span class="sd">            That is, returns ``True`` even if *other* also precedes *cls*.</span>
 
 <span class="sd">        For example:</span>
-<span class="sd">        </span>
+
 <span class="sd">            &gt;&gt;&gt; class sortableclasses(Pluggable):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
@@ -438,7 +455,7 @@
 <span class="sd">            True</span>
 
 <span class="sd">        Also, different to ``inpredecessorsof``:</span>
-<span class="sd">        </span>
+
 <span class="sd">            &gt;&gt;&gt; class B(sortableclasses):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
@@ -451,7 +468,7 @@
         <span class="k">return</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">inpredecessorsof</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">or</span>
                 <span class="n">other</span><span class="o">.</span><span class="n">insuccessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="SortableMeta.__lt__"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.__lt__">[docs]</a>    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="SortableMeta.__lt__"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.__lt__">[docs]</a>    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Checks if *cls* class precedes *other*.</span>
 
 <span class="sd">        Whether a plugin-like class precedes another one is</span>
@@ -560,22 +577,6 @@
 <span class="sd">    that does and from which you derive your remaining plugin</span>
 <span class="sd">    base classes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">()</span>
-    <span class="sd">&quot;&quot;&quot;Sequence of classes used by ``SortableMeta.inpredecessorsof``.</span>
-
-<span class="sd">    ``SortableMeta.inpredecessorsof`` is, in turn, used by</span>
-<span class="sd">    ``SortableMeta.precedes``, ``SortableMeta.succeeds``, and</span>
-<span class="sd">    ``SortableMeta.__lt__``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">successorof</span> <span class="o">=</span> <span class="p">()</span>
-    <span class="sd">&quot;&quot;&quot;Sequence of classes used by ``SortableMeta.insuccessorsof``.</span>
-
-<span class="sd">    ``SortableMeta.insuccessorsof`` is, in turn, used by</span>
-<span class="sd">    ``SortableMeta.precedes``,  ``SortableMeta.succeeds``, and</span>
-<span class="sd">    ``SortableMeta.__lt__``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">priority</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="sd">&quot;&quot;&quot;Number used by ``SortableMeta.__lt__``.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Pluggable.getderived"><a class="viewcode-back" href="../module.html#sortableclasses.Pluggable.getderived">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">getderived</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
@@ -601,7 +602,7 @@
 <span class="sd">        See ``SortableMeta`` for details.</span>
 
 <span class="sd">        For example:</span>
-<span class="sd">        </span>
+
 <span class="sd">            &gt;&gt;&gt; class PluginBaseClass(Pluggable):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>

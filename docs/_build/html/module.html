@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sortableclasses &mdash; sortableclasses 0.9.4b documentation</title>
+  <title>sortableclasses &mdash; sortableclasses 0.9.4rc1 documentation</title>
   
 
   
@@ -231,30 +231,6 @@ See <code class="docutils literal notranslate"><span class="pre">SortableMeta</s
 </div>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="sortableclasses.Pluggable.predecessorof">
-<code class="descname">predecessorof</code><em class="property"> = ()</em><a class="headerlink" href="#sortableclasses.Pluggable.predecessorof" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sequence of classes used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.inpredecessorsof</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">SortableMeta.inpredecessorsof</span></code> is, in turn, used by
-<code class="docutils literal notranslate"><span class="pre">SortableMeta.precedes</span></code>, <code class="docutils literal notranslate"><span class="pre">SortableMeta.succeeds</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="sortableclasses.Pluggable.priority">
-<code class="descname">priority</code><em class="property"> = 0</em><a class="headerlink" href="#sortableclasses.Pluggable.priority" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="sortableclasses.Pluggable.successorof">
-<code class="descname">successorof</code><em class="property"> = ()</em><a class="headerlink" href="#sortableclasses.Pluggable.successorof" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sequence of classes used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.insuccessorsof</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">SortableMeta.insuccessorsof</span></code> is, in turn, used by
-<code class="docutils literal notranslate"><span class="pre">SortableMeta.precedes</span></code>,  <code class="docutils literal notranslate"><span class="pre">SortableMeta.succeeds</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="class">
@@ -354,7 +330,7 @@ to be at a definite position.</li>
 </dl>
 <dl class="method">
 <dt id="sortableclasses.SortableMeta.__lt__">
-<code class="descname">__lt__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.__lt__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.__lt__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__lt__</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.__lt__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.__lt__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if <em>cls</em> class precedes <em>other</em>.</p>
 <p>Whether a plugin-like class precedes another one is
 governed by their sorting attributes:</p>
@@ -429,7 +405,7 @@ would have to precede <em>and</em> succeed each other.</dd>
 
 <dl class="method">
 <dt id="sortableclasses.SortableMeta.inpredecessorsof">
-<code class="descname">inpredecessorsof</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.inpredecessorsof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.inpredecessorsof" title="Permalink to this definition">¶</a></dt>
+<code class="descname">inpredecessorsof</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.inpredecessorsof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.inpredecessorsof" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if <em>cls</em> is in the chain of precedence of <em>other</em>.</p>
 <p>A class is in the chain of precedence of another class
 if it, or one of its successors, declares itself to
@@ -484,7 +460,7 @@ classes of which these classes are successors, and so on.</dd>
 
 <dl class="method">
 <dt id="sortableclasses.SortableMeta.insuccessorsof">
-<code class="descname">insuccessorsof</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.insuccessorsof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.insuccessorsof" title="Permalink to this definition">¶</a></dt>
+<code class="descname">insuccessorsof</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.insuccessorsof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.insuccessorsof" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if <em>cls</em> is in the chain of succession of <em>other</em>.</p>
 <p>A class is in the chain of succession of another class
 if it, or one of its predecessors, declares itself to
@@ -539,7 +515,7 @@ classes of which these classes are successors, and so on.</dd>
 
 <dl class="method">
 <dt id="sortableclasses.SortableMeta.precedes">
-<code class="descname">precedes</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.precedes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.precedes" title="Permalink to this definition">¶</a></dt>
+<code class="descname">precedes</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.precedes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.precedes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if <em>cls</em> precedes <em>other</em>.</p>
 <p>Doesn’t take priority into account.</p>
 <dl class="docutils">
@@ -588,9 +564,24 @@ That is, returns <code class="docutils literal notranslate"><span class="pre">Tr
 </div>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="sortableclasses.SortableMeta.predecessorof">
+<code class="descname">predecessorof</code><em class="property"> = ()</em><a class="headerlink" href="#sortableclasses.SortableMeta.predecessorof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequence of classes used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.inpredecessorsof</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SortableMeta.inpredecessorsof</span></code> is, in turn, used by
+<code class="docutils literal notranslate"><span class="pre">SortableMeta.precedes</span></code>, <code class="docutils literal notranslate"><span class="pre">SortableMeta.succeeds</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sortableclasses.SortableMeta.priority">
+<code class="descname">priority</code><em class="property"> = 0</em><a class="headerlink" href="#sortableclasses.SortableMeta.priority" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="sortableclasses.SortableMeta.succeeds">
-<code class="descname">succeeds</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.succeeds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.succeeds" title="Permalink to this definition">¶</a></dt>
+<code class="descname">succeeds</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.succeeds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.succeeds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if <em>cls</em> succeeds <em>other</em>.</p>
 <p>Doesn’t take priority into account.</p>
 <dl class="docutils">
@@ -638,6 +629,15 @@ succeeds <em>cls</em>.</dd>
 <span class="go">True</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sortableclasses.SortableMeta.successorof">
+<code class="descname">successorof</code><em class="property"> = ()</em><a class="headerlink" href="#sortableclasses.SortableMeta.successorof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequence of classes used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.insuccessorsof</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SortableMeta.insuccessorsof</span></code> is, in turn, used by
+<code class="docutils literal notranslate"><span class="pre">SortableMeta.precedes</span></code>,  <code class="docutils literal notranslate"><span class="pre">SortableMeta.succeeds</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
 </dd></dl>
 
 </dd></dl>
