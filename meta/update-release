@@ -76,12 +76,21 @@ case $NEW in
         panic 64 '%s: illegal version number!' "$NEW"
 esac
 
-TAG=$(git tag --sort v:refname | grep -E '^v' | tail -n1)
+RELEASES=$(git tag --sort v:refname | grep -E '^v')
+
+TAG=$(printf "$RELEASES" | tail -n1)
 OLD="${TAG#v}"
 unset TAG
 
 [ "${OLD-}" ] || panic 78 'Could not determine latest release!'
 [ "$NEW" = "$OLD" ] && panic 64 "%s is the current release." "$NEW"
+
+IFS='
+'
+for RELEASE in $RELEASES; do
+    [ "${RELEASE#v}" = "$NEW" ] && panic 64 "%s is an old release." "$NEW"
+done
+unset IFS
 
 GIT_REPO_NAME=$(git remote show "$REMOTE" -n | 
     sed -n '/URL: / {s/.*\///; s/\.git//; p; q;}')
