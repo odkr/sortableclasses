@@ -3,8 +3,10 @@
 set -Cefu
 
 CHANGE_FILES='setup.py README.rst'
+TWINE_USERNAME=odkr
 REMOTE=origin
 
+export TWINE_USERNAME REMOTE
 
 # Takes a signal as argument, runs $EX, propagates the signal, and exits.
 onexit() {
@@ -74,68 +76,111 @@ case $NEW in
         panic 64 '%s: illegal version number!' "$NEW"
 esac
 
-REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
-TAG=$(git tag | grep -E '^v' | sort | tail -n1)
+TAG=$(git tag --sort v:refname | grep -E '^v' | tail -n1)
 OLD="${TAG#v}"
 unset TAG
 
 [ "${OLD-}" ] || panic 78 'Could not determine latest release!'
-#[ "$NEW" = "$OLD" ] && panic 64 "%s is the current release." "$NEW"
+[ "$NEW" = "$OLD" ] && panic 64 "%s is the current release." "$NEW"
 
+GIT_REPO_NAME=$(git remote show "$REMOTE" -n | 
+    sed -n '/URL: / {s/.*\///; s/\.git//; p; q;}')
+[ "${GIT_REPO_NAME-}" ] || panic 78 'Could not determine git repository name!'
+
+REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
 cd -P "${REPO:?'Could not determine repository name.'}" || exit
+REPO=$(pwd)
 
-# meta/run-tests || exit
+NAME=$(python3 <<EOF
+import sys
+sys.path.append('.')
+from setup import METADATA
+print(METADATA['packages'][0])
+EOF
+)
+[ "${NAME-}" ] || panic 78 'Could not determine package name!'
+
+meta/run-tests || exit
 
 register_onexit
 EX=:
-# for FILE in $CHANGE_FILES; do
-#     replace "$FILE" "$OLD" "$NEW"
-#     EX="${EX?}; [ -e \"$FILE.orig\" ] && mv \"$FILE.orig\" \"$FILE\""
-# done
+for FILE in $CHANGE_FILES; do
+    replace "$FILE" "$OLD" "$NEW"
+    EX="${EX?}; [ -e \"$FILE.orig\" ] && mv \"$FILE.orig\" \"$FILE\""
+done
 
-# meta/run-tests || exit
+meta/run-tests || exit
 unset EX
 
-# cd -P docs || exit
-# make clean html
-# cd -P "${REPO?}" || exit
+cd -P docs || exit
+make clean html
+cd -P "${REPO?}" || exit
 
 TAG="v$NEW"
-# git add . 
-# git commit -m 'Updated release.'
-# git tag "$TAG"
-# git push "$REMOTE" "$TAG"
-# git push "$REMOTE"
+git add setup.py README.rst docs
+git commit -m 'Updated release.'
+git tag "$TAG"
+git push "$REMOTE" "$TAG"
+git push "$REMOTE"
 
 [ -d env ] || python3 -m virtualenv env
 . env/bin/activate
 
+export REPO
 DOWNLOAD_DIR="$(pwd)/download"
 readonly DOWNLOAD_DIR
-# EX='[ "${DOWNLOAD_DIR-}" ] && [ -d "$DOWNLOAD_DIR" ] && rm -rf "$DOWNLOAD_DIR"'
-# mkdir -m 0700 "${DOWNLOAD_DIR?}" || exit
+EX='[ "${DOWNLOAD_DIR-}" ] && [ -d "$DOWNLOAD_DIR" ] && rm -rf "$DOWNLOAD_DIR"'
+mkdir -m 0700 "${DOWNLOAD_DIR?}" || exit
 cd -P "$DOWNLOAD_DIR" || exit
 
 # These instructions mirror those in README.rst
-# Download and unpack *sortableclasses* to the current directory.
-curl "https://codeload.github.com/odkr/sortableclasses.py/tar.gz/$TAG" | 
+curl "https://codeload.github.com/odkr/$GIT_REPO_NAME/tar.gz/$TAG" | 
     tar -xz
-# The command below guesses a directory to install *sortableclasses* to.
 PYTHON_SYSPATH=$(printf 'import sys; print("\\n".join(sorted(sys.path)))\n' | 
-    python3 | grep -E "$(pwd)" | head -n1)
-# If the command below errors, no suitable directory was found.
-# Otherwise, it will show you where *sortableclasses* will be installed to.
+    python3 | grep -E "$REPO" | head -n1)
 echo "${PYTHON_SYSPATH:?'did not find suitable directory.'}" >&2
-# Copy the directory "sortableclasses" into that directory.
 [ -d "${PYTHON_SYSPATH:?}" ] && {
-    PACKAGE="sortableclasses.py-$NEW/sortableclasses"
+    PACKAGE="$GIT_REPO_NAME-$NEW/$NAME"
     cp -r "$PACKAGE" "$PYTHON_SYSPATH"
 }
-# Remove the downloaded files, if you want to.
-rm -rf "sortableclasses.py-$NEW"
-SOURCE="sortableclasses.py-$NEW"
+SOURCE="$GIT_REPO_NAME-$NEW"
+rm -rf "$SOURCE"
 [ -e "$SOURCE" ] && panic 69 '%s: not deleted!' "$SOURCE"
 
-echo 'import sortableclasses' | python3
+python3 <<EOF
+import $NAME
+EOF
 
-# upload on twine
+VIRTUAL_PACKAGE="${PYTHON_SYSPATH:?}/${NAME:?}"
+rm -rf "${VIRTUAL_PACKAGE:?}"
+[ -e "$VIRTUAL_PACKAGE" ] && panic 69 '%s: not deleted!' "$VIRTUAL_PACKAGE"
+
+cd -P "$REPO" || exit
+
+find env -name "$NAME-*" -delete
+
+rm -rf build dist
+python3 setup.py sdist bdist_wheel
+
+twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+cd / || exit
+python3 -m pip install --index-url https://test.pypi.org/simple/ "$NAME"
+
+python3 <<EOF
+import $NAME
+EOF
+
+pip3 uninstall --yes "$NAME"
+
+cd -P "$REPO" || exit
+
+find env -name "$NAME-*"
+
+twine upload dist/*
+cd / || exit
+python3 -m pip install "$NAME"
+python3 <<EOF
+import $NAME
+EOF
+pip3 uninstall --yes "$NAME"
