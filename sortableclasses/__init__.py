@@ -110,7 +110,7 @@ class SortableMeta(type):
     ``SortableMeta.precedes``,  ``SortableMeta.succeeds``, and
     ``SortableMeta.__lt__``.
     """
-    priority: float = 0
+    priority = 0 # type: float
     """Number used by ``SortableMeta.__lt__``."""
 
     def insuccessorsof(cls, other: 'SortableMeta') -> bool:
