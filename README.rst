@@ -92,8 +92,8 @@ You can do all of the above by::
     curl https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4rc3 | 
         tar -xz
     # The command below guesses a directory to install *sortableclasses* to.
-    PYTHON_SYSPATH=`echo 'import sys; print("\n".join(sorted(sys.path)))' | 
-        python3 | grep -E "(${HOME?}|/local/)" | head -n1`
+    PYTHON_SYSPATH=$(printf 'import sys; print("\\n".join(sorted(sys.path)))\n' | 
+        python3 | grep -E "(${HOME?}|/local/)" | head -n1)
     # If the command below errors, no suitable directory was found.
     # Otherwise, it will show you where *sortableclasses* will be installed to.
     echo "${PYTHON_SYSPATH?'did not find suitable directory.'}"
