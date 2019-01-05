@@ -1,4 +1,4 @@
-# Copyright 2016, 2018 Odin Kroeger
+# Copyright 2016, 2018, 2019 Odin Kroeger
 #
 # This programme is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

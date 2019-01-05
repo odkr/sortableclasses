@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'sortableclasses'
-copyright = '2018, Odin Kroeger'
+copyright = '2016, 2017, 2018, 2019 Odin Kroeger'
 author = 'Odin Kroeger'
 
 # The short X.Y version
