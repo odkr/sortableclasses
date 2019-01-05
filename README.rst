@@ -81,8 +81,8 @@ simply say::
 
     pip3 install sortableclasses
 
-Otherwise, download the most recent stable release
-([v0.9.4b](https://github.com/odkr/sortableclasses.py/archive/v0.9.4b.tar.gz)),
+Otherwise, download the most recent stable release (`v0.9.4b
+<https://github.com/odkr/sortableclasses.py/archive/v0.9.4b.tar.gz>`_),
 unzip it and copy the directory `sortableclasses` into a directory in
 your Python's `sys.path`.
 
