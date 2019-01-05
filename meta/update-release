@@ -41,9 +41,9 @@ panic() {
 # and replaces all occurances of STRING in FILE with SUBSTITUTE.
 # Makes a backup.
 replace() (
-    fname="${1?'missing filename.'}"
-    old="${2?'missing old release name.'}"
-    new="${3?'missing new release name.'}"
+    fname="${1:?'missing filename.'}"
+    old="${2:?'missing old release name.'}"
+    new="${3:?'missing new release name.'}"
     tmp=".$fname.tmp"
     readonly tmp
     [ -e "$tmp" ] && panic 69 '%s: file exists!' "$tmp"
@@ -61,7 +61,7 @@ if ! [ "${1-}" ]; then
     exit 64
 fi
 
-NEW="${1?'No release given.'}"
+NEW="${1:?'No release given.'}"
 
 case $NEW in
     *[!0-9]*.*[!0-9]*.*[!0-9a-z-]*)
@@ -80,58 +80,62 @@ OLD="${TAG#v}"
 unset TAG
 
 [ "${OLD-}" ] || panic 78 'Could not determine latest release!'
-[ "$NEW" = "$OLD" ] && panic 64: "%s is the current release." "$NEW"
+#[ "$NEW" = "$OLD" ] && panic 64 "%s is the current release." "$NEW"
 
-cd -P "${REPO?'Could not determine repository name.'}" || exit
+cd -P "${REPO:?'Could not determine repository name.'}" || exit
 
-meta/run-tests || exit
+# meta/run-tests || exit
 
 register_onexit
 EX=:
-for FILE in $CHANGE_FILES; do
-    replace "$FILE" "$OLD" "$NEW"
-    EX="${EX?}; [ -e \"$FILE.orig\" ] && mv \"$FILE.orig\" \"$FILE\""
-done
+# for FILE in $CHANGE_FILES; do
+#     replace "$FILE" "$OLD" "$NEW"
+#     EX="${EX?}; [ -e \"$FILE.orig\" ] && mv \"$FILE.orig\" \"$FILE\""
+# done
 
-meta/run-tests || exit
+# meta/run-tests || exit
 unset EX
 
-cd -P docs || exit
-make clean html
-cd -P "${REPO?}" || exit
+# cd -P docs || exit
+# make clean html
+# cd -P "${REPO?}" || exit
 
 TAG="v$NEW"
-git add . 
-git commit -m 'Updated release.'
-git tag "v$NEW"
-git push "$REMOTE" "v$NEW"
-git push "$REMOTE"
- 
-# [ -d env ] || python3 -m virtualenv env
-# . env/bin/activate
-# 
-# DOWNLOAD_DIR="$(pwd)/download"
-# readonly DOWNLOAD_DIR
+# git add . 
+# git commit -m 'Updated release.'
+# git tag "$TAG"
+# git push "$REMOTE" "$TAG"
+# git push "$REMOTE"
+
+[ -d env ] || python3 -m virtualenv env
+. env/bin/activate
+
+DOWNLOAD_DIR="$(pwd)/download"
+readonly DOWNLOAD_DIR
 # EX='[ "${DOWNLOAD_DIR-}" ] && [ -d "$DOWNLOAD_DIR" ] && rm -rf "$DOWNLOAD_DIR"'
-# mkdir -m "${DOWNLOAD_DIR?}" || exit
-# cd -P "$DOWNLOAD_DIR" || exit
-# 
-# # Download and unpack *sortableclasses* to the current directory.
-# curl https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4rc2 | 
-#     tar -xz
-# # The command below guesses a directory to install *sortableclasses* to.
-# PYTHON_SYSPATH=`echo 'import sys; print("\n".join(sorted(sys.path)))' | 
-#     python3 | grep -E "(${HOME?}|/local/)" | head -n1`
-# # If the command below errors, no suitable directory was found.
-# # Otherwise, it will show you where *sortableclasses* will be installed to.
-# echo "${PYTHON_SYSPATH?'did not find suitable directory.'}"
-# # Copy the directory "sortableclasses" into that directory.
-# # [ -d "${PYTHON_SYSPATH?}" ] && {
-# #     SOURCE=sortableclasses.py-0.9.4rc2/sortableclasses
-# #     cp -r "$SOURCE" "$PYTHON_SYSPATH" || \
-# #         sudo cp -r "$SOURCE" "$PYTHON_SYSPATH"    
-# # }
-# # Remove the downloaded files, if you want to.
-# rm -rf sortableclasses.py-0.9.4rc2
+# mkdir -m 0700 "${DOWNLOAD_DIR?}" || exit
+cd -P "$DOWNLOAD_DIR" || exit
+
+# These instructions mirror those in README.rst
+# Download and unpack *sortableclasses* to the current directory.
+curl "https://codeload.github.com/odkr/sortableclasses.py/tar.gz/$TAG" | 
+    tar -xz
+# The command below guesses a directory to install *sortableclasses* to.
+PYTHON_SYSPATH=$(printf 'import sys; print("\\n".join(sorted(sys.path)))\n' | 
+    python3 | grep -E "$(pwd)" | head -n1)
+# If the command below errors, no suitable directory was found.
+# Otherwise, it will show you where *sortableclasses* will be installed to.
+echo "${PYTHON_SYSPATH:?'did not find suitable directory.'}" >&2
+# Copy the directory "sortableclasses" into that directory.
+[ -d "${PYTHON_SYSPATH:?}" ] && {
+    PACKAGE="sortableclasses.py-$NEW/sortableclasses"
+    cp -r "$PACKAGE" "$PYTHON_SYSPATH"
+}
+# Remove the downloaded files, if you want to.
+rm -rf "sortableclasses.py-$NEW"
+SOURCE="sortableclasses.py-$NEW"
+[ -e "$SOURCE" ] && panic 69 '%s: not deleted!' "$SOURCE"
+
+echo 'import sortableclasses' | python3
 
 # upload on twine

@@ -3,7 +3,7 @@
 set -Cefu
 
 REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
-cd -P "${REPO?'Could not determine repository name.'}" || exit
+cd -P "${REPO:?'Could not determine repository name.'}" || exit
 
 PACKAGE=$(cat <<EOF | python3
 import sys
