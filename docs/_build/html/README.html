@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sortableclasses &mdash; sortableclasses 0.9.4rc9 documentation</title>
+  <title>sortableclasses &mdash; sortableclasses 0.9.4rc10 documentation</title>
   
 
   
@@ -229,12 +229,12 @@ simply say:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">sortableclasses</span>
 </pre></div>
 </div>
-<p>Otherwise, download the most recent stable release (<a class="reference external" href="https://github.com/odkr/sortableclasses.py/archive/v0.9.4rc9.tar.gz">v0.9.4rc9</a>),
+<p>Otherwise, download the most recent stable release (<a class="reference external" href="https://github.com/odkr/sortableclasses.py/archive/v0.9.4rc10.tar.gz">v0.9.4rc10</a>),
 unzip it and copy the directory <cite>sortableclasses</cite> into a directory in
 your Python’s <cite>sys.path</cite>.</p>
 <p>You can do all of the above by:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Download and unpack *sortableclasses* to the current directory.
-curl https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4rc9 |
+curl https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4rc10 |
     tar -xz
 # The command below guesses a directory to install *sortableclasses* to.
 PYTHON_SYSPATH=$(printf &#39;import sys; print(&quot;\\n&quot;.join(sorted(sys.path)))\n&#39; |
@@ -244,12 +244,12 @@ PYTHON_SYSPATH=$(printf &#39;import sys; print(&quot;\\n&quot;.join(sorted(sys.p
 echo &quot;${PYTHON_SYSPATH?&#39;did not find suitable directory.&#39;}&quot;
 # Copy the directory &quot;sortableclasses&quot; into that directory.
 [ -d &quot;${PYTHON_SYSPATH?}&quot; ] &amp;&amp; {
-    PACKAGE=sortableclasses.py-0.9.4rc9/sortableclasses
+    PACKAGE=sortableclasses.py-0.9.4rc10/sortableclasses
     cp -r &quot;$PACKAGE&quot; &quot;$PYTHON_SYSPATH&quot; || \
         sudo cp -r &quot;$PACKAGE&quot; &quot;$PYTHON_SYSPATH&quot;
 }
 # Remove the downloaded files, if you want to.
-rm -rf sortableclasses.py-0.9.4rc9
+rm -rf sortableclasses.py-0.9.4rc10
 </pre></div>
 </div>
 </div>
