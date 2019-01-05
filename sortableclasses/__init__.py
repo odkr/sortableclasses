@@ -160,7 +160,7 @@ class SortableMeta(type):
             >>> B.insuccessorsof(A)
             False
         """
-        chain: list = list(cls.successorof)
+        chain = list(cls.successorof) # type: list
         i = 0
         while i < len(chain):
             if other == chain[i]:
@@ -217,7 +217,7 @@ class SortableMeta(type):
             >>> B.inpredecessorsof(A)
             False
         """
-        chain: list = list(cls.predecessorof)
+        chain = list(cls.predecessorof) # type: list
         i = 0
         while i < len(chain):
             if other == chain[i]:
