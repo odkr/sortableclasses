@@ -20,17 +20,18 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
 
+from setup import NAME, VERSION
 
 # -- Project information -----------------------------------------------------
 
-project = 'sortableclasses'
+project = NAME
 copyright = '2016, 2017, 2018, 2019 Odin Kroeger'
 author = 'Odin Kroeger'
 
 # The short X.Y version
-version = ''
+version = '.'.join(VERSION.split('.')[:2])
 # The full version, including alpha/beta/rc tags
-release = '0.9.4rc2'
+release = VERSION
 
 
 # -- General configuration ---------------------------------------------------
