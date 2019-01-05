@@ -36,7 +36,7 @@ def readme(readme_fname: str = "README.rst") -> str:
 NAME = 'sortableclasses'
 
 # Version of this package.
-VERSION = '0.9.4rc7'
+VERSION = '0.9.4rc8'
 
 # All other metadata.
 METADATA = {
