@@ -1,7 +1,5 @@
 #!/usr/bin/python
-#
-# setup.py - Setup for the *sortablecls* package.
-# (c) 2016 Odin Kroeger
+# Copyright 2016, 2019 Odin Kroeger
 #
 # This programme is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,16 +13,19 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from setuptools import setup
+"""Setup for the *sortablecls* package."""
 
 import os
 import sys
+
+from setuptools import setup
 
 
 # Functions
 # =========
 
-def reqpyvers(version, name):
+def reqpyvers(version: tuple, name: str):
+    """Makes sure that Python 3 is used."""
     if sys.version_info >= version:
         return
     errfmt = "{prog}: {name} requires at least Python v{version}.\n"
@@ -35,8 +36,8 @@ def reqpyvers(version, name):
     sys.exit(69)
 
 
-def readme(readme_fname="README.rst"):
-    """Returns the README.rst from the path."""
+def readme(readme_fname: str = "README.rst") -> str:
+    """Returns the the contents of README.rst."""
     readme_path = os.path.join(os.path.dirname(__file__), readme_fname)
     with open(readme_path) as readme_handle:
         return readme_handle.read()
@@ -46,10 +47,10 @@ def readme(readme_fname="README.rst"):
 # ========
 
 # Name of this package.
-NAME = "sortableclasses" 
+NAME = "sortableclasses"
 
 # Python version that sortablecls requires.
-REQPYVERSION=(3,)
+REQPYVERSION = (3,)
 
 # All other metadata.
 METADATA = {
@@ -79,6 +80,6 @@ METADATA = {
 # Boilerplate
 # ===========
 
-if "__main__" == __name__:
+if __name__ == '__main__':
     reqpyvers(REQPYVERSION, NAME)
     setup(**METADATA)
