@@ -96,7 +96,24 @@ class SortableMeta(type):
             to be at a definite position.
 
     .. automethod:: __lt__"""
-    def insuccessorsof(cls, other: type) -> bool:
+    predecessorof = ()
+    """Sequence of classes used by ``SortableMeta.inpredecessorsof``.
+
+    ``SortableMeta.inpredecessorsof`` is, in turn, used by
+    ``SortableMeta.precedes``, ``SortableMeta.succeeds``, and
+    ``SortableMeta.__lt__``.
+    """
+    successorof = ()
+    """Sequence of classes used by ``SortableMeta.insuccessorsof``.
+
+    ``SortableMeta.insuccessorsof`` is, in turn, used by
+    ``SortableMeta.precedes``,  ``SortableMeta.succeeds``, and
+    ``SortableMeta.__lt__``.
+    """
+    priority: float = 0
+    """Number used by ``SortableMeta.__lt__``."""
+
+    def insuccessorsof(cls, other: 'SortableMeta') -> bool:
         """Checks if *cls* is in the chain of succession of *other*.
 
         A class is in the chain of succession of another class
@@ -143,7 +160,7 @@ class SortableMeta(type):
             >>> B.insuccessorsof(A)
             False
         """
-        chain = list(cls.successorof)
+        chain: list = list(cls.successorof)
         i = 0
         while i < len(chain):
             if other == chain[i]:
@@ -152,7 +169,7 @@ class SortableMeta(type):
             i += 1
         return False
 
-    def inpredecessorsof(cls, other: type) -> bool:
+    def inpredecessorsof(cls, other: 'SortableMeta') -> bool:
         """Checks if *cls* is in the chain of precedence of *other*.
 
         A class is in the chain of precedence of another class
@@ -200,7 +217,7 @@ class SortableMeta(type):
             >>> B.inpredecessorsof(A)
             False
         """
-        chain = list(cls.predecessorof)
+        chain: list = list(cls.predecessorof)
         i = 0
         while i < len(chain):
             if other == chain[i]:
@@ -210,7 +227,7 @@ class SortableMeta(type):
         return False
 
     # pylint: disable=E1120
-    def succeeds(cls, other: type) -> bool:
+    def succeeds(cls, other: 'SortableMeta') -> bool:
         """Checks if *cls* succeeds *other*.
 
         Doesn't take priority into account.
@@ -259,7 +276,7 @@ class SortableMeta(type):
                 other.inpredecessorsof(cls))
 
     # pylint: disable=E1120
-    def precedes(cls, other: type) -> bool:
+    def precedes(cls, other: 'SortableMeta') -> bool:
         """Checks if *cls* precedes *other*.
 
         Doesn't take priority into account.
@@ -306,7 +323,7 @@ class SortableMeta(type):
         return (cls.inpredecessorsof(other) or
                 other.insuccessorsof(cls))
 
-    def __lt__(cls, other: type) -> bool:
+    def __lt__(cls, other: 'SortableMeta') -> bool:
         """Checks if *cls* class precedes *other*.
 
         Whether a plugin-like class precedes another one is
@@ -415,22 +432,6 @@ class Pluggable(metaclass=SortableABCMeta):
     that does and from which you derive your remaining plugin
     base classes.
     """
-    predecessorof = ()
-    """Sequence of classes used by ``SortableMeta.inpredecessorsof``.
-
-    ``SortableMeta.inpredecessorsof`` is, in turn, used by
-    ``SortableMeta.precedes``, ``SortableMeta.succeeds``, and
-    ``SortableMeta.__lt__``.
-    """
-    successorof = ()
-    """Sequence of classes used by ``SortableMeta.insuccessorsof``.
-
-    ``SortableMeta.insuccessorsof`` is, in turn, used by
-    ``SortableMeta.precedes``,  ``SortableMeta.succeeds``, and
-    ``SortableMeta.__lt__``.
-    """
-    priority: float = 0
-    """Number used by ``SortableMeta.__lt__``."""
 
     @classmethod
     def getderived(cls):
