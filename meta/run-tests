@@ -5,7 +5,7 @@ set -Cefu
 REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
 cd -P "${REPO:?'Could not determine repository name.'}" || exit
 
-PACKAGE=$(cat <<EOF | python3
+PACKAGE=$(python3 <<EOF
 import sys
 sys.path.append('.')
 from setup import METADATA
@@ -37,4 +37,6 @@ python3 setup.py test
 
 python3 setup.py install || exit
 
-echo 'import sortableclasses' | python3
+python3 <<EOF
+import $PACKAGE
+EOF
