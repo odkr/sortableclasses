@@ -41,7 +41,7 @@ test_install() (
     register_onexit
     EX="pip3 uninstall --yes \"$name\""
     python3 setup.py install || return
-    python3 -m "$name"
+    python3 -c "import $name"
 )
 
 
