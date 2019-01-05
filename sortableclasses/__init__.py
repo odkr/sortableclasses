@@ -96,7 +96,7 @@ class SortableMeta(type):
             to be at a definite position.
 
     .. automethod:: __lt__"""
-    def insuccessorsof(cls, other):
+    def insuccessorsof(cls, other: SortableMeta):
         """Checks if *cls* is in the chain of succession of *other*.
 
         A class is in the chain of succession of another class
@@ -152,7 +152,7 @@ class SortableMeta(type):
             i += 1
         return False
 
-    def inpredecessorsof(cls, other):
+    def inpredecessorsof(cls, other: SortableMeta):
         """Checks if *cls* is in the chain of precedence of *other*.
 
         A class is in the chain of precedence of another class
@@ -210,7 +210,7 @@ class SortableMeta(type):
         return False
 
     # pylint: disable=E1120
-    def succeeds(cls, other):
+    def succeeds(cls, other: SortableMeta):
         """Checks if *cls* succeeds *other*.
 
         Doesn't take priority into account.
@@ -259,7 +259,7 @@ class SortableMeta(type):
                 other.inpredecessorsof(cls))
 
     # pylint: disable=E1120
-    def precedes(cls, other):
+    def precedes(cls, other: SortableMeta):
         """Checks if *cls* precedes *other*.
 
         Doesn't take priority into account.
@@ -306,7 +306,7 @@ class SortableMeta(type):
         return (cls.inpredecessorsof(other) or
                 other.insuccessorsof(cls))
 
-    def __lt__(cls, other):
+    def __lt__(cls, other: SortableMeta):
         """Checks if *cls* class precedes *other*.
 
         Whether a plugin-like class precedes another one is
