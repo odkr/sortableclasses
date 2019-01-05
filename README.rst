@@ -81,15 +81,15 @@ simply say::
 
     pip3 install sortableclasses
 
-Otherwise, download the most recent stable release (`v0.9.4rc5
-<https://github.com/odkr/sortableclasses.py/archive/v0.9.4rc5.tar.gz>`_),
+Otherwise, download the most recent stable release (`v0.9.4rc6
+<https://github.com/odkr/sortableclasses.py/archive/v0.9.4rc6.tar.gz>`_),
 unzip it and copy the directory `sortableclasses` into a directory in
 your Python's `sys.path`.
 
 You can do all of the above by::
 
     # Download and unpack *sortableclasses* to the current directory.
-    curl https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4rc5 | 
+    curl https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4rc6 | 
         tar -xz
     # The command below guesses a directory to install *sortableclasses* to.
     PYTHON_SYSPATH=$(printf 'import sys; print("\\n".join(sorted(sys.path)))\n' | 
@@ -99,12 +99,12 @@ You can do all of the above by::
     echo "${PYTHON_SYSPATH?'did not find suitable directory.'}"
     # Copy the directory "sortableclasses" into that directory.
     [ -d "${PYTHON_SYSPATH?}" ] && {
-        PACKAGE=sortableclasses.py-0.9.4rc5/sortableclasses
+        PACKAGE=sortableclasses.py-0.9.4rc6/sortableclasses
         cp -r "$PACKAGE" "$PYTHON_SYSPATH" || \
             sudo cp -r "$PACKAGE" "$PYTHON_SYSPATH"    
     }
     # Remove the downloaded files, if you want to.
-    rm -rf sortableclasses.py-0.9.4rc5
+    rm -rf sortableclasses.py-0.9.4rc6
 
 
 Documentation
