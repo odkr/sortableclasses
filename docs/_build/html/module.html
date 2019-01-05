@@ -212,9 +212,8 @@ base classes.</p>
 </dl>
 <p>You can sort classes returned by <code class="docutils literal notranslate"><span class="pre">getderived</span></code>.
 See <code class="docutils literal notranslate"><span class="pre">SortableMeta</span></code> for details.</p>
-<dl class="docutils">
-<dt>For example::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">PluginBaseClass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">PluginBaseClass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">PluginBaseClass</span><span class="p">):</span>
@@ -230,8 +229,6 @@ See <code class="docutils literal notranslate"><span class="pre">SortableMeta</s
 <span class="go">[&lt;class &#39;sortableclasses.B&#39;&gt;, &lt;class &#39;sortableclasses.A&#39;&gt;]</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="attribute">
@@ -310,7 +307,7 @@ undo that order will take, approximately:</p>
 </tr>
 </tbody>
 </table>
-<p>However, the order sketched out above is rather demanding:</p>
+<p>That said, the order sketched out above is rather demanding:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>It’s, in part, defined via a <em>long</em> chain of precedence
@@ -318,8 +315,8 @@ undo that order will take, approximately:</p>
 <li>It requires every plugin to be at a definite position.</li>
 </ol>
 </div></blockquote>
-<p>Moreover, real-world sequences of plugins aren’t,
-normally, in a pseudo-random order.</p>
+<p>Also, in the ‘real world’, sequences of plugins shouldn’t be
+in pseudo-random order.</p>
 <p>On the same hardware, sorting a list of plugins into an
 order that is only defined using <code class="docutils literal notranslate"><span class="pre">priority</span></code> will
 take approximately:</p>
@@ -346,9 +343,9 @@ take approximately:</p>
 <p>That being so, you should be fine as long as:</p>
 <blockquote class="last">
 <div><ol class="arabic simple">
-<li>You sort no more than about 8192 plugins.</li>
+<li>You sort no more than about 8,192 plugins.</li>
 <li>No chain of succession or precedence
-is no longer than about 128 plugins.</li>
+is longer than about 128 plugins.</li>
 <li>Your order doesn’t require every plugin
 to be at a definite position.</li>
 </ol>
@@ -397,7 +394,7 @@ and <code class="docutils literal notranslate"><span class="pre">predecessorof</
 would have to precede <em>and</em> succeed each other.</dd>
 </dl>
 </dd>
-<dt>For example::</dt>
+<dt>For example:</dt>
 <dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
@@ -454,8 +451,9 @@ classes of which these classes are successors, and so on.</dd>
 <dd>otherwise.</dd>
 </dl>
 </dd>
-<dt>For example::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+</dl>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
@@ -471,9 +469,8 @@ classes of which these classes are successors, and so on.</dd>
 <span class="go">True</span>
 </pre></div>
 </div>
-</dd>
-<dt>However, different to <code class="docutils literal notranslate"><span class="pre">precedes</span></code>::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<p>However, different to <code class="docutils literal notranslate"><span class="pre">precedes</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
@@ -483,8 +480,6 @@ classes of which these classes are successors, and so on.</dd>
 <span class="go">False</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="method">
@@ -511,8 +506,9 @@ classes of which these classes are successors, and so on.</dd>
 <dd>Otherwise.</dd>
 </dl>
 </dd>
-<dt>For example::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+</dl>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
@@ -528,9 +524,8 @@ classes of which these classes are successors, and so on.</dd>
 <span class="go">True</span>
 </pre></div>
 </div>
-</dd>
-<dt>However, different to <code class="docutils literal notranslate"><span class="pre">succeeds</span></code>::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<p>However, different to <code class="docutils literal notranslate"><span class="pre">succeeds</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
@@ -540,8 +535,6 @@ classes of which these classes are successors, and so on.</dd>
 <span class="go">False</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="method">
@@ -567,8 +560,9 @@ classes of which these classes are successors, and so on.</dd>
 <dt>Caveat:</dt>
 <dd>Doesn’t check whether the declared order is consistent.
 That is, returns <code class="docutils literal notranslate"><span class="pre">True</span></code> even if <em>other</em> also precedes <em>cls</em>.</dd>
-<dt>For example::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+</dl>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
@@ -581,9 +575,8 @@ That is, returns <code class="docutils literal notranslate"><span class="pre">Tr
 <span class="go">True</span>
 </pre></div>
 </div>
-</dd>
-<dt>Also, different to <code class="docutils literal notranslate"><span class="pre">inpredecessorsof</span></code>::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<p>Also, different to <code class="docutils literal notranslate"><span class="pre">inpredecessorsof</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
@@ -593,8 +586,6 @@ That is, returns <code class="docutils literal notranslate"><span class="pre">Tr
 <span class="go">True</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="method">
@@ -621,8 +612,9 @@ That is, returns <code class="docutils literal notranslate"><span class="pre">Tr
 <dd>Doesn’t check whether the declared order is consistent.
 That is, will return <code class="docutils literal notranslate"><span class="pre">True</span></code> even if <em>other</em> also
 succeeds <em>cls</em>.</dd>
-<dt>For example::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+</dl>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
@@ -635,9 +627,8 @@ succeeds <em>cls</em>.</dd>
 <span class="go">True</span>
 </pre></div>
 </div>
-</dd>
-<dt>Also, different to <code class="docutils literal notranslate"><span class="pre">insuccessorsof</span></code>::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<p>Also, different to <code class="docutils literal notranslate"><span class="pre">insuccessorsof</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
@@ -647,8 +638,6 @@ succeeds <em>cls</em>.</dd>
 <span class="go">True</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 </dd></dl>

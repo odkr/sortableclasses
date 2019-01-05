@@ -115,7 +115,8 @@ class SortableMeta(type):
             ``False``:
                 Otherwise.
 
-        For example::
+        For example:
+
             >>> class sortableclasses(Pluggable):
             ...     pass
             ...
@@ -131,7 +132,8 @@ class SortableMeta(type):
             >>> C.insuccessorsof(A)
             True
 
-        However, different to ``succeeds``::
+        However, different to ``succeeds``:
+
             >>> class B(sortableclasses):
             ...     pass
             ...
@@ -170,7 +172,8 @@ class SortableMeta(type):
             ``False``:
                 otherwise.
 
-        For example::
+        For example:
+
             >>> class sortableclasses(Pluggable):
             ...     pass
             ...
@@ -186,7 +189,8 @@ class SortableMeta(type):
             >>> C.inpredecessorsof(A)
             True
 
-        However, different to ``precedes``::
+        However, different to ``precedes``:
+
             >>> class B(sortableclasses):
             ...     pass
             ...
@@ -226,7 +230,8 @@ class SortableMeta(type):
             That is, will return ``True`` even if *other* also
             succeeds *cls*.
 
-        For example::
+        For example:
+
             >>> class sortableclasses(Pluggable):
             ...     pass
             ...
@@ -239,7 +244,8 @@ class SortableMeta(type):
             >>> A.succeeds(B)
             True
 
-        Also, different to ``insuccessorsof``::
+        Also, different to ``insuccessorsof``:
+
             >>> class A(sortableclasses):
             ...     pass
             ...
@@ -272,7 +278,8 @@ class SortableMeta(type):
             Doesn't check whether the declared order is consistent.
             That is, returns ``True`` even if *other* also precedes *cls*.
 
-        For example::
+        For example:
+
             >>> class sortableclasses(Pluggable):
             ...     pass
             ...
@@ -285,7 +292,8 @@ class SortableMeta(type):
             >>> B.precedes(A)
             True
 
-        Also, different to ``inpredecessorsof``::
+        Also, different to ``inpredecessorsof``:
+
             >>> class B(sortableclasses):
             ...     pass
             ...
@@ -333,7 +341,7 @@ class SortableMeta(type):
                 and ``predecessorof`` attributes, two plugin-like classes
                 would have to precede *and* succeed each other.
 
-        For example::
+        For example:
             >>> class sortableclasses(Pluggable):
             ...     pass
             ...
@@ -447,7 +455,8 @@ class Pluggable(metaclass=SortableABCMeta):
         You can sort classes returned by ``getderived``.
         See ``SortableMeta`` for details.
 
-        For example::
+        For example:
+
             >>> class PluginBaseClass(Pluggable):
             ...     pass
             ...
