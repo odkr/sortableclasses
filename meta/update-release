@@ -1,8 +1,12 @@
 #!/bin/sh
-
+# update-release - Updates release name and release package on GitHub and PyPI.
+# Copyright 2019 Odin Kroeger
+#
+# Performs various tests to make sure that releases work.
+#
 # Assumptions:
-# Releases correspond git tags
-# GitHUB
+# * There is a git tag for every release, starting with "v".
+# * GitHub is used.
 
 set -Cefu
 
