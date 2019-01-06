@@ -89,19 +89,18 @@ your Python's `sys.path`.
 You can do all of the above by::
 
     # Download and unpack *sortableclasses* to the current directory.
-    curl https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4rc29 | 
+    curl -fsS https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4rc29 | 
         tar -xz
     # The command below guesses a directory to install *sortableclasses* to.
-    PYTHON_SYSPATH=$(printf 'import sys; print("\\n".join(sorted(sys.path)))\n' | 
-        python3 | grep -E "(${HOME?}|/local/)" | head -n1)
+    PYPATH=$(python3 -c 'import sys; print("\n".join(sys.path))' | 
+        grep -v '.zip' | grep -E "(${HOME?}|/local/)" | head -n1)
     # If the command below errors, no suitable directory was found.
     # Otherwise, it will show you where *sortableclasses* will be installed to.
-    echo "${PYTHON_SYSPATH?'did not find suitable directory.'}"
+    # echo "${PYPATH:?'Did not find a suitable directory.'}" >&2
     # Copy the directory "sortableclasses" into that directory.
-    [ -d "${PYTHON_SYSPATH?}" ] && {
+    [ -d "${PYPATH?}" ] && {
         PACKAGE=sortableclasses.py-0.9.4rc29/sortableclasses
-        cp -r "$PACKAGE" "$PYTHON_SYSPATH" || \
-            sudo cp -r "$PACKAGE" "$PYTHON_SYSPATH"    
+        cp -r "$PACKAGE" "$PYPATH" || sudo cp -r "$PACKAGE" "$PYPATH"    
     }
     # Remove the downloaded files, if you want to.
     rm -rf sortableclasses.py-0.9.4rc29
