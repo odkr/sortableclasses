@@ -16,7 +16,7 @@ set -Cefu
 # Takes a signal as argument, runs $EX, propagates the signal, and exits.
 onexit() {
     __ONEXIT_STATUS=$?
-    trap '' 0 "${1:?'onexit: missing SIGNAL.'}" || :
+    trap '' 0 "${1:?'missing SIGNAL.'}" || :
     set +e
     eval "${EX-}"
     EX=''
@@ -32,9 +32,16 @@ register_onexit() {
     done
 }
 
+# Takes a format and arguments and prints it on STDERR.
+warn() (
+    format="${1:?'missing FORMAT'}"
+    shift
+    printf -- "run-tests: $format\\n" "$@" >&2
+)
+
 # Tries to install the package.
 test_install() (
-    name="${1:?'missing package name.'}"
+    name="${1:?'missing PACKAGE.'}"
     python3 -c 'import virtualenv' || return 0
     [ -d env ] || python3 -m virtualenv env
     . env/bin/activate
@@ -59,11 +66,16 @@ cd -P "$REPO" || exit
 mypy 2>/dev/null || ERRLVL=$?
 if [ ${ERRLVL-0} -ne 127 ]; then
     find "$NAME" -name '*.py' -print0 | {
+        warn "running mypy."
         xargs -0 mypy
+        warn "running test suite."
         python3 setup.py --quiet test
+        warn "testing installation."
         test_install "$NAME"
     }
 else
+    warn "running test suite."
     python3 setup.py --quiet test
+    warn "testing installation."
     test_install "$NAME"
 fi
