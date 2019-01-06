@@ -81,15 +81,15 @@ simply say::
 
     pip3 install sortableclasses
 
-Otherwise, download the most recent stable release (`v0.9.4rc32
-<https://github.com/odkr/sortableclasses.py/archive/v0.9.4rc32.tar.gz>`_),
+Otherwise, download the most recent stable release (`v0.9.4
+<https://github.com/odkr/sortableclasses.py/archive/v0.9.4.tar.gz>`_),
 unzip it and copy the directory `sortableclasses` into a directory in
 your Python's `sys.path`.
 
 You can do all of the above by::
 
     # Download and unpack *sortableclasses* to the current directory.
-    curl -f https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4rc32 | 
+    curl -f https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4 | 
         tar -xz
     # The command below guesses a directory to install *sortableclasses* to.
     PYPATH=$(python3 -c 'import sys; print("\n".join(sys.path))' | 
@@ -99,11 +99,11 @@ You can do all of the above by::
     echo "${PYPATH:?'Did not find a suitable directory.'}" >&2
     # Copy the directory "sortableclasses" into that directory.
     [ -d "${PYPATH:?}" ] && {
-        PACKAGE=sortableclasses.py-0.9.4rc32/sortableclasses
+        PACKAGE=sortableclasses.py-0.9.4/sortableclasses
         cp -r "$PACKAGE" "$PYPATH" || sudo cp -r "$PACKAGE" "$PYPATH"    
     }
     # Remove the downloaded files, if you want to.
-    rm -rf sortableclasses.py-0.9.4rc32
+    rm -rf sortableclasses.py-0.9.4
 
 
 Documentation
