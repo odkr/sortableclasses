@@ -230,10 +230,9 @@ if $PYTHON -c 'import virtualenv'; then
     # These instructions mirror those in README.rst
     DOWNLOAD_URL=$(printf -- "$DOWNLOAD_URL_TEMPLATE" \
         "$GITHUB_USERNAME" "$GITHUB_REPO" "$TAG")
-    curl -f -s -S "$DOWNLOAD_URL" | tar -xz
+    curl -fsS "$DOWNLOAD_URL" | tar -xz
     PYPATH=$($PYTHON -c 'import sys; print("\n".join(sys.path))' | 
         grep -v '.zip' | grep -E "$REPO" | head -n1)
-#    echo "${PYPATH:?'did not find suitable directory.'}" >&2
     [ -d "${PYPATH:?}" ] && {
         cp -r "$GITHUB_REPO-$NEW_RELEASE/$NAME" "$PYPATH"
     }
