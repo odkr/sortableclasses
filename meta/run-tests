@@ -39,8 +39,8 @@ test_install() (
     [ -d env ] || python3 -m virtualenv env
     . env/bin/activate
     register_onexit
-    EX="pip3 uninstall --yes \"$name\""
-    python3 setup.py install || return
+    EX="pip3 uninstall --quiet --yes \"$name\""
+    python3 setup.py --quiet install || return
     python3 -c "import $name"
 )
 
@@ -60,10 +60,10 @@ mypy 2>/dev/null || ERRLVL=$?
 if [ ${ERRLVL-0} -ne 127 ]; then
     find "$NAME" -name '*.py' -print0 | {
         xargs -0 mypy
-        python3 setup.py test
+        python3 setup.py --quiet test
         test_install "$NAME"
     }
 else
-    python3 setup.py test
+    python3 setup.py --quiet test
     test_install "$NAME"
 fi
