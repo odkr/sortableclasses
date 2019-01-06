@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sortableclasses &mdash; sortableclasses 0.9.4rc25 documentation</title>
+  <title>sortableclasses &mdash; sortableclasses 0.9.4rc26 documentation</title>
   
 
   
@@ -259,7 +259,7 @@
 <span class="sd">    ``SortableMeta.precedes``,  ``SortableMeta.succeeds``, and</span>
 <span class="sd">    ``SortableMeta.__lt__``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">priority</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">priority</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># type: float</span>
     <span class="sd">&quot;&quot;&quot;Number used by ``SortableMeta.__lt__``.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SortableMeta.insuccessorsof"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.insuccessorsof">[docs]</a>    <span class="k">def</span> <span class="nf">insuccessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -309,7 +309,7 @@
 <span class="sd">            &gt;&gt;&gt; B.insuccessorsof(A)</span>
 <span class="sd">            False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">chain</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">successorof</span><span class="p">)</span>
+        <span class="n">chain</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">successorof</span><span class="p">)</span> <span class="c1"># type: list</span>
         <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">chain</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">other</span> <span class="o">==</span> <span class="n">chain</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
@@ -366,7 +366,7 @@
 <span class="sd">            &gt;&gt;&gt; B.inpredecessorsof(A)</span>
 <span class="sd">            False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">chain</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">predecessorof</span><span class="p">)</span>
+        <span class="n">chain</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">predecessorof</span><span class="p">)</span> <span class="c1"># type: list</span>
         <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">chain</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">other</span> <span class="o">==</span> <span class="n">chain</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
@@ -508,6 +508,7 @@
 <span class="sd">                would have to precede *and* succeed each other.</span>
 
 <span class="sd">        For example:</span>
+
 <span class="sd">            &gt;&gt;&gt; class sortableclasses(Pluggable):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
@@ -589,7 +590,8 @@
 <span class="sd">        Returns (iterator over ``type`` instances):</span>
 <span class="sd">            All classes derived from *cls*.</span>
 
-<span class="sd">        For example::</span>
+<span class="sd">        For example:</span>
+
 <span class="sd">            &gt;&gt;&gt; class PluginBaseClass(Pluggable):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>

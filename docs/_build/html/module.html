@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>sortableclasses &mdash; sortableclasses 0.9.4rc25 documentation</title>
+  <title>sortableclasses &mdash; sortableclasses 0.9.4rc26 documentation</title>
   
 
   
@@ -198,8 +198,9 @@ base classes.</p>
 <dl class="docutils">
 <dt>Returns (iterator over <code class="docutils literal notranslate"><span class="pre">type</span></code> instances):</dt>
 <dd>All classes derived from <em>cls</em>.</dd>
-<dt>For example::</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">PluginBaseClass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+</dl>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">PluginBaseClass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">PluginBaseClass</span><span class="p">):</span>
@@ -212,8 +213,6 @@ base classes.</p>
 <span class="go">[&lt;class &#39;sortableclasses.A&#39;&gt;, &lt;class &#39;sortableclasses.APrime&#39;&gt;]</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 <p>You can sort classes returned by <code class="docutils literal notranslate"><span class="pre">getderived</span></code>.
 See <code class="docutils literal notranslate"><span class="pre">SortableMeta</span></code> for details.</p>
 <p>For example:</p>
@@ -374,8 +373,9 @@ and <code class="docutils literal notranslate"><span class="pre">predecessorof</
 would have to precede <em>and</em> succeed each other.</dd>
 </dl>
 </dd>
-<dt>For example:</dt>
-<dd><div class="first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+</dl>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
@@ -403,8 +403,6 @@ would have to precede <em>and</em> succeed each other.</dd>
 <span class="go">False</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="method">
