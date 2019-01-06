@@ -89,7 +89,7 @@ your Python's `sys.path`.
 You can do all of the above by::
 
     # Download and unpack *sortableclasses* to the current directory.
-    curl -fsS https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4rc31 | 
+    curl -f https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4rc31 | 
         tar -xz
     # The command below guesses a directory to install *sortableclasses* to.
     PYPATH=$(python3 -c 'import sys; print("\n".join(sys.path))' | 
