@@ -96,9 +96,9 @@ You can do all of the above by::
         grep -v '.zip' | grep -E "(${HOME?}|/local/)" | head -n1)
     # If the command below errors, no suitable directory was found.
     # Otherwise, it will show you where *sortableclasses* will be installed to.
-    # echo "${PYPATH:?'Did not find a suitable directory.'}" >&2
+    echo "${PYPATH:?'Did not find a suitable directory.'}" >&2
     # Copy the directory "sortableclasses" into that directory.
-    [ -d "${PYPATH?}" ] && {
+    [ -d "${PYPATH:?}" ] && {
         PACKAGE=sortableclasses.py-0.9.4rc30/sortableclasses
         cp -r "$PACKAGE" "$PYPATH" || sudo cp -r "$PACKAGE" "$PYPATH"    
     }
