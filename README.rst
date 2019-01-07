@@ -83,7 +83,7 @@ simply say::
 
 Otherwise, download the most recent stable release (`v0.9.4
 <https://github.com/odkr/sortableclasses.py/archive/v0.9.4.tar.gz>`_),
-unzip it and copy the directory `sortableclasses` into a directory in
+unzip it and copy the directory ``sortableclasses`` into a directory in
 your Python's `sys.path`.
 
 You can do all of the above by::
@@ -102,8 +102,6 @@ You can do all of the above by::
         PACKAGE=sortableclasses.py-0.9.4/sortableclasses
         cp -r "$PACKAGE" "$PYPATH" || sudo cp -r "$PACKAGE" "$PYPATH"    
     }
-    # Remove the downloaded files, if you want to.
-    rm -rf sortableclasses.py-0.9.4
 
 
 Documentation
