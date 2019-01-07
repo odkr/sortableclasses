@@ -144,5 +144,8 @@ Further Information
 GitHub:
     <https://github.com/odkr/sortableclasses.py>
 
+PyPI:
+    <https://pypi.org/project/sortableclasses/>
+
 Read the docs:
     <https://sortableclassespy.readthedocs.io/en/stable/>
