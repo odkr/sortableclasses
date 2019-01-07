@@ -4,9 +4,16 @@
 #
 # Performs various tests to make sure that releases work.
 #
-# Assumptions:
-# * There is a git tag for every release, starting with "v".
-# * GitHub is used.
+# Assumes:
+#   1. There is a file `setup.py` at the root of the repository so that:
+#      (a) `setup.py` has no side-effects upon import.
+#      (b) `setup.py` front-ends Python's setuptools.
+#      (c) `setup.py` stores all arguments to setuptools' `setup` function
+#          in a global mapping called 'METADATA'. 
+#      (d) METADATA has a member 'packages', which points to a sequence.
+#      (e) the first item of METADATA['packages'] is the name of the package.
+#   2. There is a git tag for every release, starting with "v".
+#   3. GitHub is used.
 
 set -Cefu
 

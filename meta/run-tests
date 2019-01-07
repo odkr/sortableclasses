@@ -3,11 +3,17 @@
 # Copyright 2019 Odin Kroeger
 #
 # This is a bash script, because POSIX doesn't specify whether
-# ``cmd1 | cmd2`` returns the exit status of cmd1 or cmd2.
+# `cmd1 | cmd2` returns the exit status of cmd1 or cmd2.
 #
 # Assumes:
-#   1. setup.py METADATA, packages 
-#   2. cmd1 | cmd2 returns cmd2
+#   1. `cmd1 | cmd2` returns the exit status of cmd2.
+#   2. There is a file `setup.py` at the root of the repository so that:
+#      (a) `setup.py` has no side-effects upon import.
+#      (b) `setup.py` front-ends Python's setuptools.
+#      (c) `setup.py` stores all arguments to setuptools' `setup` function
+#          in a global mapping called 'METADATA'. 
+#      (d) METADATA has a member 'packages', which points to a sequence.
+#      (e) the first item of METADATA['packages'] is the name of the package.
 
 set -Cefu
 
@@ -27,11 +33,11 @@ PIP=pip3
 # Python command to get all package names.
 # This is piped to ``xargs -0``, 
 # so use nullbytes to separate multiple paths.
-PY_PKG_CMD="from setup import METADATA
+PYTHON_PACKAGE_COMMAND="from setup import METADATA
 if 'packages' in METADATA:
     print('\\0'.join(METADATA['packages']))
-if 'scripts' in METADATA:
-    print('\\0'.join(METADATA['scripts']))"
+    if 'scripts' in METADATA:
+        print('\\0'.join(METADATA['scripts']))"
 
 
 # Functions
@@ -67,7 +73,7 @@ warn() (
 # Main
 # ====
 
-PACKAGES=$("$PYTHON" -c "$PY_PKG_CMD")
+PACKAGES=$("$PYTHON" -c "$PYTHON_PACKAGE_COMMAND")
 : "${PACKAGES:?'Could not determine package name(s).'}"
 
 REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
@@ -90,7 +96,7 @@ fi
 flake8 --help >/dev/null 2>&1 || ERRLVL=$?
 if [ ${ERRLVL-0} -ne 127 ]; then
     warn "running flake8."
-    printf -- '%s' "$PACKAGES" | xargs -0 flake8 --ignore=E252,E262
+    printf -- '%s' "$PACKAGES" | xargs -0 flake8 --ignore=E252,E262,W504
 fi
 
 pylint --help >/dev/null 2>&1 || ERRLVL=$?
@@ -115,7 +121,6 @@ if [ "${ERRLVL-0}" -eq 0 ]; then
     . env/bin/activate
     register_onexit
     export PACKAGES
-    echo "$PACKAGES"
     NAME=$(printf -- '%s' "$PACKAGES" | xargs -0 sh -c 'echo "${1:?}"' --)
     : "${NAME:?'Could not determine package name.'}"
     EX="\"$PIP\" uninstall --quiet --yes \"$NAME\""
