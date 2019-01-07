@@ -23,7 +23,12 @@ from setuptools import setup
 # =========
 
 def readme(readme_fname: str = "README.rst") -> str:
-    """Returns the contents of README.rst."""
+    """Returns the contents of README.rst.
+    
+    :param str readme_fname: Path to README.rst.
+    :returns: Contents of *readme_fname*.
+    :rtype: str
+    """
     readme_path = path.join(path.dirname(__file__), readme_fname)
     with open(readme_path) as readme_handle:
         return readme_handle.read()
@@ -56,6 +61,10 @@ METADATA = {
         'Operating System :: OS Independent'
     ],
     'url':              'https://github.com/odkr/sortableclasses/',
+    'project_urls':     {
+        'Source': 'https://github.com/odkr/sortableclasses/',
+        'Tracker': 'https://github.com/odkr/sortableclasses/issues'
+    },
     'author':           'Odin Kroeger',
     'author_email':     'xacuml@maskr.me',
     'license':          'GPL',
