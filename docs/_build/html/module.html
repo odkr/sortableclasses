@@ -195,11 +195,16 @@ base classes.</p>
 <dt id="sortableclasses.Pluggable.getderived">
 <em class="property">classmethod </em><code class="descname">getderived</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#Pluggable.getderived"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.Pluggable.getderived" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get derived classes, including indirectly derived ones.</p>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>All classes derived from <em>cls</em>
-(as iterator over <a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a> instances).</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">All classes derived from <em>cls</em></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Iterator[<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a>]</td>
+</tr>
+</tbody>
+</table>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">PluginBaseClass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
@@ -346,7 +351,7 @@ to be at a definite position.</li>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#sortableclasses.CyclicalOrderError" title="sortableclasses.CyclicalOrderError"><strong>CyclicalOrderError</strong></a> – If, according to the order defined by            the <a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a> and <a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a> attributes,            two plugin-like classes would have to precede <em>and</em>             succeed each other.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#sortableclasses.CyclicalOrderError" title="sortableclasses.CyclicalOrderError"><strong>CyclicalOrderError</strong></a> – If, according to the order defined bythe <a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a> and <a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a> attributes,two plugin-like classes would have to precede <em>and</em> succeed each other.</td>
 </tr>
 </tbody>
 </table>
@@ -402,7 +407,7 @@ where lower numbers express a higher priorit (defaults to 0).</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<a class="reference internal" href="#sortableclasses.SortableMeta" title="sortableclasses.SortableMeta"><em>SortableMeta</em></a>) – Class to compare <em>cls</em> to.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether <em>other</em> is a member of the <a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a>            attribute of <em>cls</em>, the classes <em>cls</em> is a predecessor of,            the classes these classes are predecessors of, and so on.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether <em>other</em> is a member of the <a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a>attribute of <em>cls</em>, the classes <em>cls</em> is a predecessor of,the classes these classes are predecessors of, and so on.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></td>
 </tr>
@@ -451,7 +456,7 @@ be a <a class="reference internal" href="#sortableclasses.SortableMeta.predecess
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<a class="reference internal" href="#sortableclasses.SortableMeta" title="sortableclasses.SortableMeta"><em>SortableMeta</em></a>) – Class to compare <em>cls</em> to.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether <em>other</em> is a member of the <a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a>            attribute of <em>cls</em>, the classes <em>cls</em> is a successor of,            the classes these classes are successors of, and so on.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether <em>other</em> is a member of the <a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a>attribute of <em>cls</em>, the classes <em>cls</em> is a successor of,the classes these classes are successors of, and so on.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></td>
 </tr>

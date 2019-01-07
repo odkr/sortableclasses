@@ -256,7 +256,7 @@
     <span class="sd">&quot;&quot;&quot;Number used by :meth:`__lt__`.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SortableMeta.insuccessorsof"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.insuccessorsof">[docs]</a>    <span class="k">def</span> <span class="nf">insuccessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if *cls* is in the chain of succession of *other*.</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if *cls* is in the chain of succession of *other*.</span>
 
 <span class="sd">        :param SortableMeta other: Class to compare *cls* to.</span>
 <span class="sd">        :return: Whether *other* is a member of the :attr:`successorof`\</span>
@@ -307,7 +307,7 @@
         <span class="k">return</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="SortableMeta.inpredecessorsof"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.inpredecessorsof">[docs]</a>    <span class="k">def</span> <span class="nf">inpredecessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if *cls* is in the chain of precedence of *other*.</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if *cls* is in the chain of precedence of *other*.</span>
 
 <span class="sd">        :param SortableMeta other: Class to compare *cls* to.</span>
 <span class="sd">        :return: Whether *other* is a member of the :attr:`predecessorof`\</span>
@@ -443,7 +443,7 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">inpredecessorsof</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">or</span> <span class="n">other</span><span class="o">.</span><span class="n">insuccessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="SortableMeta.__lt__"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.__lt__">[docs]</a>    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if *cls* class precedes *other*.</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if *cls* class precedes *other*.</span>
 
 <span class="sd">        :param SortableMeta other: Class to compare *cls* to.</span>
 <span class="sd">        :return: Whether *cls* precedes *other*.</span>
@@ -546,9 +546,8 @@
     <span class="k">def</span> <span class="nf">getderived</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get derived classes, including indirectly derived ones.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            All classes derived from *cls*</span>
-<span class="sd">            (as iterator over :class:`type` instances).</span>
+<span class="sd">        :returns: All classes derived from *cls*</span>
+<span class="sd">        :rtype: Iterator[:class:`type`]</span>
 
 <span class="sd">        For example:</span>
 

@@ -174,7 +174,7 @@ larger the number of transformation grows, the more difficult this is to
 maintain.</p>
 <p><em>sortableclasses</em> enables you to define each of those transformations as a
 class, assign each of them a list of predecessor and successor classes or a
-numerical priority, and then simply sort them using <code class="docutils literal notranslate"><span class="pre">sorted</span></code>.</p>
+numerical priority, and then simply sort them using <a class="reference external" href="https://docs.python.org/3/library/functions.html#sorted" title="(in Python v3.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sorted()</span></code></a>.</p>
 <p>Simply put, it enables you to write classes that are similar to plugins
 in how they function.</p>
 <p>For example:</p>
@@ -230,7 +230,7 @@ You have been warned.</p>
 </pre></div>
 </div>
 <p>Otherwise, download the most recent stable release (<a class="reference external" href="https://github.com/odkr/sortableclasses.py/archive/v0.9.4.tar.gz">v0.9.4</a>),
-unzip it and copy the directory <code class="docutils literal notranslate"><span class="pre">sortableclasses</span></code> into a directory in
+unzip it and copy the directory <code class="file docutils literal notranslate"><span class="pre">sortableclasses</span></code> into a directory in
 your Python’s <cite>sys.path</cite>.</p>
 <p>You can do all of the above by:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Download and unpack *sortableclasses* to the current directory.
@@ -241,7 +241,7 @@ PYPATH=$(python3 -c &#39;import sys; print(&quot;\n&quot;.join(sys.path))&#39; |
     grep -v &#39;.zip&#39; | grep -E &quot;(${HOME?}|/local/)&quot; | head -n1)
 # If the command below errors, no suitable directory was found.
 # Otherwise, it will show you where *sortableclasses* will be installed to.
-echo &quot;${PYPATH:?&#39;Did not find a suitable directory.&#39;}&quot; &gt;&amp;2
+echo &quot;${PYPATH:?&#39;Did not find a suitable directory.&#39;}&quot;
 # Copy the directory &quot;sortableclasses&quot; into that directory.
 [ -d &quot;${PYPATH:?}&quot; ] &amp;&amp; {
     PACKAGE=sortableclasses.py-0.9.4/sortableclasses
@@ -254,7 +254,7 @@ echo &quot;${PYPATH:?&#39;Did not find a suitable directory.&#39;}&quot; &gt;&am
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <p>You can view the reference documentation at <a class="reference external" href="https://sortableclassespy.readthedocs.io/en/stable/">Read the Docs</a> or,
 once you installed <em>sortableclasses</em>, by:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pydoc</span> <span class="n">sortableclasses</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pydoc3</span> <span class="n">sortableclasses</span>
 </pre></div>
 </div>
 </div>
