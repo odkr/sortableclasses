@@ -123,16 +123,16 @@ class SortableMeta(type):
 
         For example:
 
-            >>> class sortableclasses(Pluggable):
+            >>> class sortableclass(Pluggable):
             ...     pass
             ...
-            >>> class A(sortableclasses):
+            >>> class A(sortableclass):
             ...     pass
             ...
-            >>> class B(sortableclasses):
+            >>> class B(sortableclass):
             ...     successorof = (A,)
             ...
-            >>> class C(sortableclasses):
+            >>> class C(sortableclass):
             ...     successorof = (B,)
             ...
             >>> C.insuccessorsof(A)
@@ -140,10 +140,10 @@ class SortableMeta(type):
 
         However, different to :meth:`succeeds`:
 
-            >>> class B(sortableclasses):
+            >>> class B(sortableclass):
             ...     pass
             ...
-            >>> class A(sortableclasses):
+            >>> class A(sortableclass):
             ...     predecessorof = (B,)
             ...
             >>> B.insuccessorsof(A)
@@ -176,16 +176,16 @@ class SortableMeta(type):
 
         For example:
 
-            >>> class sortableclasses(Pluggable):
+            >>> class sortableclass(Pluggable):
             ...     pass
             ...
-            >>> class A(sortableclasses):
+            >>> class A(sortableclass):
             ...     pass
             ...
-            >>> class B(sortableclasses):
+            >>> class B(sortableclass):
             ...     predecessorof = (A,)
             ...
-            >>> class C(sortableclasses):
+            >>> class C(sortableclass):
             ...     predecessorof = (B,)
             ...
             >>> C.inpredecessorsof(A)
@@ -193,10 +193,10 @@ class SortableMeta(type):
 
         However, different to :meth:`precedes`:
 
-            >>> class B(sortableclasses):
+            >>> class B(sortableclass):
             ...     pass
             ...
-            >>> class A(sortableclasses):
+            >>> class A(sortableclass):
             ...     successorof = (B,)
             ...
             >>> B.inpredecessorsof(A)
@@ -231,13 +231,13 @@ class SortableMeta(type):
 
         For example:
 
-            >>> class sortableclasses(Pluggable):
+            >>> class sortableclass(Pluggable):
             ...     pass
             ...
-            >>> class B(sortableclasses):
+            >>> class B(sortableclass):
             ...     pass
             ...
-            >>> class A(sortableclasses):
+            >>> class A(sortableclass):
             ...     successorof = (B,)
             ...
             >>> A.succeeds(B)
@@ -245,10 +245,10 @@ class SortableMeta(type):
 
         Also, different to :meth:`insuccessorsof`:
 
-            >>> class A(sortableclasses):
+            >>> class A(sortableclass):
             ...     pass
             ...
-            >>> class B(sortableclasses):
+            >>> class B(sortableclass):
             ...     predecessorof = (A,)
             ...
             >>> A.succeeds(B)
@@ -275,13 +275,13 @@ class SortableMeta(type):
 
         For example:
 
-            >>> class sortableclasses(Pluggable):
+            >>> class sortableclass(Pluggable):
             ...     pass
             ...
-            >>> class A(sortableclasses):
+            >>> class A(sortableclass):
             ...     pass
             ...
-            >>> class B(sortableclasses):
+            >>> class B(sortableclass):
             ...     predecessorof = (A,)
             ...
             >>> B.precedes(A)
@@ -289,14 +289,15 @@ class SortableMeta(type):
 
         Also, different to :meth:`inpredecessorsof`:
 
-            >>> class B(sortableclasses):
+            >>> class B(sortableclass):
             ...     pass
             ...
-            >>> class A(sortableclasses):
+            >>> class A(sortableclass):
             ...     successorof = (B,)
             ...
             >>> B.precedes(A)
             True
+
         """
         return cls.inpredecessorsof(other) or other.insuccessorsof(cls)
 
@@ -308,10 +309,10 @@ class SortableMeta(type):
 
         * :attr:`successorof` -- A sequence of plugin-like classes that
           should precede *cls* (defaults to an empty tuple).
-        * :attr:`predecessorof` -- A sequence of plugin-like classes that should
-          succeed *cls* (defaults to an empty tuple).
-        * :attr:`priority` -- A number that expresses the priority of *cls*, where
-          lower numbers express a higher priorit (defaults to 0).
+        * :attr:`predecessorof` -- A sequence of plugin-like classes that
+          should succeed *cls* (defaults to an empty tuple).
+        * :attr:`priority` -- A number that expresses the priority of *cls*,
+          where lower numbers express a higher priorit (defaults to 0).
 
         *successorof* and *predecessorof* take precedence over *priority*.
 
@@ -329,17 +330,17 @@ class SortableMeta(type):
 
         For example:
 
-            >>> class sortableclasses(Pluggable):
+            >>> class sortableclass(Pluggable):
             ...     pass
             ...
-            >>> class A(sortableclasses):
+            >>> class A(sortableclass):
             ...     # Default priority is 0.
             ...     pass
             ...
-            >>> class B(sortableclasses):
+            >>> class B(sortableclass):
             ...     priority = -1
             ...
-            >>> class C(sortableclasses):
+            >>> class C(sortableclass):
             ...     predecessorof = (B,)
             ...     successorof = (A,)
             ...
