@@ -9,6 +9,7 @@
 
 set -Cefu
 
+
 # Configuration
 # =============
 
@@ -69,19 +70,43 @@ REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
 
 cd -P "$REPO" || exit
 
-[ "${RUN_MYPY-0}" -ne 0 ] && mypy 2>/dev/null || ERRLVL=$?
+[ "${RUN_MYPY-0}" -ne 0 ] && { mypy --help >/dev/null 2>&1 || ERRLVL=$?; }
 if [ "${RUN_MYPY-0}" -ne 0 ] && [ ${ERRLVL-0} -ne 127 ]; then
-    find "$NAME" -name '*.py' -print0 | {
         warn "running mypy."
-        xargs -0 mypy
-        warn "running test suite."
-        python3 setup.py --quiet test
-        warn "testing installation."
-        test_install "$NAME"
-    }
-else
-    warn "running test suite."
-    python3 setup.py --quiet test
-    warn "testing installation."
-    test_install "$NAME"
+        mypy "$NAME"
 fi
+
+bandit --help >/dev/null 2>&1 || ERRLVL=$?
+if [ ${ERRLVL-0} -ne 127 ]; then
+    warn "running bandit."
+    # bandit is terribly chatty and has poor output controls.    
+    bandit -r "$NAME" 2>&1 | 
+    sed -n -e '/^[[:space:]]*$/ d' \
+           -e '/^\[[a-z0-9_]*\][[:space:]]*INFO/ d;' \
+           -e '/^Run started:/ d' \
+           -e '/^-\{4,16\}/ q; /^Test results:/ q;'
+fi
+
+flake8 --help >/dev/null 2>&1 || ERRLVL=$?
+if [ ${ERRLVL-0} -ne 127 ]; then
+    warn "running flake8."
+    flake8 --ignore=E252,E262 "$NAME"
+fi
+
+pylint --help >/dev/null 2>&1 || ERRLVL=$?
+if [ ${ERRLVL-0} -ne 127 ]; then
+    warn "running pylint."
+    pylint -s n "$NAME"
+fi
+
+pydocstyle --help >/dev/null 2>&1 || ERRLVL=$?
+if [ ${ERRLVL-0} -ne 127 ]; then
+    warn "running pydocstyle."
+    pydocstyle --add-ignore=D104 "$NAME"
+fi
+
+warn "running test suite."
+python3 setup.py --quiet test
+
+warn "testing installation."
+test_install "$NAME"
