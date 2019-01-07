@@ -110,7 +110,7 @@ Documentation
 =============
 
 You can view the reference documentation at `Read the Docs
-<https://sortableclassespy.readthedocs.io/en/latest/>`_ or,
+<https://sortableclassespy.readthedocs.io/en/stable/>`_ or,
 once you installed *sortableclasses*, by::
 
     pydoc sortableclasses
