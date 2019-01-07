@@ -107,7 +107,7 @@ class SortableMeta(type):
     """Number used by :meth:`__lt__`."""
 
     def insuccessorsof(cls, other: 'SortableMeta') -> bool:
-        """Check if *cls* is in the chain of succession of *other*.
+        r"""Check if *cls* is in the chain of succession of *other*.
 
         :param SortableMeta other: Class to compare *cls* to.
         :return: Whether *other* is a member of the :attr:`successorof`\
@@ -158,7 +158,7 @@ class SortableMeta(type):
         return False
 
     def inpredecessorsof(cls, other: 'SortableMeta') -> bool:
-        """Check if *cls* is in the chain of precedence of *other*.
+        r"""Check if *cls* is in the chain of precedence of *other*.
 
         :param SortableMeta other: Class to compare *cls* to.
         :return: Whether *other* is a member of the :attr:`predecessorof`\
@@ -294,7 +294,7 @@ class SortableMeta(type):
         return cls.inpredecessorsof(other) or other.insuccessorsof(cls)
 
     def __lt__(cls, other: 'SortableMeta') -> bool:
-        """Check if *cls* class precedes *other*.
+        r"""Check if *cls* class precedes *other*.
 
         :param SortableMeta other: Class to compare *cls* to.
         :return: Whether *cls* precedes *other*.
@@ -397,9 +397,8 @@ class Pluggable(metaclass=SortableABCMeta):
     def getderived(cls):
         """Get derived classes, including indirectly derived ones.
 
-        Returns:
-            All classes derived from *cls*
-            (as iterator over :class:`type` instances).
+        :returns: All classes derived from *cls*
+        :rtype: Iterator[:class:`type`]
 
         For example:
 
