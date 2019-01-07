@@ -109,17 +109,15 @@ class SortableMeta(type):
     def insuccessorsof(cls, other: 'SortableMeta') -> bool:
         """Check if *cls* is in the chain of succession of *other*.
 
+        :param SortableMeta other: Class to compare *cls* to.
+        :return: Whether *other* is a member of the :attr:`successorof`\
+            attribute of *cls*, the classes *cls* is a successor of,\
+            the classes these classes are successors of, and so on.
+        :rtype: bool
+
         A class is in the chain of succession of another class
         if it, or one of its predecessors, declares itself to
         be a :attr:`successorof` that class.
-
-        Arguments:
-            *other* -- Class to which to compare *cls*.
-
-        Returns:
-            Whether *other* is a member of the :attr:`successorof` attribute of
-            *cls*, the classes of which *cls* is a successor, the classes of
-            which these classes are successors, and so on.
 
         For example:
 
@@ -162,17 +160,15 @@ class SortableMeta(type):
     def inpredecessorsof(cls, other: 'SortableMeta') -> bool:
         """Check if *cls* is in the chain of precedence of *other*.
 
+        :param SortableMeta other: Class to compare *cls* to.
+        :return: Whether *other* is a member of the :attr:`predecessorof`\
+            attribute of *cls*, the classes *cls* is a predecessor of,\
+            the classes these classes are predecessors of, and so on.
+        :rtype: bool
+
         A class is in the chain of precedence of another class
         if it, or one of its successors, declares itself to
         be a :attr:`predecessorof` that class.
-
-        Arguments:
-            *other* -- Class to which to compare *cls*.
-
-        Returns:
-            Whether *other* is a member of the :attr:`predecessorof` attribute
-            of *cls*, the classes of which *cls* is a predecessor, the classes
-            of which these classes are successors, and so on.
 
         For example:
 
@@ -216,13 +212,11 @@ class SortableMeta(type):
     def succeeds(cls, other: 'SortableMeta') -> bool:
         """Check if *cls* succeeds *other*.
 
+        :param SortableMeta other: Class to compare *cls* to.
+        :return: Whether *cls* succeeds *other*.
+        :rtype: bool
+
         Doesn't take priority into account.
-
-        Arguments:
-            *other* -- Class to which to compare *cls*.
-
-        Returns:
-            Whether *cls* succeeds *other*.
 
         Caveat:
             Doesn't check whether the declared order is consistent.
@@ -261,13 +255,11 @@ class SortableMeta(type):
     def precedes(cls, other: 'SortableMeta') -> bool:
         """Check if *cls* precedes *other*.
 
+        :param SortableMeta other: Class to compare *cls* to.
+        :return: Whether *cls* precedes *other*.
+        :rtype: bool
+
         Doesn't take priority into account.
-
-        Arguments:
-            *other* -- Class to which to compare *cls*.
-
-        Returns:
-            Whether *cls* precedes *other*.
 
         Caveat:
             Doesn't check whether the declared order is consistent.
@@ -304,6 +296,14 @@ class SortableMeta(type):
     def __lt__(cls, other: 'SortableMeta') -> bool:
         """Check if *cls* class precedes *other*.
 
+        :param SortableMeta other: Class to compare *cls* to.
+        :return: Whether *cls* precedes *other*.
+        :rtype: bool
+        :raises CyclicalOrderError: If, according to the order defined by\
+            the :attr:`successorof` and :attr:`predecessorof` attributes,\
+            two plugin-like classes would have to precede *and* \
+            succeed each other.
+
         Whether a plugin-like class precedes another one is
         governed by their sorting attributes:
 
@@ -315,18 +315,6 @@ class SortableMeta(type):
           where lower numbers express a higher priorit (defaults to 0).
 
         *successorof* and *predecessorof* take precedence over *priority*.
-
-        Arguments:
-            *other* -- Class to which to compare *cls*.
-
-        Returns:
-            Whether *cls* precedes *other*.
-
-        Raises:
-            :class:`CyclicalOrderError`:
-                If, according to the order defined by the *successorof*
-                and *predecessorof* attributes, two plugin-like classes
-                would have to precede *and* succeed each other.
 
         For example:
 

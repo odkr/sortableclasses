@@ -258,17 +258,15 @@
 <div class="viewcode-block" id="SortableMeta.insuccessorsof"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.insuccessorsof">[docs]</a>    <span class="k">def</span> <span class="nf">insuccessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Check if *cls* is in the chain of succession of *other*.</span>
 
+<span class="sd">        :param SortableMeta other: Class to compare *cls* to.</span>
+<span class="sd">        :return: Whether *other* is a member of the :attr:`successorof`\</span>
+<span class="sd">            attribute of *cls*, the classes *cls* is a successor of,\</span>
+<span class="sd">            the classes these classes are successors of, and so on.</span>
+<span class="sd">        :rtype: bool</span>
+
 <span class="sd">        A class is in the chain of succession of another class</span>
 <span class="sd">        if it, or one of its predecessors, declares itself to</span>
 <span class="sd">        be a :attr:`successorof` that class.</span>
-
-<span class="sd">        Arguments:</span>
-<span class="sd">            *other* -- Class to which to compare *cls*.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            Whether *other* is a member of the :attr:`successorof` attribute of</span>
-<span class="sd">            *cls*, the classes of which *cls* is a successor, the classes of</span>
-<span class="sd">            which these classes are successors, and so on.</span>
 
 <span class="sd">        For example:</span>
 
@@ -311,17 +309,15 @@
 <div class="viewcode-block" id="SortableMeta.inpredecessorsof"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.inpredecessorsof">[docs]</a>    <span class="k">def</span> <span class="nf">inpredecessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Check if *cls* is in the chain of precedence of *other*.</span>
 
+<span class="sd">        :param SortableMeta other: Class to compare *cls* to.</span>
+<span class="sd">        :return: Whether *other* is a member of the :attr:`predecessorof`\</span>
+<span class="sd">            attribute of *cls*, the classes *cls* is a predecessor of,\</span>
+<span class="sd">            the classes these classes are predecessors of, and so on.</span>
+<span class="sd">        :rtype: bool</span>
+
 <span class="sd">        A class is in the chain of precedence of another class</span>
 <span class="sd">        if it, or one of its successors, declares itself to</span>
 <span class="sd">        be a :attr:`predecessorof` that class.</span>
-
-<span class="sd">        Arguments:</span>
-<span class="sd">            *other* -- Class to which to compare *cls*.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            Whether *other* is a member of the :attr:`predecessorof` attribute</span>
-<span class="sd">            of *cls*, the classes of which *cls* is a predecessor, the classes</span>
-<span class="sd">            of which these classes are successors, and so on.</span>
 
 <span class="sd">        For example:</span>
 
@@ -365,13 +361,11 @@
 <div class="viewcode-block" id="SortableMeta.succeeds"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.succeeds">[docs]</a>    <span class="k">def</span> <span class="nf">succeeds</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Check if *cls* succeeds *other*.</span>
 
+<span class="sd">        :param SortableMeta other: Class to compare *cls* to.</span>
+<span class="sd">        :return: Whether *cls* succeeds *other*.</span>
+<span class="sd">        :rtype: bool</span>
+
 <span class="sd">        Doesn&#39;t take priority into account.</span>
-
-<span class="sd">        Arguments:</span>
-<span class="sd">            *other* -- Class to which to compare *cls*.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            Whether *cls* succeeds *other*.</span>
 
 <span class="sd">        Caveat:</span>
 <span class="sd">            Doesn&#39;t check whether the declared order is consistent.</span>
@@ -410,13 +404,11 @@
 <div class="viewcode-block" id="SortableMeta.precedes"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.precedes">[docs]</a>    <span class="k">def</span> <span class="nf">precedes</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Check if *cls* precedes *other*.</span>
 
+<span class="sd">        :param SortableMeta other: Class to compare *cls* to.</span>
+<span class="sd">        :return: Whether *cls* precedes *other*.</span>
+<span class="sd">        :rtype: bool</span>
+
 <span class="sd">        Doesn&#39;t take priority into account.</span>
-
-<span class="sd">        Arguments:</span>
-<span class="sd">            *other* -- Class to which to compare *cls*.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            Whether *cls* precedes *other*.</span>
 
 <span class="sd">        Caveat:</span>
 <span class="sd">            Doesn&#39;t check whether the declared order is consistent.</span>
@@ -453,6 +445,14 @@
 <div class="viewcode-block" id="SortableMeta.__lt__"><a class="viewcode-back" href="../module.html#sortableclasses.SortableMeta.__lt__">[docs]</a>    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;SortableMeta&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Check if *cls* class precedes *other*.</span>
 
+<span class="sd">        :param SortableMeta other: Class to compare *cls* to.</span>
+<span class="sd">        :return: Whether *cls* precedes *other*.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :raises CyclicalOrderError: If, according to the order defined by\</span>
+<span class="sd">            the :attr:`successorof` and :attr:`predecessorof` attributes,\</span>
+<span class="sd">            two plugin-like classes would have to precede *and* \</span>
+<span class="sd">            succeed each other.</span>
+
 <span class="sd">        Whether a plugin-like class precedes another one is</span>
 <span class="sd">        governed by their sorting attributes:</span>
 
@@ -464,18 +464,6 @@
 <span class="sd">          where lower numbers express a higher priorit (defaults to 0).</span>
 
 <span class="sd">        *successorof* and *predecessorof* take precedence over *priority*.</span>
-
-<span class="sd">        Arguments:</span>
-<span class="sd">            *other* -- Class to which to compare *cls*.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            Whether *cls* precedes *other*.</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            :class:`CyclicalOrderError`:</span>
-<span class="sd">                If, according to the order defined by the *successorof*</span>
-<span class="sd">                and *predecessorof* attributes, two plugin-like classes</span>
-<span class="sd">                would have to precede *and* succeed each other.</span>
 
 <span class="sd">        For example:</span>
 

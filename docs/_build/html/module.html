@@ -336,6 +336,20 @@ to be at a definite position.</li>
 <dt id="sortableclasses.SortableMeta.__lt__">
 <code class="descname">__lt__</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.__lt__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.__lt__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if <em>cls</em> class precedes <em>other</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<a class="reference internal" href="#sortableclasses.SortableMeta" title="sortableclasses.SortableMeta"><em>SortableMeta</em></a>) – Class to compare <em>cls</em> to.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether <em>cls</em> precedes <em>other</em>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#sortableclasses.CyclicalOrderError" title="sortableclasses.CyclicalOrderError"><strong>CyclicalOrderError</strong></a> – If, according to the order defined by            the <a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a> and <a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a> attributes,            two plugin-like classes would have to precede <em>and</em>             succeed each other.</td>
+</tr>
+</tbody>
+</table>
 <p>Whether a plugin-like class precedes another one is
 governed by their sorting attributes:</p>
 <ul class="simple">
@@ -347,20 +361,6 @@ should succeed <em>cls</em> (defaults to an empty tuple).</li>
 where lower numbers express a higher priorit (defaults to 0).</li>
 </ul>
 <p><em>successorof</em> and <em>predecessorof</em> take precedence over <em>priority</em>.</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
-<dt>Returns:</dt>
-<dd>Whether <em>cls</em> precedes <em>other</em>.</dd>
-<dt>Raises:</dt>
-<dd><dl class="first last docutils">
-<dt><a class="reference internal" href="#sortableclasses.CyclicalOrderError" title="sortableclasses.CyclicalOrderError"><code class="xref py py-class docutils literal notranslate"><span class="pre">CyclicalOrderError</span></code></a>:</dt>
-<dd>If, according to the order defined by the <em>successorof</em>
-and <em>predecessorof</em> attributes, two plugin-like classes
-would have to precede <em>and</em> succeed each other.</dd>
-</dl>
-</dd>
-</dl>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
@@ -396,17 +396,21 @@ would have to precede <em>and</em> succeed each other.</dd>
 <dt id="sortableclasses.SortableMeta.inpredecessorsof">
 <code class="descname">inpredecessorsof</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.inpredecessorsof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.inpredecessorsof" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if <em>cls</em> is in the chain of precedence of <em>other</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<a class="reference internal" href="#sortableclasses.SortableMeta" title="sortableclasses.SortableMeta"><em>SortableMeta</em></a>) – Class to compare <em>cls</em> to.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether <em>other</em> is a member of the <a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a>            attribute of <em>cls</em>, the classes <em>cls</em> is a predecessor of,            the classes these classes are predecessors of, and so on.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
 <p>A class is in the chain of precedence of another class
 if it, or one of its successors, declares itself to
 be a <a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a> that class.</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
-<dt>Returns:</dt>
-<dd>Whether <em>other</em> is a member of the <a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a> attribute
-of <em>cls</em>, the classes of which <em>cls</em> is a predecessor, the classes
-of which these classes are successors, and so on.</dd>
-</dl>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
@@ -441,17 +445,21 @@ of which these classes are successors, and so on.</dd>
 <dt id="sortableclasses.SortableMeta.insuccessorsof">
 <code class="descname">insuccessorsof</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.insuccessorsof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.insuccessorsof" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if <em>cls</em> is in the chain of succession of <em>other</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<a class="reference internal" href="#sortableclasses.SortableMeta" title="sortableclasses.SortableMeta"><em>SortableMeta</em></a>) – Class to compare <em>cls</em> to.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether <em>other</em> is a member of the <a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a>            attribute of <em>cls</em>, the classes <em>cls</em> is a successor of,            the classes these classes are successors of, and so on.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
 <p>A class is in the chain of succession of another class
 if it, or one of its predecessors, declares itself to
 be a <a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a> that class.</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
-<dt>Returns:</dt>
-<dd>Whether <em>other</em> is a member of the <a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a> attribute of
-<em>cls</em>, the classes of which <em>cls</em> is a successor, the classes of
-which these classes are successors, and so on.</dd>
-</dl>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
@@ -486,12 +494,20 @@ which these classes are successors, and so on.</dd>
 <dt id="sortableclasses.SortableMeta.precedes">
 <code class="descname">precedes</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.precedes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.precedes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if <em>cls</em> precedes <em>other</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<a class="reference internal" href="#sortableclasses.SortableMeta" title="sortableclasses.SortableMeta"><em>SortableMeta</em></a>) – Class to compare <em>cls</em> to.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether <em>cls</em> precedes <em>other</em>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
 <p>Doesn’t take priority into account.</p>
 <dl class="docutils">
-<dt>Arguments:</dt>
-<dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
-<dt>Returns:</dt>
-<dd>Whether <em>cls</em> precedes <em>other</em>.</dd>
 <dt>Caveat:</dt>
 <dd>Doesn’t check whether the declared order is consistent.
 That is, returns <cite>True</cite> even if <em>other</em> also precedes <em>cls</em>.</dd>
@@ -539,12 +555,20 @@ That is, returns <cite>True</cite> even if <em>other</em> also precedes <em>cls<
 <dt id="sortableclasses.SortableMeta.succeeds">
 <code class="descname">succeeds</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.succeeds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.succeeds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if <em>cls</em> succeeds <em>other</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> (<a class="reference internal" href="#sortableclasses.SortableMeta" title="sortableclasses.SortableMeta"><em>SortableMeta</em></a>) – Class to compare <em>cls</em> to.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether <em>cls</em> succeeds <em>other</em>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
 <p>Doesn’t take priority into account.</p>
 <dl class="docutils">
-<dt>Arguments:</dt>
-<dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
-<dt>Returns:</dt>
-<dd>Whether <em>cls</em> succeeds <em>other</em>.</dd>
 <dt>Caveat:</dt>
 <dd>Doesn’t check whether the declared order is consistent.
 That is, will return <cite>True</cite> even if <em>other</em> also

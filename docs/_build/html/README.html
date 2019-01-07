@@ -169,12 +169,13 @@ of classes and their priority is defined per class and at runtime.</p>
 useful if you want to take some input, apply a set of transformations, and
 output the result (i.e., if you’re writing what on UNIX-ish systems is called
 a ‘filter’). Ordinarily, you would chain those transformations as function
-calls (i.e., <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">transform_1(...(transform_n(input)))</span></code>), but the larger
-the number of transformation grows, the more difficult this is to maintain.</p>
+calls (i.e., <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">transform1(transform2(transform3(input)))</span></code>), but the
+larger the number of transformation grows, the more difficult this is to
+maintain.</p>
 <p><em>sortableclasses</em> enables you to define each of those transformations as a
 class, assign each of them a list of predecessor and successor classes or a
-numerical priority, and then simply sort them using <code class="docutils literal notranslate"><span class="pre">sorted</span></code>.
-Simply put, it enables you to write classes that are similar to plugins
+numerical priority, and then simply sort them using <code class="docutils literal notranslate"><span class="pre">sorted</span></code>.</p>
+<p>Simply put, it enables you to write classes that are similar to plugins
 in how they function.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sortableclasses</span>
