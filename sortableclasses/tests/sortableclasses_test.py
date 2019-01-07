@@ -242,7 +242,7 @@ class TestSortingAuto(unittest.TestCase):
     plugins = make_plugs(TEST_COUNT_BIG, proto, lambda i, acc: dict(
         index=i,
         priority=-i,
-        random=random.randint(0, TEST_COUNT_BIG),
+        random=random.randint(0, TEST_COUNT_BIG), #nosec
         predecessorof=(acc[i-1],) if i > 0 and i > i/TEST_COUNT_BIG else ()
     ))
 
