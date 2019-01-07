@@ -24,11 +24,11 @@ import sys
 
 from os.path import join, dirname, realpath, abspath
 
-PACKAGE_DIR = realpath(abspath(join(dirname(__file__), *('..',)*2)))
+PACKAGE_DIR = realpath(abspath(join(dirname(__file__), *('..',) * 2)))
 sys.path.insert(0, PACKAGE_DIR)
 
 # pylint: disable=C0413
-import sortableclasses
+import sortableclasses  # noqa
 
 
 # Constants
@@ -48,49 +48,68 @@ TEST_COUNT_BIG = sys.getrecursionlimit() + 1
 class PluginBase(sortableclasses.Pluggable):
     """Base class for test plugins."""
 
+
 class AutoRetrievalTestPluginBase(PluginBase):
     """Base class for automatic plugin retrieval tests."""
+
 
 class AutoSortingTestPluginBase(PluginBase):
     """Base class for automatic plugin sorting tests."""
 
+
 class ManualTestPluginBase(PluginBase):
     """Base class for manual tests."""
+
 
 class NoPluginsPluginBase(PluginBase):
     """Class for testing against an empty list of plugins."""
 
+
 class TestPluginA(ManualTestPluginBase):
     """A class for manual tests."""
+
     priority = 1
+
 
 class TestPluginB(ManualTestPluginBase):
     """A class for manual tests."""
 
+
 class TestPluginC(ManualTestPluginBase):
     """A class for manual tests."""
+
     predecessorof = (TestPluginB,)
+
 
 class TestPluginSubA1(TestPluginA):
     """A class for manual tests."""
+
     priority = 1000
+
 
 class TestPluginSubA2(TestPluginA):
     """A class for manual tests."""
+
     priority = 100
+
 
 class TestPluginSubA3(TestPluginA):
     """A class for manual tests."""
+
     priority = 10
+
 
 class CyclicalTestBase(PluginBase):
     """Base for cyclically ordered plugins."""
 
+
 class TestCyclicalA(CyclicalTestBase):
     """A plugin to be put in cyclical order."""
 
+
 class TestCyclicalB(CyclicalTestBase):
     """A plugin to be put in cyclical order."""
+
     successorof = (TestCyclicalA,)
     predecessorof = (TestCyclicalA,)
 
@@ -121,7 +140,7 @@ def make_plugs(num, plugtype, populator=lambda i, acc: dict(index=i)):
     for i in range(num):
         # Use the previous class as base half the time
         # and the actual base supplied the other half of the time.
-        base = plugins[i-1] if i > 0 and i % 2 else plugtype
+        base = plugins[i - 1] if i > 0 and i % 2 else plugtype
         name = base.__name__ + "N" + str(i)
         attrs = populator(i, plugins)
         plugins.append(type(name, (base,), attrs))
@@ -136,6 +155,7 @@ def make_plugs(num, plugtype, populator=lambda i, acc: dict(index=i)):
 
 class TestPluginRetrievalManually(unittest.TestCase):
     """Manual tests for ``sortableclasses.getderived()``."""
+
     def test_empty_type(self):
         """Test if ``getderived()`` returns right type."""
         try:
@@ -144,8 +164,10 @@ class TestPluginRetrievalManually(unittest.TestCase):
             self.fail()
 
     def test_empty_elements(self):
-        """Test if ``getderived()`` returns empty
-            for unimplemented interfaces."""
+        """Test if ``getderived()`` returns an empty sequence.
+
+        (That is, for unimplemented interfaces.)
+        """
         should = ()
         is_ = list(NoPluginsPluginBase.getderived())
         self.assertCountEqual(should, is_)
@@ -160,6 +182,7 @@ class TestPluginRetrievalManually(unittest.TestCase):
 
 class TestPluginRetrievalAuto(unittest.TestCase):
     """Automatic tests for ``getderived()``."""
+
     proto = AutoRetrievalTestPluginBase
     plugins = make_plugs(TEST_COUNT_SMALL, proto)
 
@@ -181,6 +204,7 @@ class TestPluginRetrievalAuto(unittest.TestCase):
 
 class TestSortingManually(unittest.TestCase):
     """Manual sorting tests."""
+
     def test_chainofsucession(self):
         """Test if ``insuccessorsof`` works for simple setups (1)."""
         self.assertTrue(TestPluginC.inpredecessorsof(TestPluginB))
@@ -238,12 +262,13 @@ class TestSortingManually(unittest.TestCase):
 
 class TestSortingAuto(unittest.TestCase):
     """Automatic sorting tests."""
+
     proto = AutoSortingTestPluginBase
     plugins = make_plugs(TEST_COUNT_BIG, proto, lambda i, acc: dict(
         index=i,
         priority=-i,
-        random=random.randint(0, TEST_COUNT_BIG), #nosec
-        predecessorof=(acc[i-1],) if i > 0 and i > i/TEST_COUNT_BIG else ()
+        random=random.randint(0, TEST_COUNT_BIG),  #nosec
+        predecessorof=(acc[i - 1],) if i > 0 and i > i / TEST_COUNT_BIG else ()
     ))
 
     def test_simple_sort(self):

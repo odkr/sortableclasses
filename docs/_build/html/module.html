@@ -152,7 +152,7 @@
             
   <div class="section" id="module-sortableclasses">
 <span id="sortableclasses"></span><h1>sortableclasses<a class="headerlink" href="#module-sortableclasses" title="Permalink to this headline">¶</a></h1>
-<p>Makes classes sortable by priority and precedence</p>
+<p>Makes classes sortable by priority and precedence.</p>
 <dl class="exception">
 <dt id="sortableclasses.CyclicalOrderError">
 <em class="property">exception </em><code class="descclassname">sortableclasses.</code><code class="descname">CyclicalOrderError</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#CyclicalOrderError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.CyclicalOrderError" title="Permalink to this definition">¶</a></dt>
@@ -194,10 +194,11 @@ base classes.</p>
 <dl class="classmethod">
 <dt id="sortableclasses.Pluggable.getderived">
 <em class="property">classmethod </em><code class="descname">getderived</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sortableclasses.html#Pluggable.getderived"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.Pluggable.getderived" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets derived classes, including indirectly derived ones.</p>
+<dd><p>Get derived classes, including indirectly derived ones.</p>
 <dl class="docutils">
-<dt>Returns (iterator over <code class="docutils literal notranslate"><span class="pre">type</span></code> instances):</dt>
-<dd>All classes derived from <em>cls</em>.</dd>
+<dt>Returns:</dt>
+<dd>All classes derived from <em>cls</em>
+(as iterator over <code class="docutils literal notranslate"><span class="pre">type</span></code> instances).</dd>
 </dl>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">PluginBaseClass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
@@ -334,42 +335,26 @@ to be at a definite position.</li>
 <dl class="method">
 <dt id="sortableclasses.SortableMeta.__lt__">
 <code class="descname">__lt__</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.__lt__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.__lt__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if <em>cls</em> class precedes <em>other</em>.</p>
+<dd><p>Check if <em>cls</em> class precedes <em>other</em>.</p>
 <p>Whether a plugin-like class precedes another one is
 governed by their sorting attributes:</p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">successorof</span></code> (sequence of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code> subclasses):</dt>
-<dd>A list of plugin-like classes that should precede <em>cls</em>.
-Defaults to an empty tuple.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> (sequence of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code> subclasses):</dt>
-<dd>A list of plugin-like classes that should succeed <em>cls</em>.
-Defaults to an empty tuple.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">priority</span></code> (number):</dt>
-<dd>A number that expresses the priority of <em>cls</em>, where lower
-numbers express a higher priority (and vice versa).</dd>
-</dl>
-<p><code class="docutils literal notranslate"><span class="pre">successorof</span></code> and <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> take
-precedence over <code class="docutils literal notranslate"><span class="pre">priority</span></code>.</p>
+<p><em>successorof</em> – A sequence of plugin-like classes that
+should precede <em>cls</em> (defaults to an empty tuple).
+<em>predecessorof</em> – A sequence of plugin-like classes that should
+succeed <em>cls</em> (defaults to an empty tuple).
+<em>priority</em> – A number that expresses the priority of <a href="#id1"><span class="problematic" id="id2">*</span></a>cls, where
+lower numbers express a higher priorit (defaults to 0).</p>
+<p><em>successorof</em> and <em>predecessorof</em> take precedence over <em>priority</em>.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
-<dd><dl class="first last docutils">
-<dt><em>other</em> (subclass of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>):</dt>
-<dd>Class to which to compare <em>cls</em>.</dd>
-</dl>
-</dd>
-<dt>Returns (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt>
-<dd><dl class="first last docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">True</span></code>:</dt>
-<dd>If <em>cls</em> precedes <em>other</em>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">False</span></code>:</dt>
-<dd>Otherwise.</dd>
-</dl>
-</dd>
+<dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
+<dt>Returns:</dt>
+<dd>Whether <em>cls</em> precedes <em>other</em>.</dd>
 <dt>Raises:</dt>
 <dd><dl class="first last docutils">
 <dt><code class="docutils literal notranslate"><span class="pre">CyclicalOrderError</span></code>:</dt>
-<dd>If, according to the order defined by the <code class="docutils literal notranslate"><span class="pre">successorof</span></code>
-and <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> attributes, two plugin-like classes
+<dd>If, according to the order defined by the <em>successorof</em>
+and <em>predecessorof</em> attributes, two plugin-like classes
 would have to precede <em>and</em> succeed each other.</dd>
 </dl>
 </dd>
@@ -408,27 +393,17 @@ would have to precede <em>and</em> succeed each other.</dd>
 <dl class="method">
 <dt id="sortableclasses.SortableMeta.inpredecessorsof">
 <code class="descname">inpredecessorsof</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.inpredecessorsof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.inpredecessorsof" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if <em>cls</em> is in the chain of precedence of <em>other</em>.</p>
+<dd><p>Check if <em>cls</em> is in the chain of precedence of <em>other</em>.</p>
 <p>A class is in the chain of precedence of another class
 if it, or one of its successors, declares itself to
 be a <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> that class.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
-<dd><dl class="first last docutils">
-<dt><em>other</em> (subclass of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>):</dt>
-<dd>Class to which to compare <em>cls</em>.</dd>
-</dl>
-</dd>
-<dt>Returns (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt>
-<dd><dl class="first last docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">True</span></code>:</dt>
-<dd>If <em>other</em> is a member of the <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> attribute of
-<em>cls</em>, the classes of which <em>cls</em> is a predecessor, the
-classes of which these classes are successors, and so on.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">False</span></code>:</dt>
-<dd>otherwise.</dd>
-</dl>
-</dd>
+<dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
+<dt>Returns:</dt>
+<dd>Whether <em>other</em> is a member of the <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> attribute of
+<em>cls</em>, the classes of which <em>cls</em> is a predecessor, the classes
+of which these classes are successors, and so on.</dd>
 </dl>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
@@ -463,27 +438,17 @@ classes of which these classes are successors, and so on.</dd>
 <dl class="method">
 <dt id="sortableclasses.SortableMeta.insuccessorsof">
 <code class="descname">insuccessorsof</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.insuccessorsof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.insuccessorsof" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if <em>cls</em> is in the chain of succession of <em>other</em>.</p>
+<dd><p>Check if <em>cls</em> is in the chain of succession of <em>other</em>.</p>
 <p>A class is in the chain of succession of another class
 if it, or one of its predecessors, declares itself to
 be a <code class="docutils literal notranslate"><span class="pre">successorof</span></code> that class.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
-<dd><dl class="first last docutils">
-<dt><em>other</em> (subclass of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>):</dt>
-<dd>Class to which to compare <em>cls</em>.</dd>
-</dl>
-</dd>
-<dt>Returns (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt>
-<dd><dl class="first last docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">True</span></code>:</dt>
-<dd>If <em>other</em> is a member of the <code class="docutils literal notranslate"><span class="pre">successorof</span></code> attribute of
-<em>cls</em>, the classes of which <em>cls</em> is a successor, the
-classes of which these classes are successors, and so on.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">False</span></code>:</dt>
-<dd>Otherwise.</dd>
-</dl>
-</dd>
+<dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
+<dt>Returns:</dt>
+<dd>Whether <em>other</em> is a member of the <code class="docutils literal notranslate"><span class="pre">successorof</span></code> attribute of
+<em>cls</em>, the classes of which <em>cls</em> is a successor, the classes of
+which these classes are successors, and so on.</dd>
 </dl>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
@@ -518,23 +483,13 @@ classes of which these classes are successors, and so on.</dd>
 <dl class="method">
 <dt id="sortableclasses.SortableMeta.precedes">
 <code class="descname">precedes</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.precedes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.precedes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if <em>cls</em> precedes <em>other</em>.</p>
+<dd><p>Check if <em>cls</em> precedes <em>other</em>.</p>
 <p>Doesn’t take priority into account.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
-<dd><dl class="first last docutils">
-<dt><em>other</em> (subclass of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>):</dt>
-<dd>class to which to compare <em>cls</em>.</dd>
-</dl>
-</dd>
+<dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
 <dt>Returns (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt>
-<dd><dl class="first last docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">True</span></code>:</dt>
-<dd>If <em>cls</em> precedes <em>other</em>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">False</span></code>:</dt>
-<dd>otherwise.</dd>
-</dl>
-</dd>
+<dd>Whether <em>cls</em> precedes <em>other</em>.</dd>
 <dt>Caveat:</dt>
 <dd>Doesn’t check whether the declared order is consistent.
 That is, returns <code class="docutils literal notranslate"><span class="pre">True</span></code> even if <em>other</em> also precedes <em>cls</em>.</dd>
@@ -584,23 +539,13 @@ That is, returns <code class="docutils literal notranslate"><span class="pre">Tr
 <dl class="method">
 <dt id="sortableclasses.SortableMeta.succeeds">
 <code class="descname">succeeds</code><span class="sig-paren">(</span><em>other: sortableclasses.SortableMeta</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/sortableclasses.html#SortableMeta.succeeds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta.succeeds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if <em>cls</em> succeeds <em>other</em>.</p>
+<dd><p>Check if <em>cls</em> succeeds <em>other</em>.</p>
 <p>Doesn’t take priority into account.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
-<dd><dl class="first last docutils">
-<dt><em>other</em> (subclass of <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>):</dt>
-<dd>Class to which to compare <em>cls</em>.</dd>
-</dl>
-</dd>
-<dt>Returns (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt>
-<dd><dl class="first last docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">True</span></code>:</dt>
-<dd>If <em>cls</em> succeeds <em>other</em>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">False</span></code>:</dt>
-<dd>Otherwise.</dd>
-</dl>
-</dd>
+<dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
+<dt>Returns:</dt>
+<dd>Whether <em>cls</em> succeeds <em>other</em>.</dd>
 <dt>Caveat:</dt>
 <dd>Doesn’t check whether the declared order is consistent.
 That is, will return <code class="docutils literal notranslate"><span class="pre">True</span></code> even if <em>other</em> also

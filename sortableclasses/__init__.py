@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
-"""Makes classes sortable by priority and precedence"""
+"""Makes classes sortable by priority and precedence."""
 
 import abc
 
@@ -24,18 +24,19 @@ class Error(Exception):
     """Base class for exceptions of this module."""
 
     def __init__(self, **kwargs):
-        """Initialises the error."""
+        """Initialise the error."""
         super().__init__()
         self.__dict__.update(kwargs)
 
     # pylint: disable=E1101
     def __str__(self):
-        """Uses the exception's properties to format an error message."""
+        """Format the error message (using the error's properties)."""
         return self.template.format(**vars(self))
 
 
 class CyclicalOrderError(Error):
     """Declared order is cyclical."""
+
     template = '{cls} and {other} pre- *and* succeed each other.'
 
 
@@ -95,7 +96,9 @@ class SortableMeta(type):
          3. Your order doesn't require every plugin
             to be at a definite position.
 
-    .. automethod:: __lt__"""
+    .. automethod:: __lt__
+    """
+
     predecessorof = ()
     """Sequence of classes used by ``SortableMeta.inpredecessorsof``.
 
@@ -110,27 +113,23 @@ class SortableMeta(type):
     ``SortableMeta.precedes``,  ``SortableMeta.succeeds``, and
     ``SortableMeta.__lt__``.
     """
-    priority = 0 # type: float
+    priority = 0  # type: float
     """Number used by ``SortableMeta.__lt__``."""
 
     def insuccessorsof(cls, other: 'SortableMeta') -> bool:
-        """Checks if *cls* is in the chain of succession of *other*.
+        """Check if *cls* is in the chain of succession of *other*.
 
         A class is in the chain of succession of another class
         if it, or one of its predecessors, declares itself to
         be a ``successorof`` that class.
 
         Arguments:
-            *other* (subclass of ``Pluggable``):
-                Class to which to compare *cls*.
+            *other* -- Class to which to compare *cls*.
 
-        Returns (``bool``):
-            ``True``:
-                If *other* is a member of the ``successorof`` attribute of
-                *cls*, the classes of which *cls* is a successor, the
-                classes of which these classes are successors, and so on.
-            ``False``:
-                Otherwise.
+        Returns:
+            Whether *other* is a member of the ``successorof`` attribute of
+            *cls*, the classes of which *cls* is a successor, the classes of
+            which these classes are successors, and so on.
 
         For example:
 
@@ -159,8 +158,9 @@ class SortableMeta(type):
             ...
             >>> B.insuccessorsof(A)
             False
+
         """
-        chain = list(cls.successorof) # type: list
+        chain = list(cls.successorof)  # type: list
         i = 0
         while i < len(chain):
             if other == chain[i]:
@@ -170,24 +170,19 @@ class SortableMeta(type):
         return False
 
     def inpredecessorsof(cls, other: 'SortableMeta') -> bool:
-        """Checks if *cls* is in the chain of precedence of *other*.
+        """Check if *cls* is in the chain of precedence of *other*.
 
         A class is in the chain of precedence of another class
         if it, or one of its successors, declares itself to
         be a ``predecessorof`` that class.
 
         Arguments:
-            *other* (subclass of ``Pluggable``):
-                Class to which to compare *cls*.
+            *other* -- Class to which to compare *cls*.
 
-        Returns (``bool``):
-            ``True``:
-                If *other* is a member of the ``predecessorof`` attribute of
-                *cls*, the classes of which *cls* is a predecessor, the
-                classes of which these classes are successors, and so on.
-
-            ``False``:
-                otherwise.
+        Returns:
+            Whether *other* is a member of the ``predecessorof`` attribute of
+            *cls*, the classes of which *cls* is a predecessor, the classes
+            of which these classes are successors, and so on.
 
         For example:
 
@@ -216,8 +211,9 @@ class SortableMeta(type):
             ...
             >>> B.inpredecessorsof(A)
             False
+
         """
-        chain = list(cls.predecessorof) # type: list
+        chain = list(cls.predecessorof)  # type: list
         i = 0
         while i < len(chain):
             if other == chain[i]:
@@ -228,19 +224,15 @@ class SortableMeta(type):
 
     # pylint: disable=E1120
     def succeeds(cls, other: 'SortableMeta') -> bool:
-        """Checks if *cls* succeeds *other*.
+        """Check if *cls* succeeds *other*.
 
         Doesn't take priority into account.
 
         Arguments:
-            *other* (subclass of ``Pluggable``):
-                Class to which to compare *cls*.
+            *other* -- Class to which to compare *cls*.
 
-        Returns (``bool``):
-            ``True``:
-                If *cls* succeeds *other*.
-            ``False``:
-                Otherwise.
+        Returns:
+            Whether *cls* succeeds *other*.
 
         Caveat:
             Doesn't check whether the declared order is consistent.
@@ -271,25 +263,21 @@ class SortableMeta(type):
             ...
             >>> A.succeeds(B)
             True
+
         """
-        return (cls.insuccessorsof(other) or
-                other.inpredecessorsof(cls))
+        return cls.insuccessorsof(other) or other.inpredecessorsof(cls)
 
     # pylint: disable=E1120
     def precedes(cls, other: 'SortableMeta') -> bool:
-        """Checks if *cls* precedes *other*.
+        """Check if *cls* precedes *other*.
 
         Doesn't take priority into account.
 
         Arguments:
-            *other* (subclass of ``Pluggable``):
-                class to which to compare *cls*.
+            *other* -- Class to which to compare *cls*.
 
         Returns (``bool``):
-            ``True``:
-                If *cls* precedes *other*.
-            ``False``:
-                otherwise.
+            Whether *cls* precedes *other*.
 
         Caveat:
             Doesn't check whether the declared order is consistent.
@@ -320,42 +308,33 @@ class SortableMeta(type):
             >>> B.precedes(A)
             True
         """
-        return (cls.inpredecessorsof(other) or
-                other.insuccessorsof(cls))
+        return cls.inpredecessorsof(other) or other.insuccessorsof(cls)
 
     def __lt__(cls, other: 'SortableMeta') -> bool:
-        """Checks if *cls* class precedes *other*.
+        """Check if *cls* class precedes *other*.
 
         Whether a plugin-like class precedes another one is
         governed by their sorting attributes:
 
-        ``successorof`` (sequence of ``Pluggable`` subclasses):
-            A list of plugin-like classes that should precede *cls*.
-            Defaults to an empty tuple.
-        ``predecessorof`` (sequence of ``Pluggable`` subclasses):
-            A list of plugin-like classes that should succeed *cls*.
-            Defaults to an empty tuple.
-        ``priority`` (number):
-            A number that expresses the priority of *cls*, where lower
-            numbers express a higher priority (and vice versa).
+        *successorof* -- A sequence of plugin-like classes that
+        should precede *cls* (defaults to an empty tuple).
+        *predecessorof* -- A sequence of plugin-like classes that should
+        succeed *cls* (defaults to an empty tuple).
+        *priority* -- A number that expresses the priority of *cls, where
+        lower numbers express a higher priorit (defaults to 0).
 
-        ``successorof`` and ``predecessorof`` take
-        precedence over ``priority``.
+        *successorof* and *predecessorof* take precedence over *priority*.
 
         Arguments:
-            *other* (subclass of ``Pluggable``):
-                Class to which to compare *cls*.
+            *other* -- Class to which to compare *cls*.
 
-        Returns (``bool``):
-            ``True``:
-                If *cls* precedes *other*.
-            ``False``:
-                Otherwise.
+        Returns:
+            Whether *cls* precedes *other*.
 
         Raises:
             ``CyclicalOrderError``:
-                If, according to the order defined by the ``successorof``
-                and ``predecessorof`` attributes, two plugin-like classes
+                If, according to the order defined by the *successorof*
+                and *predecessorof* attributes, two plugin-like classes
                 would have to precede *and* succeed each other.
 
         For example:
@@ -386,6 +365,7 @@ class SortableMeta(type):
             True
             >>> C < A
             False
+
         """
         if cls.precedes(other):
             if other.precedes(cls):
@@ -436,10 +416,11 @@ class Pluggable(metaclass=SortableABCMeta):
 
     @classmethod
     def getderived(cls):
-        """Gets derived classes, including indirectly derived ones.
+        """Get derived classes, including indirectly derived ones.
 
-        Returns (iterator over ``type`` instances):
-            All classes derived from *cls*.
+        Returns:
+            All classes derived from *cls*
+            (as iterator over ``type`` instances).
 
         For example:
 
@@ -474,6 +455,7 @@ class Pluggable(metaclass=SortableABCMeta):
             [<class 'sortableclasses.A'>, <class 'sortableclasses.B'>]
             >>> sorted(PluginBaseClass.getderived())
             [<class 'sortableclasses.B'>, <class 'sortableclasses.A'>]
+
         """
         for subclass in cls.__subclasses__():
             yield subclass
