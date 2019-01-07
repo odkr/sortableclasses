@@ -8,7 +8,6 @@ of classes and their priority is defined per class and at runtime.
 Copyright 2016, 2017, 2018, 2019 Odin Kroeger
 
 
-
 Use case
 ========
 
@@ -76,8 +75,7 @@ You have been warned.
 
 *sortableclasses* requires Python 3.
 
-If you have Python's `setuptools <https://pypi.org/project/setuptools/>`_,
-simply say::
+If you have Python's `pip <https://pypi.org/project/pip/>`_, simply say::
 
     pip3 install sortableclasses
 
@@ -145,4 +143,4 @@ GitHub:
     <https://github.com/odkr/sortableclasses.py>
 
 Read the docs:
-    <https://sortableclassespy.readthedocs.io/en/latest/>
+    <https://sortableclassespy.readthedocs.io/en/stable/>
