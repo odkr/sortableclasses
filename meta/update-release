@@ -15,7 +15,15 @@ set -Cefu
 # =============
 
 # The files in which to replace the old release string with the new one.
+# Takes a list of pathnames seperated by the input field seperator ($IFS).
 UPDATE_FILES='setup.py README.rst'
+
+# Whether to run tests again after updating the release name.
+# You should do this if, and only if, some of the files listed in
+# UPDATE_FILES contain project code. There is no need to do this
+# if you only update setup.py and the README. 0 means "don't",
+# every other number means "do".
+TEST_TWICE=1
 
 # The username to user to logon to PyPI.
 TWINE_USERNAME=odkr
@@ -203,7 +211,10 @@ for FILE in $UPDATE_FILES; do
 done
 unset FILE
 
-meta/run-tests || exit
+if [ "${TEST_TWICE-0}" -ne 0 ]; then
+    meta/run-tests || exit
+fi
+
 unset EX
 
 warn "updating documentation."
