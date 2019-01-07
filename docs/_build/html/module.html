@@ -169,26 +169,26 @@
 <dt id="sortableclasses.Pluggable">
 <em class="property">class </em><code class="descclassname">sortableclasses.</code><code class="descname">Pluggable</code><a class="reference internal" href="_modules/sortableclasses.html#Pluggable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.Pluggable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for simple plugin-like architectures.</p>
-<p>To use <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>:</p>
+<p>To use <a class="reference internal" href="#sortableclasses.Pluggable" title="sortableclasses.Pluggable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pluggable</span></code></a>:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>Derive a class from <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code>, call it <code class="docutils literal notranslate"><span class="pre">PBC</span></code>
+<li>Derive a class from <a class="reference internal" href="#sortableclasses.Pluggable" title="sortableclasses.Pluggable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pluggable</span></code></a>, call it <cite>PBC</cite>
 (Plugin Base Class) for the purposes of this documentation.</li>
 <li>Define an interface that plugin-like
-classes have to implement in <code class="docutils literal notranslate"><span class="pre">PBC</span></code>.</li>
-<li>Derrive classes from <code class="docutils literal notranslate"><span class="pre">PBC</span></code>.</li>
+classes have to implement in <cite>PBC</cite>.</li>
+<li>Derrive classes from <cite>PBC</cite>.</li>
 </ol>
 </div></blockquote>
-<p><em>Nota bene</em>: Classes derived from <code class="docutils literal notranslate"><span class="pre">Pluggable</span></code> are eo ipso
+<p><em>Nota bene</em>: Classes derived from <a class="reference internal" href="#sortableclasses.Pluggable" title="sortableclasses.Pluggable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pluggable</span></code></a> are eo ipso
 abstract base classes (i.e., have a metaclass derived from
-<code class="docutils literal notranslate"><span class="pre">abc.ABCMeta</span></code>).</p>
+<a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABCMeta" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABCMeta</span></code></a>).</p>
 <p>You can now get a list of all plugin-like classes, that is, all
-classes derived from <code class="docutils literal notranslate"><span class="pre">PBC</span></code>, by calling <code class="docutils literal notranslate"><span class="pre">PBC.getderived()</span></code>.
-Moreover, plugin-like classes can be sorted using <code class="docutils literal notranslate"><span class="pre">sort</span></code> and
-<code class="docutils literal notranslate"><span class="pre">sorted</span></code>. See <code class="docutils literal notranslate"><span class="pre">SortableMeta</span></code> for details.</p>
+classes derived from <cite>PBC</cite>, by calling <cite>PBC.getderived()</cite>.
+Moreover, plugin-like classes can be sorted using <a class="reference external" href="https://docs.python.org/3/library/functions.html#sorted" title="(in Python v3.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sorted()</span></code></a>.
+See <a class="reference internal" href="#sortableclasses.SortableMeta" title="sortableclasses.SortableMeta"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortableMeta</span></code></a> for details.</p>
 <p>If you have multiple types of plugins, that is, multiple plugin
 base classes, I recommend that, rather than deriving them from
-<code class="docutils literal notranslate"><span class="pre">Pluggable</span></code> directly, you define a common plugin base class
+<a class="reference internal" href="#sortableclasses.Pluggable" title="sortableclasses.Pluggable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pluggable</span></code></a> directly, you define a common plugin base class
 that does and from which you derive your remaining plugin
 base classes.</p>
 <dl class="classmethod">
@@ -198,7 +198,7 @@ base classes.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd>All classes derived from <em>cls</em>
-(as iterator over <code class="docutils literal notranslate"><span class="pre">type</span></code> instances).</dd>
+(as iterator over <a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a> instances).</dd>
 </dl>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">PluginBaseClass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
@@ -214,8 +214,8 @@ base classes.</p>
 <span class="go">[&lt;class &#39;sortableclasses.A&#39;&gt;, &lt;class &#39;sortableclasses.APrime&#39;&gt;]</span>
 </pre></div>
 </div>
-<p>You can sort classes returned by <code class="docutils literal notranslate"><span class="pre">getderived</span></code>.
-See <code class="docutils literal notranslate"><span class="pre">SortableMeta</span></code> for details.</p>
+<p>You can sort classes returned by <a class="reference internal" href="#sortableclasses.Pluggable.getderived" title="sortableclasses.Pluggable.getderived"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getderived()</span></code></a>.
+See <a class="reference internal" href="#sortableclasses.SortableMeta" title="sortableclasses.SortableMeta"><code class="xref py py-class docutils literal notranslate"><span class="pre">SortableMeta</span></code></a> for details.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">PluginBaseClass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
@@ -246,12 +246,12 @@ See <code class="docutils literal notranslate"><span class="pre">SortableMeta</s
 <dl class="class">
 <dt id="sortableclasses.SortableMeta">
 <em class="property">class </em><code class="descclassname">sortableclasses.</code><code class="descname">SortableMeta</code><a class="reference internal" href="_modules/sortableclasses.html#SortableMeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sortableclasses.SortableMeta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Classes of this type can be sorted.</p>
+<dd><p>Classes of this type can be <a class="reference external" href="https://docs.python.org/3/library/functions.html#sorted" title="(in Python v3.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sorted()</span></code></a>.</p>
 <dl class="docutils">
 <dt>Caveat:</dt>
 <dd><p class="first">On a 1,4 GHz Intel Core i5 with a load average of 1.7, sorting
 a list of plugins into an order that, one, is defined using
-<code class="docutils literal notranslate"><span class="pre">priority</span></code> for one half of the plugins and <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code>
+<a class="reference internal" href="#sortableclasses.SortableMeta.priority" title="sortableclasses.SortableMeta.priority"><code class="xref py py-attr docutils literal notranslate"><span class="pre">priority</span></code></a> for one half of the plugins and <a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a>
 for the other and where, two, swapping any two plugins will
 undo that order will take, approximately:</p>
 <table border="1" class="docutils">
@@ -298,8 +298,8 @@ undo that order will take, approximately:</p>
 <p>Also, in the ‘real world’, sequences of plugins shouldn’t be
 in pseudo-random order.</p>
 <p>On the same hardware, sorting a list of plugins into an
-order that is only defined using <code class="docutils literal notranslate"><span class="pre">priority</span></code> will
-take approximately:</p>
+order that is only defined using <a class="reference internal" href="#sortableclasses.SortableMeta.priority" title="sortableclasses.SortableMeta.priority"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SortableMeta.priority</span></code></a>
+will take approximately:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="71%" />
@@ -338,12 +338,14 @@ to be at a definite position.</li>
 <dd><p>Check if <em>cls</em> class precedes <em>other</em>.</p>
 <p>Whether a plugin-like class precedes another one is
 governed by their sorting attributes:</p>
-<p><em>successorof</em> – A sequence of plugin-like classes that
-should precede <em>cls</em> (defaults to an empty tuple).
-<em>predecessorof</em> – A sequence of plugin-like classes that should
-succeed <em>cls</em> (defaults to an empty tuple).
-<em>priority</em> – A number that expresses the priority of <a href="#id1"><span class="problematic" id="id2">*</span></a>cls, where
-lower numbers express a higher priorit (defaults to 0).</p>
+<ul class="simple">
+<li><a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a> – A sequence of plugin-like classes that
+should precede <em>cls</em> (defaults to an empty tuple).</li>
+<li><a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a> – A sequence of plugin-like classes that should
+succeed <em>cls</em> (defaults to an empty tuple).</li>
+<li><a class="reference internal" href="#sortableclasses.SortableMeta.priority" title="sortableclasses.SortableMeta.priority"><code class="xref py py-attr docutils literal notranslate"><span class="pre">priority</span></code></a> – A number that expresses the priority of <em>cls</em>, where
+lower numbers express a higher priorit (defaults to 0).</li>
+</ul>
 <p><em>successorof</em> and <em>predecessorof</em> take precedence over <em>priority</em>.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
@@ -352,7 +354,7 @@ lower numbers express a higher priorit (defaults to 0).</p>
 <dd>Whether <em>cls</em> precedes <em>other</em>.</dd>
 <dt>Raises:</dt>
 <dd><dl class="first last docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">CyclicalOrderError</span></code>:</dt>
+<dt><a class="reference internal" href="#sortableclasses.CyclicalOrderError" title="sortableclasses.CyclicalOrderError"><code class="xref py py-class docutils literal notranslate"><span class="pre">CyclicalOrderError</span></code></a>:</dt>
 <dd>If, according to the order defined by the <em>successorof</em>
 and <em>predecessorof</em> attributes, two plugin-like classes
 would have to precede <em>and</em> succeed each other.</dd>
@@ -396,13 +398,13 @@ would have to precede <em>and</em> succeed each other.</dd>
 <dd><p>Check if <em>cls</em> is in the chain of precedence of <em>other</em>.</p>
 <p>A class is in the chain of precedence of another class
 if it, or one of its successors, declares itself to
-be a <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> that class.</p>
+be a <a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a> that class.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
 <dt>Returns:</dt>
-<dd>Whether <em>other</em> is a member of the <code class="docutils literal notranslate"><span class="pre">predecessorof</span></code> attribute of
-<em>cls</em>, the classes of which <em>cls</em> is a predecessor, the classes
+<dd>Whether <em>other</em> is a member of the <a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a> attribute
+of <em>cls</em>, the classes of which <em>cls</em> is a predecessor, the classes
 of which these classes are successors, and so on.</dd>
 </dl>
 <p>For example:</p>
@@ -422,7 +424,7 @@ of which these classes are successors, and so on.</dd>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>However, different to <code class="docutils literal notranslate"><span class="pre">precedes</span></code>:</p>
+<p>However, different to <a class="reference internal" href="#sortableclasses.SortableMeta.precedes" title="sortableclasses.SortableMeta.precedes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">precedes()</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
@@ -441,12 +443,12 @@ of which these classes are successors, and so on.</dd>
 <dd><p>Check if <em>cls</em> is in the chain of succession of <em>other</em>.</p>
 <p>A class is in the chain of succession of another class
 if it, or one of its predecessors, declares itself to
-be a <code class="docutils literal notranslate"><span class="pre">successorof</span></code> that class.</p>
+be a <a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a> that class.</p>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
 <dt>Returns:</dt>
-<dd>Whether <em>other</em> is a member of the <code class="docutils literal notranslate"><span class="pre">successorof</span></code> attribute of
+<dd>Whether <em>other</em> is a member of the <a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a> attribute of
 <em>cls</em>, the classes of which <em>cls</em> is a successor, the classes of
 which these classes are successors, and so on.</dd>
 </dl>
@@ -467,7 +469,7 @@ which these classes are successors, and so on.</dd>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>However, different to <code class="docutils literal notranslate"><span class="pre">succeeds</span></code>:</p>
+<p>However, different to <a class="reference internal" href="#sortableclasses.SortableMeta.succeeds" title="sortableclasses.SortableMeta.succeeds"><code class="xref py py-meth docutils literal notranslate"><span class="pre">succeeds()</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
@@ -488,11 +490,11 @@ which these classes are successors, and so on.</dd>
 <dl class="docutils">
 <dt>Arguments:</dt>
 <dd><em>other</em> – Class to which to compare <em>cls</em>.</dd>
-<dt>Returns (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</dt>
+<dt>Returns:</dt>
 <dd>Whether <em>cls</em> precedes <em>other</em>.</dd>
 <dt>Caveat:</dt>
 <dd>Doesn’t check whether the declared order is consistent.
-That is, returns <code class="docutils literal notranslate"><span class="pre">True</span></code> even if <em>other</em> also precedes <em>cls</em>.</dd>
+That is, returns <cite>True</cite> even if <em>other</em> also precedes <em>cls</em>.</dd>
 </dl>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
@@ -508,7 +510,7 @@ That is, returns <code class="docutils literal notranslate"><span class="pre">Tr
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>Also, different to <code class="docutils literal notranslate"><span class="pre">inpredecessorsof</span></code>:</p>
+<p>Also, different to <a class="reference internal" href="#sortableclasses.SortableMeta.inpredecessorsof" title="sortableclasses.SortableMeta.inpredecessorsof"><code class="xref py py-meth docutils literal notranslate"><span class="pre">inpredecessorsof()</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
@@ -524,16 +526,13 @@ That is, returns <code class="docutils literal notranslate"><span class="pre">Tr
 <dl class="attribute">
 <dt id="sortableclasses.SortableMeta.predecessorof">
 <code class="descname">predecessorof</code><em class="property"> = ()</em><a class="headerlink" href="#sortableclasses.SortableMeta.predecessorof" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sequence of classes used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.inpredecessorsof</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">SortableMeta.inpredecessorsof</span></code> is, in turn, used by
-<code class="docutils literal notranslate"><span class="pre">SortableMeta.precedes</span></code>, <code class="docutils literal notranslate"><span class="pre">SortableMeta.succeeds</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
+<dd><p>Sequence of classes used by <a class="reference internal" href="#sortableclasses.SortableMeta.inpredecessorsof" title="sortableclasses.SortableMeta.inpredecessorsof"><code class="xref py py-meth docutils literal notranslate"><span class="pre">inpredecessorsof()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="sortableclasses.SortableMeta.priority">
 <code class="descname">priority</code><em class="property"> = 0</em><a class="headerlink" href="#sortableclasses.SortableMeta.priority" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
+<dd><p>Number used by <a class="reference internal" href="#sortableclasses.SortableMeta.__lt__" title="sortableclasses.SortableMeta.__lt__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__lt__()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -548,7 +547,7 @@ That is, returns <code class="docutils literal notranslate"><span class="pre">Tr
 <dd>Whether <em>cls</em> succeeds <em>other</em>.</dd>
 <dt>Caveat:</dt>
 <dd>Doesn’t check whether the declared order is consistent.
-That is, will return <code class="docutils literal notranslate"><span class="pre">True</span></code> even if <em>other</em> also
+That is, will return <cite>True</cite> even if <em>other</em> also
 succeeds <em>cls</em>.</dd>
 </dl>
 <p>For example:</p>
@@ -565,7 +564,7 @@ succeeds <em>cls</em>.</dd>
 <span class="go">True</span>
 </pre></div>
 </div>
-<p>Also, different to <code class="docutils literal notranslate"><span class="pre">insuccessorsof</span></code>:</p>
+<p>Also, different to <a class="reference internal" href="#sortableclasses.SortableMeta.insuccessorsof" title="sortableclasses.SortableMeta.insuccessorsof"><code class="xref py py-meth docutils literal notranslate"><span class="pre">insuccessorsof()</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
@@ -581,10 +580,7 @@ succeeds <em>cls</em>.</dd>
 <dl class="attribute">
 <dt id="sortableclasses.SortableMeta.successorof">
 <code class="descname">successorof</code><em class="property"> = ()</em><a class="headerlink" href="#sortableclasses.SortableMeta.successorof" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sequence of classes used by <code class="docutils literal notranslate"><span class="pre">SortableMeta.insuccessorsof</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">SortableMeta.insuccessorsof</span></code> is, in turn, used by
-<code class="docutils literal notranslate"><span class="pre">SortableMeta.precedes</span></code>,  <code class="docutils literal notranslate"><span class="pre">SortableMeta.succeeds</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">SortableMeta.__lt__</span></code>.</p>
+<dd><p>Sequence of classes used by <a class="reference internal" href="#sortableclasses.SortableMeta.insuccessorsof" title="sortableclasses.SortableMeta.insuccessorsof"><code class="xref py py-meth docutils literal notranslate"><span class="pre">insuccessorsof()</span></code></a>.</p>
 </dd></dl>
 
 </dd></dl>

@@ -30,7 +30,7 @@ class Error(Exception):
 
     # pylint: disable=E1101
     def __str__(self):
-        """Format the error message (using the error's properties)."""
+        """Return the formatted error message."""
         return self.template.format(**vars(self))
 
 
@@ -44,12 +44,12 @@ class CyclicalOrderError(Error):
 # =======
 
 class SortableMeta(type):
-    """Classes of this type can be sorted.
+    """Classes of this type can be :func:`sorted`.
 
     Caveat:
         On a 1,4 GHz Intel Core i5 with a load average of 1.7, sorting
         a list of plugins into an order that, one, is defined using
-        ``priority`` for one half of the plugins and ``predecessorof``
+        :attr:`priority` for one half of the plugins and :attr:`predecessorof`
         for the other and where, two, swapping any two plugins will
         undo that order will take, approximately:
 
@@ -74,8 +74,8 @@ class SortableMeta(type):
         in pseudo-random order.
 
         On the same hardware, sorting a list of plugins into an
-        order that is only defined using ``priority`` will
-        take approximately:
+        order that is only defined using :attr:`SortableMeta.priority`
+        will take approximately:
 
         ============  =====
         Plugin count   Time
@@ -100,34 +100,24 @@ class SortableMeta(type):
     """
 
     predecessorof = ()
-    """Sequence of classes used by ``SortableMeta.inpredecessorsof``.
-
-    ``SortableMeta.inpredecessorsof`` is, in turn, used by
-    ``SortableMeta.precedes``, ``SortableMeta.succeeds``, and
-    ``SortableMeta.__lt__``.
-    """
+    """Sequence of classes used by :meth:`inpredecessorsof`."""
     successorof = ()
-    """Sequence of classes used by ``SortableMeta.insuccessorsof``.
-
-    ``SortableMeta.insuccessorsof`` is, in turn, used by
-    ``SortableMeta.precedes``,  ``SortableMeta.succeeds``, and
-    ``SortableMeta.__lt__``.
-    """
+    """Sequence of classes used by :meth:`insuccessorsof`."""
     priority = 0  # type: float
-    """Number used by ``SortableMeta.__lt__``."""
+    """Number used by :meth:`__lt__`."""
 
     def insuccessorsof(cls, other: 'SortableMeta') -> bool:
         """Check if *cls* is in the chain of succession of *other*.
 
         A class is in the chain of succession of another class
         if it, or one of its predecessors, declares itself to
-        be a ``successorof`` that class.
+        be a :attr:`successorof` that class.
 
         Arguments:
             *other* -- Class to which to compare *cls*.
 
         Returns:
-            Whether *other* is a member of the ``successorof`` attribute of
+            Whether *other* is a member of the :attr:`successorof` attribute of
             *cls*, the classes of which *cls* is a successor, the classes of
             which these classes are successors, and so on.
 
@@ -148,7 +138,7 @@ class SortableMeta(type):
             >>> C.insuccessorsof(A)
             True
 
-        However, different to ``succeeds``:
+        However, different to :meth:`succeeds`:
 
             >>> class B(sortableclasses):
             ...     pass
@@ -174,14 +164,14 @@ class SortableMeta(type):
 
         A class is in the chain of precedence of another class
         if it, or one of its successors, declares itself to
-        be a ``predecessorof`` that class.
+        be a :attr:`predecessorof` that class.
 
         Arguments:
             *other* -- Class to which to compare *cls*.
 
         Returns:
-            Whether *other* is a member of the ``predecessorof`` attribute of
-            *cls*, the classes of which *cls* is a predecessor, the classes
+            Whether *other* is a member of the :attr:`predecessorof` attribute
+            of *cls*, the classes of which *cls* is a predecessor, the classes
             of which these classes are successors, and so on.
 
         For example:
@@ -201,7 +191,7 @@ class SortableMeta(type):
             >>> C.inpredecessorsof(A)
             True
 
-        However, different to ``precedes``:
+        However, different to :meth:`precedes`:
 
             >>> class B(sortableclasses):
             ...     pass
@@ -236,7 +226,7 @@ class SortableMeta(type):
 
         Caveat:
             Doesn't check whether the declared order is consistent.
-            That is, will return ``True`` even if *other* also
+            That is, will return `True` even if *other* also
             succeeds *cls*.
 
         For example:
@@ -253,7 +243,7 @@ class SortableMeta(type):
             >>> A.succeeds(B)
             True
 
-        Also, different to ``insuccessorsof``:
+        Also, different to :meth:`insuccessorsof`:
 
             >>> class A(sortableclasses):
             ...     pass
@@ -276,12 +266,12 @@ class SortableMeta(type):
         Arguments:
             *other* -- Class to which to compare *cls*.
 
-        Returns (``bool``):
+        Returns:
             Whether *cls* precedes *other*.
 
         Caveat:
             Doesn't check whether the declared order is consistent.
-            That is, returns ``True`` even if *other* also precedes *cls*.
+            That is, returns `True` even if *other* also precedes *cls*.
 
         For example:
 
@@ -297,7 +287,7 @@ class SortableMeta(type):
             >>> B.precedes(A)
             True
 
-        Also, different to ``inpredecessorsof``:
+        Also, different to :meth:`inpredecessorsof`:
 
             >>> class B(sortableclasses):
             ...     pass
@@ -316,12 +306,12 @@ class SortableMeta(type):
         Whether a plugin-like class precedes another one is
         governed by their sorting attributes:
 
-        *successorof* -- A sequence of plugin-like classes that
-        should precede *cls* (defaults to an empty tuple).
-        *predecessorof* -- A sequence of plugin-like classes that should
-        succeed *cls* (defaults to an empty tuple).
-        *priority* -- A number that expresses the priority of *cls, where
-        lower numbers express a higher priorit (defaults to 0).
+        * :attr:`successorof` -- A sequence of plugin-like classes that
+          should precede *cls* (defaults to an empty tuple).
+        * :attr:`predecessorof` -- A sequence of plugin-like classes that should
+          succeed *cls* (defaults to an empty tuple).
+        * :attr:`priority` -- A number that expresses the priority of *cls*, where
+          lower numbers express a higher priorit (defaults to 0).
 
         *successorof* and *predecessorof* take precedence over *priority*.
 
@@ -332,7 +322,7 @@ class SortableMeta(type):
             Whether *cls* precedes *other*.
 
         Raises:
-            ``CyclicalOrderError``:
+            :class:`CyclicalOrderError`:
                 If, according to the order defined by the *successorof*
                 and *predecessorof* attributes, two plugin-like classes
                 would have to precede *and* succeed each other.
@@ -388,28 +378,28 @@ class SortableABCMeta(abc.ABCMeta, SortableMeta):
 class Pluggable(metaclass=SortableABCMeta):
     """Base class for simple plugin-like architectures.
 
-    To use ``Pluggable``:
+    To use :class:`Pluggable`:
 
-     1. Derive a class from ``Pluggable``, call it ``PBC``
+     1. Derive a class from :class:`Pluggable`, call it `PBC`
         (Plugin Base Class) for the purposes of this documentation.
 
      2. Define an interface that plugin-like
-        classes have to implement in ``PBC``.
+        classes have to implement in `PBC`.
 
-     3. Derrive classes from ``PBC``.
+     3. Derrive classes from `PBC`.
 
-    *Nota bene*: Classes derived from ``Pluggable`` are eo ipso
+    *Nota bene*: Classes derived from :class:`Pluggable` are eo ipso
     abstract base classes (i.e., have a metaclass derived from
-    ``abc.ABCMeta``).
+    :class:`abc.ABCMeta`).
 
     You can now get a list of all plugin-like classes, that is, all
-    classes derived from ``PBC``, by calling ``PBC.getderived()``.
-    Moreover, plugin-like classes can be sorted using ``sort`` and
-    ``sorted``. See ``SortableMeta`` for details.
+    classes derived from `PBC`, by calling `PBC.getderived()`.
+    Moreover, plugin-like classes can be sorted using :func:`sorted`.
+    See :class:`SortableMeta` for details.
 
     If you have multiple types of plugins, that is, multiple plugin
     base classes, I recommend that, rather than deriving them from
-    ``Pluggable`` directly, you define a common plugin base class
+    :class:`Pluggable` directly, you define a common plugin base class
     that does and from which you derive your remaining plugin
     base classes.
     """
@@ -420,7 +410,7 @@ class Pluggable(metaclass=SortableABCMeta):
 
         Returns:
             All classes derived from *cls*
-            (as iterator over ``type`` instances).
+            (as iterator over :class:`type` instances).
 
         For example:
 
@@ -436,8 +426,8 @@ class Pluggable(metaclass=SortableABCMeta):
             >>> list(PluginBaseClass.getderived())
             [<class 'sortableclasses.A'>, <class 'sortableclasses.APrime'>]
 
-        You can sort classes returned by ``getderived``.
-        See ``SortableMeta`` for details.
+        You can sort classes returned by :meth:`getderived`.
+        See :class:`SortableMeta` for details.
 
         For example:
 
