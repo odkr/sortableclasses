@@ -15,12 +15,14 @@ Use case
 useful if you want to take some input, apply a set of transformations, and
 output the result (i.e., if you're writing what on UNIX-ish systems is called
 a 'filter'). Ordinarily, you would chain those transformations as function
-calls (i.e., ``return transform_1(...(transform_n(input)))``), but the larger
-the number of transformation grows, the more difficult this is to maintain.
+calls (i.e., ``return transform1(transform2(transform3(input)))``), but the
+larger the number of transformation grows, the more difficult this is to
+maintain.
 
 *sortableclasses* enables you to define each of those transformations as a
 class, assign each of them a list of predecessor and successor classes or a
-numerical priority, and then simply sort them using ``sort`` or ``sorted``.
+numerical priority, and then simply sort them using :func:`sorted`.
+
 Simply put, it enables you to write classes that are similar to plugins
 in how they function.
 
@@ -81,7 +83,7 @@ If you have Python's `pip <https://pypi.org/project/pip/>`_, simply say::
 
 Otherwise, download the most recent stable release (`v0.9.4
 <https://github.com/odkr/sortableclasses.py/archive/v0.9.4.tar.gz>`_),
-unzip it and copy the directory ``sortableclasses`` into a directory in
+unzip it and copy the directory :file:`sortableclasses` into a directory in
 your Python's `sys.path`.
 
 You can do all of the above by::
@@ -94,7 +96,7 @@ You can do all of the above by::
         grep -v '.zip' | grep -E "(${HOME?}|/local/)" | head -n1)
     # If the command below errors, no suitable directory was found.
     # Otherwise, it will show you where *sortableclasses* will be installed to.
-    echo "${PYPATH:?'Did not find a suitable directory.'}" >&2
+    echo "${PYPATH:?'Did not find a suitable directory.'}"
     # Copy the directory "sortableclasses" into that directory.
     [ -d "${PYPATH:?}" ] && {
         PACKAGE=sortableclasses.py-0.9.4/sortableclasses
@@ -109,7 +111,7 @@ You can view the reference documentation at `Read the Docs
 <https://sortableclassespy.readthedocs.io/en/stable/>`_ or,
 once you installed *sortableclasses*, by::
 
-    pydoc sortableclasses
+    pydoc3 sortableclasses
 
 
 Contact
