@@ -1,11 +1,13 @@
-#!/bin/sh
-# run-tests - Runs various tests to make sure a package works.
+#!/bin/bash
+# run-tests - Runs various tests and linters.
 # Copyright 2019 Odin Kroeger
 #
-# In this order:
-#   1. Runs MyPy on every python file of the package.
-#   2. Run the package's test suite.
-#   3. Checks if the package can be installed and uninstalled.
+# This is a bash script, because POSIX doesn't specify whether
+# ``cmd1 | cmd2`` returns the exit status of cmd1 or cmd2.
+#
+# Assumes:
+#   1. setup.py METADATA, packages 
+#   2. cmd1 | cmd2 returns cmd2
 
 set -Cefu
 
@@ -15,6 +17,21 @@ set -Cefu
 
 # Whether to run mypy. 0 means "don't", every other number means "do". 
 RUN_MYPY=1
+
+# The name of the Python interpreter to use.
+PYTHON=python3
+
+# The name of the pip utility to use.
+PIP=pip3
+
+# Python command to get all package names.
+# This is piped to ``xargs -0``, 
+# so use nullbytes to separate multiple paths.
+PY_PKG_CMD="from setup import METADATA
+if 'packages' in METADATA:
+    print('\\0'.join(METADATA['packages']))
+if 'scripts' in METADATA:
+    print('\\0'.join(METADATA['scripts']))"
 
 
 # Functions
@@ -46,24 +63,12 @@ warn() (
     printf -- "run-tests: $format\\n" "$@" >&2
 )
 
-# Tries to install the package.
-test_install() (
-    name="${1:?'missing PACKAGE.'}"
-    python3 -c 'import virtualenv' || return 0
-    [ -d env ] || python3 -m virtualenv env
-    . env/bin/activate
-    register_onexit
-    EX="pip3 uninstall --quiet --yes \"$name\""
-    python3 setup.py --quiet install || return
-    python3 -c "import $name"
-)
-
 
 # Main
 # ====
 
-NAME=$(python3 -c 'import sys, setup; print(setup.NAME)')
-: "${NAME:?'Could not determine package name.'}"
+PACKAGES=$("$PYTHON" -c "$PY_PKG_CMD")
+: "${PACKAGES:?'Could not determine package name(s).'}"
 
 REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
 : "${REPO:?'Could not determine repository path.'}"
@@ -73,40 +78,47 @@ cd -P "$REPO" || exit
 [ "${RUN_MYPY-0}" -ne 0 ] && { mypy --help >/dev/null 2>&1 || ERRLVL=$?; }
 if [ "${RUN_MYPY-0}" -ne 0 ] && [ ${ERRLVL-0} -ne 127 ]; then
         warn "running mypy."
-        mypy "$NAME"
+        printf -- '%s' "$PACKAGES" | xargs -0 mypy
 fi
 
 bandit --help >/dev/null 2>&1 || ERRLVL=$?
 if [ ${ERRLVL-0} -ne 127 ]; then
     warn "running bandit."
-    # bandit is terribly chatty and has poor output controls.    
-    bandit -r "$NAME" 2>&1 | 
-    sed -n -e '/^[[:space:]]*$/ d' \
-           -e '/^\[[a-z0-9_]*\][[:space:]]*INFO/ d;' \
-           -e '/^Run started:/ d' \
-           -e '/^-\{4,16\}/ q; /^Test results:/ q;'
+    printf -- '%s' "$PACKAGES" | xargs -0 bandit -r
 fi
 
 flake8 --help >/dev/null 2>&1 || ERRLVL=$?
 if [ ${ERRLVL-0} -ne 127 ]; then
     warn "running flake8."
-    flake8 --ignore=E252,E262 "$NAME"
+    printf -- '%s' "$PACKAGES" | xargs -0 flake8 --ignore=E252,E262
 fi
 
 pylint --help >/dev/null 2>&1 || ERRLVL=$?
 if [ ${ERRLVL-0} -ne 127 ]; then
     warn "running pylint."
-    pylint -s n "$NAME"
+    printf -- '%s' "$PACKAGES" | xargs -0 pylint -s n
 fi
 
 pydocstyle --help >/dev/null 2>&1 || ERRLVL=$?
 if [ ${ERRLVL-0} -ne 127 ]; then
     warn "running pydocstyle."
-    pydocstyle --add-ignore=D104 "$NAME"
+    printf -- '%s' "$PACKAGES" | xargs -0 pydocstyle --add-ignore=D104
 fi
 
 warn "running test suite."
-python3 setup.py --quiet test
+"$PYTHON" setup.py --quiet test
 
-warn "testing installation."
-test_install "$NAME"
+"$PYTHON" -c 'import virtualenv' 2>/dev/null || ERRLVL=$?
+if [ "${ERRLVL-0}" -eq 0 ]; then
+    warn "testing installation."
+    [ -d env ] || "$PYTHON" -m virtualenv env
+    . env/bin/activate
+    register_onexit
+    export PACKAGES
+    echo "$PACKAGES"
+    NAME=$(printf -- '%s' "$PACKAGES" | xargs -0 sh -c 'echo "${1:?}"' --)
+    : "${NAME:?'Could not determine package name.'}"
+    EX="\"$PIP\" uninstall --quiet --yes \"$NAME\""
+    "$PYTHON" setup.py --quiet install || return
+    "$PYTHON" -c "import $NAME"
+fi
