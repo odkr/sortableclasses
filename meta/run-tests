@@ -9,6 +9,12 @@
 
 set -Cefu
 
+# Configuration
+# =============
+
+# Whether to run mypy. 0 means "don't", every other number means "do". 
+RUN_MYPY=1
+
 
 # Functions
 # =========
@@ -63,8 +69,8 @@ REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
 
 cd -P "$REPO" || exit
 
-mypy 2>/dev/null || ERRLVL=$?
-if [ ${ERRLVL-0} -ne 127 ]; then
+[ "${RUN_MYPY-0}" -ne 0 ] && mypy 2>/dev/null || ERRLVL=$?
+if [ "${RUN_MYPY-0}" -ne 0 ] && [ ${ERRLVL-0} -ne 127 ]; then
     find "$NAME" -name '*.py' -print0 | {
         warn "running mypy."
         xargs -0 mypy
