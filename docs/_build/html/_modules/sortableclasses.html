@@ -272,16 +272,16 @@
 
 <span class="sd">        For example:</span>
 
-<span class="sd">            &gt;&gt;&gt; class sortableclasses(Pluggable):</span>
+<span class="sd">            &gt;&gt;&gt; class sortableclass(Pluggable):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class A(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class A(sortableclass):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class B(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class B(sortableclass):</span>
 <span class="sd">            ...     successorof = (A,)</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class C(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class C(sortableclass):</span>
 <span class="sd">            ...     successorof = (B,)</span>
 <span class="sd">            ...</span>
 <span class="sd">            &gt;&gt;&gt; C.insuccessorsof(A)</span>
@@ -289,10 +289,10 @@
 
 <span class="sd">        However, different to :meth:`succeeds`:</span>
 
-<span class="sd">            &gt;&gt;&gt; class B(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class B(sortableclass):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class A(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class A(sortableclass):</span>
 <span class="sd">            ...     predecessorof = (B,)</span>
 <span class="sd">            ...</span>
 <span class="sd">            &gt;&gt;&gt; B.insuccessorsof(A)</span>
@@ -325,16 +325,16 @@
 
 <span class="sd">        For example:</span>
 
-<span class="sd">            &gt;&gt;&gt; class sortableclasses(Pluggable):</span>
+<span class="sd">            &gt;&gt;&gt; class sortableclass(Pluggable):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class A(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class A(sortableclass):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class B(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class B(sortableclass):</span>
 <span class="sd">            ...     predecessorof = (A,)</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class C(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class C(sortableclass):</span>
 <span class="sd">            ...     predecessorof = (B,)</span>
 <span class="sd">            ...</span>
 <span class="sd">            &gt;&gt;&gt; C.inpredecessorsof(A)</span>
@@ -342,10 +342,10 @@
 
 <span class="sd">        However, different to :meth:`precedes`:</span>
 
-<span class="sd">            &gt;&gt;&gt; class B(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class B(sortableclass):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class A(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class A(sortableclass):</span>
 <span class="sd">            ...     successorof = (B,)</span>
 <span class="sd">            ...</span>
 <span class="sd">            &gt;&gt;&gt; B.inpredecessorsof(A)</span>
@@ -380,13 +380,13 @@
 
 <span class="sd">        For example:</span>
 
-<span class="sd">            &gt;&gt;&gt; class sortableclasses(Pluggable):</span>
+<span class="sd">            &gt;&gt;&gt; class sortableclass(Pluggable):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class B(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class B(sortableclass):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class A(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class A(sortableclass):</span>
 <span class="sd">            ...     successorof = (B,)</span>
 <span class="sd">            ...</span>
 <span class="sd">            &gt;&gt;&gt; A.succeeds(B)</span>
@@ -394,10 +394,10 @@
 
 <span class="sd">        Also, different to :meth:`insuccessorsof`:</span>
 
-<span class="sd">            &gt;&gt;&gt; class A(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class A(sortableclass):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class B(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class B(sortableclass):</span>
 <span class="sd">            ...     predecessorof = (A,)</span>
 <span class="sd">            ...</span>
 <span class="sd">            &gt;&gt;&gt; A.succeeds(B)</span>
@@ -424,13 +424,13 @@
 
 <span class="sd">        For example:</span>
 
-<span class="sd">            &gt;&gt;&gt; class sortableclasses(Pluggable):</span>
+<span class="sd">            &gt;&gt;&gt; class sortableclass(Pluggable):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class A(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class A(sortableclass):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class B(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class B(sortableclass):</span>
 <span class="sd">            ...     predecessorof = (A,)</span>
 <span class="sd">            ...</span>
 <span class="sd">            &gt;&gt;&gt; B.precedes(A)</span>
@@ -438,14 +438,15 @@
 
 <span class="sd">        Also, different to :meth:`inpredecessorsof`:</span>
 
-<span class="sd">            &gt;&gt;&gt; class B(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class B(sortableclass):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class A(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class A(sortableclass):</span>
 <span class="sd">            ...     successorof = (B,)</span>
 <span class="sd">            ...</span>
 <span class="sd">            &gt;&gt;&gt; B.precedes(A)</span>
 <span class="sd">            True</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">inpredecessorsof</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">or</span> <span class="n">other</span><span class="o">.</span><span class="n">insuccessorsof</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span></div>
 
@@ -457,10 +458,10 @@
 
 <span class="sd">        * :attr:`successorof` -- A sequence of plugin-like classes that</span>
 <span class="sd">          should precede *cls* (defaults to an empty tuple).</span>
-<span class="sd">        * :attr:`predecessorof` -- A sequence of plugin-like classes that should</span>
-<span class="sd">          succeed *cls* (defaults to an empty tuple).</span>
-<span class="sd">        * :attr:`priority` -- A number that expresses the priority of *cls*, where</span>
-<span class="sd">          lower numbers express a higher priorit (defaults to 0).</span>
+<span class="sd">        * :attr:`predecessorof` -- A sequence of plugin-like classes that</span>
+<span class="sd">          should succeed *cls* (defaults to an empty tuple).</span>
+<span class="sd">        * :attr:`priority` -- A number that expresses the priority of *cls*,</span>
+<span class="sd">          where lower numbers express a higher priorit (defaults to 0).</span>
 
 <span class="sd">        *successorof* and *predecessorof* take precedence over *priority*.</span>
 
@@ -478,17 +479,17 @@
 
 <span class="sd">        For example:</span>
 
-<span class="sd">            &gt;&gt;&gt; class sortableclasses(Pluggable):</span>
+<span class="sd">            &gt;&gt;&gt; class sortableclass(Pluggable):</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class A(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class A(sortableclass):</span>
 <span class="sd">            ...     # Default priority is 0.</span>
 <span class="sd">            ...     pass</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class B(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class B(sortableclass):</span>
 <span class="sd">            ...     priority = -1</span>
 <span class="sd">            ...</span>
-<span class="sd">            &gt;&gt;&gt; class C(sortableclasses):</span>
+<span class="sd">            &gt;&gt;&gt; class C(sortableclass):</span>
 <span class="sd">            ...     predecessorof = (B,)</span>
 <span class="sd">            ...     successorof = (A,)</span>
 <span class="sd">            ...</span>

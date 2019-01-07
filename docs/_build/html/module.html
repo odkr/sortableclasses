@@ -341,10 +341,10 @@ governed by their sorting attributes:</p>
 <ul class="simple">
 <li><a class="reference internal" href="#sortableclasses.SortableMeta.successorof" title="sortableclasses.SortableMeta.successorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">successorof</span></code></a> – A sequence of plugin-like classes that
 should precede <em>cls</em> (defaults to an empty tuple).</li>
-<li><a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a> – A sequence of plugin-like classes that should
-succeed <em>cls</em> (defaults to an empty tuple).</li>
-<li><a class="reference internal" href="#sortableclasses.SortableMeta.priority" title="sortableclasses.SortableMeta.priority"><code class="xref py py-attr docutils literal notranslate"><span class="pre">priority</span></code></a> – A number that expresses the priority of <em>cls</em>, where
-lower numbers express a higher priorit (defaults to 0).</li>
+<li><a class="reference internal" href="#sortableclasses.SortableMeta.predecessorof" title="sortableclasses.SortableMeta.predecessorof"><code class="xref py py-attr docutils literal notranslate"><span class="pre">predecessorof</span></code></a> – A sequence of plugin-like classes that
+should succeed <em>cls</em> (defaults to an empty tuple).</li>
+<li><a class="reference internal" href="#sortableclasses.SortableMeta.priority" title="sortableclasses.SortableMeta.priority"><code class="xref py py-attr docutils literal notranslate"><span class="pre">priority</span></code></a> – A number that expresses the priority of <em>cls</em>,
+where lower numbers express a higher priorit (defaults to 0).</li>
 </ul>
 <p><em>successorof</em> and <em>predecessorof</em> take precedence over <em>priority</em>.</p>
 <dl class="docutils">
@@ -362,17 +362,17 @@ would have to precede <em>and</em> succeed each other.</dd>
 </dd>
 </dl>
 <p>For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="c1"># Default priority is 0.</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">priority</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
 <span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,)</span>
 <span class="gp">...</span>
@@ -408,16 +408,16 @@ of <em>cls</em>, the classes of which <em>cls</em> is a predecessor, the classes
 of which these classes are successors, and so on.</dd>
 </dl>
 <p>For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,)</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="o">.</span><span class="n">inpredecessorsof</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -425,10 +425,10 @@ of which these classes are successors, and so on.</dd>
 </pre></div>
 </div>
 <p>However, different to <a class="reference internal" href="#sortableclasses.SortableMeta.precedes" title="sortableclasses.SortableMeta.precedes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">precedes()</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">B</span><span class="o">.</span><span class="n">inpredecessorsof</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -453,16 +453,16 @@ be a <a class="reference internal" href="#sortableclasses.SortableMeta.successor
 which these classes are successors, and so on.</dd>
 </dl>
 <p>For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,)</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="o">.</span><span class="n">insuccessorsof</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -470,10 +470,10 @@ which these classes are successors, and so on.</dd>
 </pre></div>
 </div>
 <p>However, different to <a class="reference internal" href="#sortableclasses.SortableMeta.succeeds" title="sortableclasses.SortableMeta.succeeds"><code class="xref py py-meth docutils literal notranslate"><span class="pre">succeeds()</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">B</span><span class="o">.</span><span class="n">insuccessorsof</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -497,13 +497,13 @@ which these classes are successors, and so on.</dd>
 That is, returns <cite>True</cite> even if <em>other</em> also precedes <em>cls</em>.</dd>
 </dl>
 <p>For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,)</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">B</span><span class="o">.</span><span class="n">precedes</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -511,10 +511,10 @@ That is, returns <cite>True</cite> even if <em>other</em> also precedes <em>cls<
 </pre></div>
 </div>
 <p>Also, different to <a class="reference internal" href="#sortableclasses.SortableMeta.inpredecessorsof" title="sortableclasses.SortableMeta.inpredecessorsof"><code class="xref py py-meth docutils literal notranslate"><span class="pre">inpredecessorsof()</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">B</span><span class="o">.</span><span class="n">precedes</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -551,13 +551,13 @@ That is, will return <cite>True</cite> even if <em>other</em> also
 succeeds <em>cls</em>.</dd>
 </dl>
 <p>For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclasses</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">sortableclass</span><span class="p">(</span><span class="n">Pluggable</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">successorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,)</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="o">.</span><span class="n">succeeds</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
@@ -565,10 +565,10 @@ succeeds <em>cls</em>.</dd>
 </pre></div>
 </div>
 <p>Also, different to <a class="reference internal" href="#sortableclasses.SortableMeta.insuccessorsof" title="sortableclasses.SortableMeta.insuccessorsof"><code class="xref py py-meth docutils literal notranslate"><span class="pre">insuccessorsof()</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">pass</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclasses</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">sortableclass</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">predecessorof</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,)</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="o">.</span><span class="n">succeeds</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
