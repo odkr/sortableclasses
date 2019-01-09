@@ -21,14 +21,15 @@ set -Cefu
 # Configuration
 # =============
 
-# Whether to run mypy. 0 means "don't", every other number means "do". 
-RUN_MYPY=1
-
 # The name of the Python interpreter to use.
 PYTHON=python3
 
 # The name of the pip utility to use.
 PIP=pip3
+
+# Utilties that shall *not* be ran.
+# Input Field Seperator-separated list of command names.
+EXCLUDE_TESTS=""
 
 # Python command to get all package names.
 # This is piped to ``xargs -0``, 
@@ -62,11 +63,23 @@ register_onexit() {
     done
 }
 
-# Takes a format and arguments and prints it on STDERR.
-warn() (
-    format="${1:?'missing FORMAT'}"
+
+# Returns whether NEEDLE is in HAYSTACK.
+inlist() (
+    needle="${1:?'missing NEEDLE.'}"
     shift
-    printf -- "run-tests: $format\\n" "$@" >&2
+    for i; do
+        [ "$needle" = "$i" ] && return
+    done
+    return 1
+)
+
+
+# Takes a MESSAGE and arguments and prints the formated MESSAGE on STDERR.
+warn() (
+    message="${1:?'missing MESSAGE'}"
+    shift
+    printf -- "run-tests: $message\\n" "$@" >&2
 )
 
 
@@ -81,38 +94,54 @@ REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
 
 cd -P "$REPO" || exit
 
-[ "${RUN_MYPY-0}" -ne 0 ] && { mypy --help >/dev/null 2>&1 || ERRLVL=$?; }
-if [ "${RUN_MYPY-0}" -ne 0 ] && [ ${ERRLVL-0} -ne 127 ]; then
-        warn "running mypy."
-        printf -- '%s' "$PACKAGES" | xargs -0 mypy
+if ! inlist mypy $EXCLUDE_TESTS; then
+    mypy --help >/dev/null 2>&1 || ERRLVL=$?;
+    if [ ${ERRLVL-0} -ne 127 ]; then
+            warn "running mypy."
+            printf -- '%s' "$PACKAGES" | xargs -0 mypy
+    fi
 fi
 
-bandit --help >/dev/null 2>&1 || ERRLVL=$?
-if [ ${ERRLVL-0} -ne 127 ]; then
-    warn "running bandit."
-    printf -- '%s' "$PACKAGES" | xargs -0 bandit -r
+if ! inlist bandit $EXCLUDE_TESTS; then
+    bandit --help >/dev/null 2>&1 || ERRLVL=$?
+    if [ ${ERRLVL-0} -ne 127 ]; then
+        warn "running bandit."
+        printf -- '%s' "$PACKAGES" | xargs -0 bandit -r
+    fi
 fi
 
-flake8 --help >/dev/null 2>&1 || ERRLVL=$?
-if [ ${ERRLVL-0} -ne 127 ]; then
-    warn "running flake8."
-    printf -- '%s' "$PACKAGES" | xargs -0 flake8 --ignore=E252,E262,W504
+if ! inlist flake8 $EXCLUDE_TESTS; then
+    flake8 --help >/dev/null 2>&1 || ERRLVL=$?
+    if [ ${ERRLVL-0} -ne 127 ]; then
+        warn "running flake8."
+        printf -- '%s' "$PACKAGES" | xargs -0 flake8 --ignore=E252,E262,W504
+    fi
 fi
 
-pylint --help >/dev/null 2>&1 || ERRLVL=$?
-if [ ${ERRLVL-0} -ne 127 ]; then
-    warn "running pylint."
-    printf -- '%s' "$PACKAGES" | xargs -0 pylint -s n
+if ! inlist pylint $EXCLUDE_TESTS; then
+    pylint --help >/dev/null 2>&1 || ERRLVL=$?
+    if [ ${ERRLVL-0} -ne 127 ]; then
+        warn "running pylint."
+        printf -- '%s' "$PACKAGES" | xargs -0 pylint -s n
+    fi
 fi
 
-pydocstyle --help >/dev/null 2>&1 || ERRLVL=$?
-if [ ${ERRLVL-0} -ne 127 ]; then
-    warn "running pydocstyle."
-    printf -- '%s' "$PACKAGES" | xargs -0 pydocstyle --add-ignore=D104
+if ! inlist pydocstyle $EXCLUDE_TESTS; then
+    pydocstyle --help >/dev/null 2>&1 || ERRLVL=$?
+    if [ ${ERRLVL-0} -ne 127 ]; then
+        warn "running pydocstyle."
+        printf -- '%s' "$PACKAGES" | xargs -0 pydocstyle --add-ignore=D104
+    fi
 fi
 
-warn "running test suite."
+warn "running test suite(s)."
 "$PYTHON" setup.py --quiet test
+
+if [ -e Makefile ]; then
+    for TARGET in $(sed -n 's/^\(test.*\):.*/\1/p' Makefile); do
+        make "$TARGET"
+    done
+fi
 
 "$PYTHON" -c 'import virtualenv' 2>/dev/null || ERRLVL=$?
 if [ "${ERRLVL-0}" -eq 0 ]; then
