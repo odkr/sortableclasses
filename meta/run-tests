@@ -86,13 +86,14 @@ warn() (
 # Main
 # ====
 
-PACKAGES=$("$PYTHON" -c "$PYTHON_PACKAGE_COMMAND")
-: "${PACKAGES:?'Could not determine package name(s).'}"
-
 REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
 : "${REPO:?'Could not determine repository path.'}"
 
 cd -P "$REPO" || exit
+
+PACKAGES=$("$PYTHON" -c "$PYTHON_PACKAGE_COMMAND")
+: "${PACKAGES:?'Could not determine package name(s).'}"
+
 
 if ! inlist mypy $EXCLUDE_TESTS; then
     mypy --help >/dev/null 2>&1 || ERRLVL=$?;
