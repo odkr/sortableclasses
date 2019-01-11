@@ -69,7 +69,8 @@ METADATA = {
     'author_email':     'xacuml@maskr.me',
     'license':          'GPL',
     'python_requires':  '>=3, <4',
-    'packages':         ['sortableclasses']
+    'packages':         ['sortableclasses'],
+    'zip_safe':         True
 }
 
 
