@@ -22,14 +22,14 @@ set -Cefu
 # =============
 
 # The name of the Python interpreter to use.
-PYTHON=python3
+PYTHON=python
 
 # The name of the pip utility to use.
-PIP=pip3
+PIP=pip
 
 # Utilties that shall *not* be ran.
 # Input Field Seperator-separated list of command names.
-EXCLUDE_TESTS=""
+EXCLUDE_TESTS="mypy pylint"
 
 # Python command to get all package names.
 # This is piped to ``xargs -0``, 
@@ -138,11 +138,7 @@ fi
 warn "running test suite(s)."
 "$PYTHON" setup.py --quiet test
 
-if [ -e Makefile ]; then
-    for TARGET in $(sed -n 's/^\(test.*\):.*/\1/p' Makefile); do
-        make "$TARGET"
-    done
-fi
+[ -e Makefile ] && grep -Eq '^test:' Makefile && make test
 
 "$PYTHON" -c 'import virtualenv' 2>/dev/null || ERRLVL=$?
 if [ "${ERRLVL-0}" -eq 0 ]; then
