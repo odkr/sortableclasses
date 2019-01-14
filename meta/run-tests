@@ -22,14 +22,14 @@ set -Cefu
 # =============
 
 # The name of the Python interpreter to use.
-PYTHON=python
+PYTHON=python3
 
 # The name of the pip utility to use.
-PIP=pip
+PIP=pip3
 
 # Utilties that shall *not* be ran.
 # Input Field Seperator-separated list of command names.
-EXCLUDE_TESTS="mypy pylint"
+EXCLUDE_TESTS=''
 
 # Python command to get all package names.
 # This is piped to ``xargs -0``, 
