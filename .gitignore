@@ -18,6 +18,10 @@ setup.py.orig
 README.rst.orig
 .setup.py.tmp
 .README.rst.tmp
+v*.tar.gz
+v*.tar.gz.asc
+v*.zip
+v*.zip.asc
 
 # Virtual environment for testing
 /env
