@@ -1,8 +1,11 @@
-#!/bin/sh
-# update-release - Updates release name and release package on GitHub and PyPI.
+#!/bin/bash
+# update-release - Updates releases on GitHub and PyPI.
 # Copyright 2019 Odin Kroeger
 #
 # Performs various tests to make sure that releases work.
+#
+# This is a bash script, because POSIX doesn't specify whether
+# `cmd1 | cmd2` returns the exit status of cmd1 or cmd2.
 #
 # Assumes:
 #   1. There is a file `setup.py` at the root of the repository so that:
@@ -14,8 +17,10 @@
 #      (e) the first item of METADATA['packages'] is the name of the package.
 #   2. There is a git tag for every release, starting with "v".
 #   3. GitHub is used.
+#   4. `cmd1 | cmd2` returns the exit status of cmd2.
 
 set -Cefu
+set -x
 
 
 # Configuration
@@ -30,7 +35,7 @@ UPDATE_FILES='setup.py README.rst'
 # UPDATE_FILES contain project code. There is no need to do this
 # if you only update setup.py and the README. 0 means "don't",
 # every other number means "do".
-TEST_TWICE=1
+TEST_TWICE=0
 
 # The username to user to logon to PyPI.
 TWINE_USERNAME=odkr
@@ -38,16 +43,14 @@ TWINE_USERNAME=odkr
 # The local name of the remote repository.
 REMOTE_REPO=origin
 
-# A template for the GitHub download URL.
-# The first %s is replaced with the GitHub username,
-# the second %s is replaced with the GitHub repository name,
-# the third with the tag of the new release.
-DOWNLOAD_URL_TEMPLATE="https://codeload.github.com/%s/%s/tar.gz/%s"
-
 # The name of the Python interpreter to use.
 PYTHON=python3
 
-readonly UPDATE_FILES DOWNLOAD_URL_TEMPLATE TWINE_USERNAME REMOTE_REPO
+# The name of the pip programme to use.
+PIP=pip3
+
+
+readonly UPDATE_FILES TWINE_USERNAME REMOTE_REPO PYTHON PIP
 export TWINE_USERNAME
 
 
@@ -158,7 +161,7 @@ fi
 
 NEW_RELEASE="${1:?}"
 isversnum "$NEW_RELEASE" || exit
-readonly NEW_RELEASE
+#readonly NEW_RELEASE
 
 
 # Determine other variables
@@ -199,24 +202,28 @@ export REPO
 TMPDIR="$REPO/tmp"
 readonly TMPDIR
 
-NAME=$($PYTHON -c 'import sys, setup; print(setup.NAME)')
+NAME=$("$PYTHON" -c 'import sys, setup; print(setup.NAME)')
 [ "${NAME-}" ] || panic 78 'Could not guess package name!'
 readonly NAME
+
+KEY=$(git config -l | sed -n '/^user.signingkey=/ {s/.*=//; p; q;}')
+[ "${KEY-}" ] || panic 78 'Could not guess signing key!'
+readonly KEY
 
 
 # Main
 # ====
 
-meta/run-tests || exit
+#meta/run-tests || exit
 
 register_onexit
 EX=:
-for FILE in $UPDATE_FILES; do
-    warn "updating %s." "$FILE"
-    replace "$FILE" "$MOST_RECENT_RELEASE" "$NEW_RELEASE"
-    EX="${EX?}; [ -e \"$FILE.orig\" ] && mv \"$FILE.orig\" \"$FILE\""
+for FNAME in $UPDATE_FILES; do
+    warn "updating %s." "$FNAME"
+    #replace "$FILE" "$MOST_RECENT_RELEASE" "$NEW_RELEASE"
+    EX="${EX?}; [ -e \"$FNAME.orig\" ] && mv \"$FNAME.orig\" \"$FNAME\""
 done
-unset FILE
+unset FNAME
 
 if [ "${TEST_TWICE-0}" -ne 0 ]; then
     meta/run-tests || exit
@@ -227,34 +234,65 @@ unset EX
 warn "updating documentation."
 
 cd -P docs || exit
-make clean html >/dev/null
+#make clean html >/dev/null
 cd -P "$REPO" || exit
 
-warn 'releasing on GitHub.'
-TAG="v$NEW_RELEASE"
-git add setup.py README.rst docs
-git commit -m 'Updated release.'
-git tag "$TAG"
-git push --quiet "$REMOTE_REPO" "$TAG"
-git push --quiet "$REMOTE_REPO"
+NEW_RELEASE="$MOST_RECENT_RELEASE"
 
-if $PYTHON -c 'import virtualenv'; then
+warn 'releasing to GitHub'
+TAG="v$NEW_RELEASE"
+#git add setup.py README.rst docs
+#git commit -m 'Updated release.'
+#git tag "$TAG"
+#git push --quiet "$REMOTE_REPO" "$TAG"
+#git push --quiet "$REMOTE_REPO"
+
+EX='[ "${TMPDIR-}" ] && [ -d "$TMPDIR" ] && rm -rf "$TMPDIR"'
+mkdir -m 0700 "$TMPDIR" || exit
+cd -P "$TMPDIR" || exit
+
+warn 'verifying GitHub releases'
+
+DOWNLOAD_URL_TEMPLATE="https://codeload.github.com/%s/%s/%s/%s"
+for FMT in tar.gz zip; do
+    DOWNLOAD_URL=$(printf -- "$DOWNLOAD_URL_TEMPLATE" \
+        "$GITHUB_USERNAME" "$GITHUB_REPO" "$FMT" "$TAG")
+    FNAME="${DOWNLOAD_URL##*/}.$FMT"
+    [ "$FNAME" = "$FMT" ] && panic 69 'Could not filename for verification.'
+    curl --fail --silent --show-error "$DOWNLOAD_URL" >"$FNAME"
+    case $FMT in
+        tar) tar -xf "$FNAME" ;;
+        tar.gz) tar -xzf "$FNAME" ;;
+        zip) unzip "$FNAME" ;;
+    esac
+    RDIR="$GITHUB_REPO-$NEW_RELEASE"
+    readonly RDIR
+    export RDIR
+    # find "$RDIR" -type f -print0 |
+    # xargs -0 sh -c 'for F; do cmp "$F" "../${F#$RDIR/}" || exit; done' --
+    [ $? -eq 0 ] || panic 'GitHub relase differs from local data'
+    # If we reach this point in a shell that honours ``set -e`` and
+    # in which ``cmd1 | cmd2`` returns the exit status of cmd2, then
+    # the release on GitHub is identical to the local one.
+    gpg -ba -u "$KEY" -o "../$FNAME.asc" "$FNAME"
+    rm -rf "${RDIR:?}"
+done
+
+if "$PYTHON" -c 'import virtualenv'; then
     warn 'testing installation of GitHub release.'
-    [ -d env ] || $PYTHON -m virtualenv env
+    [ -d env ] || "$PYTHON" -m virtualenv env
     . env/bin/activate
-    EX='[ "${TMPDIR-}" ] && [ -d "$TMPDIR" ] && rm -rf "$TMPDIR"'
-    mkdir -m 0700 "$TMPDIR" || exit
-    cd -P "$TMPDIR" || exit
     # These instructions mirror those in README.rst
     DOWNLOAD_URL=$(printf -- "$DOWNLOAD_URL_TEMPLATE" \
-        "$GITHUB_USERNAME" "$GITHUB_REPO" "$TAG")
+        "$GITHUB_USERNAME" "$GITHUB_REPO" tar.gz "$TAG")
     curl -fsS "$DOWNLOAD_URL" | tar -xz
-    PYPATH=$($PYTHON -c 'import sys; print("\n".join(sys.path))' | 
+    tar -xzf "$FNAME"
+    PYPATH=$("$PYTHON" -c 'import sys; print("\n".join(sys.path))' | 
         grep -v '.zip' | grep -E "$REPO" | head -n1)
     [ -d "${PYPATH:?}" ] && {
         cp -r "$GITHUB_REPO-$NEW_RELEASE/$NAME" "$PYPATH"
     }
-    $PYTHON -c "import $NAME"
+    "$PYTHON" -c "import $NAME"
     FROM="$GITHUB_REPO-$NEW_RELEASE"
     TO="${PYPATH:?}/${NAME:?}"
     for DIR in "$FROM" "$TO"; do
@@ -264,25 +302,28 @@ if $PYTHON -c 'import virtualenv'; then
     cd -P "$REPO" || exit
     find env -name "$NAME-*" -delete
     
+    exit
+    
     warn 'testing with PyPI test instance'
     rm -rf build dist
-    $PYTHON setup.py --quiet sdist bdist_wheel
+    "$PYTHON" setup.py --quiet sdist bdist_wheel
     TWINE_PASSWORD=$(askpass "Password for PyPI login $TWINE_USERNAME: ")
     : "${TWINE_PASSWORD:?'No password given.'}"
     readonly TWINE_PASSWORD
     export TWINE_PASSWORD
-    twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+    twine upload --repository-url https://test.pypi.org/legacy/ \
+        --sign --identity "$KEY" dist/*
     cd / || exit
-    $PYTHON -m pip install --quiet \
+    "$PYTHON" -m pip install --quiet \
         --index-url https://test.pypi.org/simple/ "$NAME"
-    $PYTHON -c "import $NAME"
-    pip3 uninstall --quiet --yes "$NAME"
+    "$PYTHON" -c "import $NAME"
+    "$PIP" uninstall --quiet --yes "$NAME"
     cd -P "$REPO" || exit
     
     warn 'uploading to PyPI and testing installation'
-    twine upload dist/*
+    twine upload --sign --identity "$KEY" dist/*
     cd / || exit
-    $PYTHON -m pip install --quiet "$NAME"
-    $PYTHON -c "import $NAME"
-    pip3 uninstall --quiet --yes "$NAME"
+    "$PYTHON" -m pip install --quiet "$NAME"
+    "$PYTHON" -c "import $NAME"
+    "$PIP" uninstall --quiet --yes "$NAME"
 fi
