@@ -20,7 +20,6 @@
 #   4. `cmd1 | cmd2` returns the exit status of cmd2.
 
 set -Cefu
-set -x
 
 
 # Configuration
@@ -161,7 +160,7 @@ fi
 
 NEW_RELEASE="${1:?}"
 isversnum "$NEW_RELEASE" || exit
-#readonly NEW_RELEASE
+readonly NEW_RELEASE
 
 
 # Determine other variables
@@ -214,13 +213,13 @@ readonly KEY
 # Main
 # ====
 
-#meta/run-tests || exit
+meta/run-tests || exit
 
 register_onexit
 EX=:
 for FNAME in $UPDATE_FILES; do
     warn "updating %s." "$FNAME"
-    #replace "$FILE" "$MOST_RECENT_RELEASE" "$NEW_RELEASE"
+    replace "$FILE" "$MOST_RECENT_RELEASE" "$NEW_RELEASE"
     EX="${EX?}; [ -e \"$FNAME.orig\" ] && mv \"$FNAME.orig\" \"$FNAME\""
 done
 unset FNAME
@@ -234,18 +233,16 @@ unset EX
 warn "updating documentation."
 
 cd -P docs || exit
-#make clean html >/dev/null
+make clean html >/dev/null
 cd -P "$REPO" || exit
-
-NEW_RELEASE="$MOST_RECENT_RELEASE"
 
 warn 'releasing to GitHub'
 TAG="v$NEW_RELEASE"
-#git add setup.py README.rst docs
-#git commit -m 'Updated release.'
-#git tag "$TAG"
-#git push --quiet "$REMOTE_REPO" "$TAG"
-#git push --quiet "$REMOTE_REPO"
+git add setup.py README.rst docs
+git commit -m 'Updated release.'
+git tag "$TAG"
+git push --quiet "$REMOTE_REPO" "$TAG"
+git push --quiet "$REMOTE_REPO"
 
 EX='[ "${TMPDIR-}" ] && [ -d "$TMPDIR" ] && rm -rf "$TMPDIR"'
 mkdir -m 0700 "$TMPDIR" || exit
@@ -268,8 +265,8 @@ for FMT in tar.gz zip; do
     RDIR="$GITHUB_REPO-$NEW_RELEASE"
     readonly RDIR
     export RDIR
-    # find "$RDIR" -type f -print0 |
-    # xargs -0 sh -c 'for F; do cmp "$F" "../${F#$RDIR/}" || exit; done' --
+    find "$RDIR" -type f -print0 |
+    xargs -0 sh -c 'for F; do cmp "$F" "../${F#$RDIR/}" || exit; done' --
     [ $? -eq 0 ] || panic 'GitHub relase differs from local data'
     # If we reach this point in a shell that honours ``set -e`` and
     # in which ``cmd1 | cmd2`` returns the exit status of cmd2, then
@@ -301,8 +298,6 @@ if "$PYTHON" -c 'import virtualenv'; then
     done
     cd -P "$REPO" || exit
     find env -name "$NAME-*" -delete
-    
-    exit
     
     warn 'testing with PyPI test instance'
     rm -rf build dist
