@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # Copyright 2016, 2019 Odin Kroeger
 #
 # This programme is free software: you can redistribute it and/or modify
