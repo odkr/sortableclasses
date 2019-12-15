@@ -9,6 +9,7 @@
 
 # Python egg metadata, regenerated from source files by setuptools.
 /*.egg-info
+/.eggs
 
 # MyPy
 .mypy_cache
@@ -28,3 +29,6 @@ v*.zip.asc
 
 # Python cache
 __pycache__
+
+# macOS
+.DS_Store
