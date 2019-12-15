@@ -22,7 +22,7 @@
 set -Cefu
 
 
-# Configuration
+# CONFIGURATION
 # =============
 
 # The files in which to replace the old release string with the new one.
@@ -53,29 +53,22 @@ readonly UPDATE_FILES TWINE_USERNAME REMOTE_REPO PYTHON PIP
 export TWINE_USERNAME
 
 
-# Functions
+# FUNCTIONS
 # =========
 
-# Takes a signal as argument, runs $EX, propagates the signal, and exits.
+# Takes a signal as argument, runs $EX, terminates children, and exits.
 onexit() {
     __ONEXIT_STATUS=$?
-    trap '' 0 "${1:?'onexit: missing SIGNAL.'}" || :
+    trap '' 1 2 3 15 || :
     set +e
     eval "${EX-}"
     EX=''
-    kill "-$1" $$ 2>/dev/null
+    kill "-15" -$$ 2>/dev/null
     exit "$__ONEXIT_STATUS"
 }
 
-# Registers onexit to catch signals 0, 1, 2, 3, 6, and 15.
-# shellcheck disable=2064
-register_onexit() {
-    for __REGISTER_ONEXIT_SIGNO in 0 1 2 3 6 13 15; do
-        trap "onexit $__REGISTER_ONEXIT_SIGNO" $__REGISTER_ONEXIT_SIGNO
-    done
-}
-
 # Takes a FORMAT and arguments and prints it on STDERR.
+# shellcheck disable=2059
 warn() (
     format="${1:?'missing FORMAT.'}"
     shift
@@ -104,7 +97,7 @@ replace() (
     readonly tmp
     [ -e "$tmp" ] && panic 69 '%s: file exists!' "$tmp"
     cp "$fname" "$fname.orig" || return
-    register_onexit
+    trap onexit 1 2 3 15
     EX="[ -e \"$tmp\" ] && rm -f \"$tmp\";"
     sed "s/${old?}/${new?}/" "$fname" >"$tmp" || return
     [ -f "$tmp" ] && mv "$tmp" "$fname"
@@ -134,7 +127,7 @@ isversnum() (
 # Takes a prompt as argument and asks for a password.
 # shellcheck disable=2006
 askpass() (
-    register_onexit
+    trap onexit 1 2 3 15
     # shellcheck disable=2046
     cat <<EOF | tr -d '\n' >&2
 $*
@@ -150,7 +143,7 @@ EOF
 )
 
 
-# Argument processing
+# ARGUMENT PROCESSING
 # ===================
 
 if ! [ "${1-}" ]; then
@@ -163,10 +156,11 @@ isversnum "$NEW_RELEASE" || exit
 readonly NEW_RELEASE
 
 
-# Determine other variables
-# =========================
+# GUESS OTHER VARIABLES
+# =====================
 
-PREVIOUS_RELEASES=$(git tag --sort v:refname | sed -n 's/^v//p')
+PREVIOUS_RELEASES=$(git -c 'versionsort.suffix=-' tag -l --sort=v:refname |
+    sed -n 's/^v//p')
 : "${PREVIOUS_RELEASES:?'Could not guess previous releases.'}"
 readonly PREVIOUS_RELEASES
 
@@ -210,12 +204,12 @@ KEY=$(git config -l | sed -n '/^user.signingkey=/ {s/.*=//; p; q;}')
 readonly KEY
 
 
-# Main
+# MAIN
 # ====
 
 meta/run-tests || exit
 
-register_onexit
+trap onexit 1 2 3 15
 EX=:
 for FNAME in $UPDATE_FILES; do
     warn "updating %s." "$FNAME"
@@ -244,6 +238,7 @@ git tag "$TAG"
 git push --quiet "$REMOTE_REPO" "$TAG"
 git push --quiet "$REMOTE_REPO"
 
+# shellcheck disable=2016
 EX='[ "${TMPDIR-}" ] && [ -d "$TMPDIR" ] && rm -rf "$TMPDIR"'
 mkdir -m 0700 "$TMPDIR" || exit
 cd -P "$TMPDIR" || exit
@@ -252,6 +247,7 @@ warn 'verifying GitHub releases'
 
 DOWNLOAD_URL_TEMPLATE="https://codeload.github.com/%s/%s/%s/%s"
 for FMT in tar.gz zip; do
+    # shellcheck disable=2059
     DOWNLOAD_URL=$(printf -- "$DOWNLOAD_URL_TEMPLATE" \
         "$GITHUB_USERNAME" "$GITHUB_REPO" "$FMT" "$TAG")
     FNAME="${DOWNLOAD_URL##*/}.$FMT"
@@ -265,9 +261,11 @@ for FMT in tar.gz zip; do
     RDIR="$GITHUB_REPO-$NEW_RELEASE"
     readonly RDIR
     export RDIR
+    # shellcheck disable=2016
     find "$RDIR" -type f -print0 |
     xargs -0 sh -c 'for F; do cmp "$F" "../${F#$RDIR/}" || exit; done' --
-    [ $? -eq 0 ] || panic 'GitHub relase differs from local data'
+    # shellcheck disable=2181
+    [ $? -eq 0 ] || panic 'GitHub relase differs from local repository'
     # If we reach this point in a shell that honours ``set -e`` and
     # in which ``cmd1 | cmd2`` returns the exit status of cmd2, then
     # the release on GitHub is identical to the local one.
@@ -278,8 +276,10 @@ done
 if "$PYTHON" -c 'import virtualenv'; then
     warn 'testing installation of GitHub release.'
     [ -d env ] || "$PYTHON" -m virtualenv env
+    # shellcheck disable=1091
     . env/bin/activate
     # These instructions mirror those in README.rst
+    # shellcheck disable=2059
     DOWNLOAD_URL=$(printf -- "$DOWNLOAD_URL_TEMPLATE" \
         "$GITHUB_USERNAME" "$GITHUB_REPO" tar.gz "$TAG")
     curl -fsS "$DOWNLOAD_URL" | tar -xz

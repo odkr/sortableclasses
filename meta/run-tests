@@ -18,7 +18,7 @@
 set -Cefu
 
 
-# Configuration
+# CONFIGURATION
 # =============
 
 # The name of the Python interpreter to use.
@@ -41,26 +41,18 @@ if 'packages' in METADATA:
         print('\\0'.join(METADATA['scripts']))"
 
 
-# Functions
+# FUNCTIONS
 # =========
 
-# Takes a signal as argument, runs $EX, propagates the signal, and exits.
+# Takes a signal as argument, runs $EX, terminates children, and exits.
 onexit() {
     __ONEXIT_STATUS=$?
-    trap '' 0 "${1:?'missing SIGNAL.'}" || :
+    trap '' 1 2 3 15 || :
     set +e
     eval "${EX-}"
     EX=''
-    kill "-$1" $$ 2>/dev/null
+    kill "-15" -$$ 2>/dev/null
     exit "$__ONEXIT_STATUS"
-}
-
-# Registers onexit to catch signals 0, 1, 2, 3, 6, and 15.
-# shellcheck disable=2064
-register_onexit() {
-    for __REGISTER_ONEXIT_SIGNO in 0 1 2 3 6 13 15; do
-        trap "onexit $__REGISTER_ONEXIT_SIGNO" $__REGISTER_ONEXIT_SIGNO
-    done
 }
 
 
@@ -76,6 +68,7 @@ inlist() (
 
 
 # Takes a MESSAGE and arguments and prints the formated MESSAGE on STDERR.
+# shellcheck disable=2059
 warn() (
     message="${1:?'missing MESSAGE'}"
     shift
@@ -83,7 +76,7 @@ warn() (
 )
 
 
-# Main
+# MAIN
 # ====
 
 REPO=$(git worktree list | head -n1 | cut -f1 -d ' ')
@@ -139,17 +132,25 @@ warn "running test suite(s)."
 "$PYTHON" setup.py --quiet test
 
 [ -e Makefile ] && grep -Eq '^test:' Makefile && make test
-
+set -x
 "$PYTHON" -c 'import virtualenv' 2>/dev/null || ERRLVL=$?
 if [ "${ERRLVL-0}" -eq 0 ]; then
+    trap onexit 0 1 2 3 15 || :
     warn "testing installation."
-    [ -d env ] || "$PYTHON" -m virtualenv env
+    EX="[ \"\${ENV_CREATED-}\" ] && rm -rf env; ${EX-:}"
+    unset ENV_CREATED
+    if ! [ -e env ]; then
+        "$PYTHON" -m virtualenv env
+        # shellcheck disable=2034
+        ENV_CREATED=x
+    fi
+    # shellcheck disable=1091
     . env/bin/activate
-    register_onexit
     export PACKAGES
+    # shellcheck disable=2016
     NAME=$(printf -- '%s' "$PACKAGES" | xargs -0 sh -c 'echo "${1:?}"' --)
     : "${NAME:?'Could not determine package name.'}"
-    EX="\"$PIP\" uninstall --quiet --yes \"$NAME\""
-    "$PYTHON" setup.py --quiet install || return
+    EX="\"$PIP\" uninstall --quiet --yes \"$NAME\"; ${EX-:}"
+    "$PYTHON" setup.py --quiet install || exit
     "$PYTHON" -c "import $NAME"
 fi
