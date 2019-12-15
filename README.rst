@@ -15,8 +15,8 @@ Use case
 useful if you want to apply a set of transformations to some data (i.e., if
 you're writing what on UNIX-ish systems is called a 'filter'). You could chain
 function calls (i.e., ``return transform1(transform2(transform3(...)))``),
-but the larger the number of transformation gets, the more difficult this is
-to maintain.
+but the larger the number of transformation gets, the more difficult This
+becomes to maintain.
 
 *sortableclasses* enables you to define each of those transformations as a
 class, assign to each of them a list of predecessors and successors classes
