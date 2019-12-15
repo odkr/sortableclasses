@@ -12,19 +12,17 @@ Use case
 ========
 
 *sortableclasses* makes classes sortable by precedence and priority. This is
-useful if you want to take some input, apply a set of transformations, and
-output the result (i.e., if you're writing what on UNIX-ish systems is called
-a 'filter'). Ordinarily, you would chain those transformations as function
-calls (i.e., ``return transform1(transform2(transform3(input)))``), but the
-larger the number of transformation grows, the more difficult this is to
-maintain.
+useful if you want to apply a set of transformations to some data (i.e., if
+you're writing what on UNIX-ish systems is called a 'filter'). You could chain
+function calls (i.e., ``return transform1(transform2(transform3(...)))``),
+but the larger the number of transformation gets, the more difficult this is
+to maintain.
 
 *sortableclasses* enables you to define each of those transformations as a
-class, assign each of them a list of predecessor and successor classes or a
-numerical priority, and then simply sort them using :func:`sorted`.
+class, assign to each of them a list of predecessors and successors classes
+and/or a numerical priority, and then simply sort them using :func:`sorted`.
 
-Simply put, it enables you to write classes that are similar to plugins
-in how they function.
+Simply put, it enables you to write classes that behave similarly to plugins.
 
 For example::
 
@@ -72,8 +70,7 @@ For example::
 Installation
 ============
 
-You use *sortableclasses* **at your own risk.**
-You have been warned.
+You use *sortableclasses* **at your own risk.** You have been warned.
 
 *sortableclasses* requires Python 3.
 
@@ -89,18 +86,18 @@ your Python's `sys.path`.
 You can do all of the above by::
 
     # Download and unpack *sortableclasses* to the current directory.
-    curl -f https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4 | 
+    curl -f https://codeload.github.com/odkr/sortableclasses.py/tar.gz/v0.9.4 |
         tar -xz
-    # The command below guesses a directory to install *sortableclasses* to.
-    PYPATH=$(python3 -c 'import sys; print("\n".join(sys.path))' | 
+    # The command below *guesses* a directory to install *sortableclasses* to.
+    PYPATH=$(python3 -c 'import sys; print("\n".join(sys.path))' |
         grep -v '.zip' | grep -E "(${HOME?}|/local/)" | head -n1)
     # If the command below errors, no suitable directory was found.
-    # Otherwise, it will show you where *sortableclasses* will be installed to.
+    # Otherwise, it will show you where *sortableclasses* will be installed.
     echo "${PYPATH:?'Did not find a suitable directory.'}"
     # Copy the directory "sortableclasses" into that directory.
     [ -d "${PYPATH:?}" ] && {
         PACKAGE=sortableclasses.py-0.9.4/sortableclasses
-        cp -r "$PACKAGE" "$PYPATH" || sudo cp -r "$PACKAGE" "$PYPATH"    
+        cp -r "$PACKAGE" "$PYPATH" || sudo cp -r "$PACKAGE" "$PYPATH"
     }
 
 
