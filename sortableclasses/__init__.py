@@ -17,7 +17,7 @@
 import abc
 
 
-# Exceptions
+# EXCEPTIONS
 # ==========
 
 class Error(Exception):
@@ -40,7 +40,7 @@ class CyclicalOrderError(Error):
     template = '{cls} and {other} pre- *and* succeed each other.'
 
 
-# Sorting
+# SORTING
 # =======
 
 class SortableMeta(type):
@@ -353,14 +353,14 @@ class SortableMeta(type):
         return cls.priority < other.priority
 
 
-# Utility class
-# =============
+# UTILITIES
+# =========
 
 class SortableABCMeta(abc.ABCMeta, SortableMeta):
     """A metaclass for abstract base classes that should be sortable."""
 
 
-# Class "Pluggable"
+# CLASS "Pluggable"
 # =================
 
 # pylint: disable=R0903
@@ -369,28 +369,25 @@ class Pluggable(metaclass=SortableABCMeta):
 
     To use :class:`Pluggable`:
 
-     1. Derive a class from :class:`Pluggable`, call it `PBC`
-        (Plugin Base Class) for the purposes of this documentation.
+     1. Derive an abstract base class from :class:`Pluggable`.
 
-     2. Define an interface that plugin-like
-        classes have to implement in `PBC`.
+     2. In that abstract base class, define an interface that plugin-like
+        classes have to implement.
 
-     3. Derrive classes from `PBC`.
+     3. Derrive your classes from that abstract base class.
 
     *Nota bene*: Classes derived from :class:`Pluggable` are eo ipso
     abstract base classes (i.e., have a metaclass derived from
     :class:`abc.ABCMeta`).
 
     You can now get a list of all plugin-like classes, that is, all
-    classes derived from `PBC`, by calling `PBC.getderived()`.
-    Moreover, plugin-like classes can be sorted using :func:`sorted`.
-    See :class:`SortableMeta` for details.
+    classes derived from your abstract base class, by calling its
+    `getderived()` method. Moreover, plugin-like classes can be sorted
+    using :func:`sorted`. See :class:`SortableMeta` for details.
 
     If you have multiple types of plugins, that is, multiple plugin
-    base classes, I recommend that, rather than deriving them from
-    :class:`Pluggable` directly, you define a common plugin base class
-    that does and from which you derive your remaining plugin
-    base classes.
+    base classes, I recommend that you define a common plugin base class
+    that you derive your remaining plugin base classes from.
     """
 
     @classmethod
