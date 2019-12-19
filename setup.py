@@ -13,13 +13,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""Setup for the *sortablecls* package."""
+"""Setup for the *sortableclasses* package."""
 
 from os import path
 from setuptools import setup
 
 
-# Functions
+# FUNCTIONS
 # =========
 
 def readme(readme_fname: str = "README.rst") -> str:
@@ -34,14 +34,14 @@ def readme(readme_fname: str = "README.rst") -> str:
         return readme_handle.read()
 
 
-# Metadata
+# METADATA
 # ========
 
 # Name of this package.
 NAME = 'sortableclasses'
 
 # Version of this package.
-VERSION = '0.9.4'
+VERSION = '0.9.5b'
 
 # All other metadata.
 METADATA = {
@@ -66,7 +66,7 @@ METADATA = {
         'Tracker': 'https://github.com/odkr/sortableclasses/issues'
     },
     'author':           'Odin Kroeger',
-    'author_email':     'xacuml@maskr.me',
+    'author_email':     'odkr@users.noreply.github.com',
     'license':          'GPL',
     'python_requires':  '>=3, <4',
     'packages':         ['sortableclasses'],
